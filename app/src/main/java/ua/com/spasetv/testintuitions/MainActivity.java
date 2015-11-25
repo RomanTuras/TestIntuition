@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
@@ -24,20 +23,41 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     Fragment fragment;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    Toolbar toolbar;
+    public static final int MAIN_ACTIVITY=0;
+    public static final int FRAGMENT_ABOUT=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        refreshActionBar(MAIN_ACTIVITY);
 
         mainListItem = (ListView) findViewById(R.id.listView);
-
         initMainListItems();
         myAdapter = new MyAdapter(this, arrayList);
         mainListItem.setAdapter(myAdapter);
         mainListItem.setOnItemClickListener(this);
+    }
+
+    public void refreshActionBar(int key){
+        switch (key){
+            case MAIN_ACTIVITY:
+                toolbar.setNavigationIcon(R.drawable.ic_apps_white_18dp);
+                getSupportActionBar().setHomeButtonEnabled(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                break;
+            case FRAGMENT_ABOUT:
+                toolbar.setNavigationIcon(R.drawable.ic_apps_white_18dp);
+                getSupportActionBar().setHomeButtonEnabled(false);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                break;
+        }
+
+
     }
 
     public void initMainListItems(){
