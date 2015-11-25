@@ -1,4 +1,17 @@
 <resources>
-    <string name="app_name">TestIntuition</string>
+    <string name="app_name">Test Intuition</string>
     <string name="action_settings">Settings</string>
+
+    <string name="titleAbout">About Intuition</string>
+    <string name="descriptionAbout">How improve your Six Sense - read more...</string>
+
+    <string name="amount">Amount:</string>
+    <string name="times">times</string>
+    <string name="bestResult">Your best result:</string>
+    <string name="was">%, was</string>
+
+    <string name="titleEnableStat">Enable Statistic -> Store</string>
+    <string name="descriptionStat">Enable Statistic for each exercises.</string>
+    <string name="descriptionStat2">Turn Off all advertising.</string>
+
 </resources>
