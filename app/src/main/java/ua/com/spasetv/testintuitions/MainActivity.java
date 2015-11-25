@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     Fragment fragment;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-    RelativeLayout mainWnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mainWnd = (RelativeLayout) findViewById(R.id.main_window);
         mainListItem = (ListView) findViewById(R.id.listView);
 
         initMainListItems();
@@ -97,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case 0:
                 fragment = new FragAbout();
                 if(!fragment.isAdded()) {
-                    mainWnd.setVisibility(View.GONE);
                     fragmentTransaction = fragmentManager
                             .beginTransaction()
                             .add(R.id.container, fragment, "FR");
