@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayList<ListData> arrayList;
     MyAdapter myAdapter;
     ListView mainListItem;
-    Fragment fragment;
+    Fragment fragAbout;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     Toolbar toolbar;
@@ -56,8 +57,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 break;
         }
-
-
     }
 
     public void initMainListItems(){
@@ -113,15 +112,30 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         switch (position){
             case 0:
-                fragment = new FragAbout();
-                if(!fragment.isAdded()) {
+                fragAbout = new FragAbout();
+                if(!fragAbout.isAdded()) {
                     fragmentTransaction = fragmentManager
                             .beginTransaction()
-                            .add(R.id.container, fragment, "FR");
+                            .add(R.id.container, fragAbout, "FRAG_ABOUT");
                     fragmentTransaction.commit();
                 }
 
                 break;
         }
     }
+
+    @Override
+    public void onBackPressed(){
+        Fragment fragTmp=null;
+        if(fragAbout.isAdded()) {
+            Log.d("TG", "Find Fragment " + fragAbout.getTag());
+            fragTmp = fragAbout;
+        }
+            fragmentTransaction = fragmentManager
+            .beginTransaction();
+            fragmentTransaction.detach(fragTmp).commit();
+
+    }
+
+
 }

@@ -19,8 +19,8 @@ public class FragAbout extends Fragment {
     public void onAttach(Activity activity){
         super.onAttach(activity);
         this.activity = activity;
-
     }
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup,
                              Bundle saveInstanceState){
@@ -39,7 +39,6 @@ public class FragAbout extends Fragment {
 
     private void restoreActionBar() {
         mainActivity.refreshActionBar(FRAGMENT_ABOUT);
-
     }
 
     private void showTextHelp() {
@@ -56,4 +55,10 @@ public class FragAbout extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);  //for the control ActionBar from Fragment !!!!!!!
     }
+
+    @Override
+    public void onDetach(){
+        super.onDetach();
+    }
+
 }
