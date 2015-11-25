@@ -1,15 +1,18 @@
 package ua.com.spasetv.testintuitions;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
@@ -18,6 +21,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayList<ListData> arrayList;
     MyAdapter myAdapter;
     ListView mainListItem;
+    Fragment fragment;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+    RelativeLayout mainWnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mainWnd = (RelativeLayout) findViewById(R.id.main_window);
         mainListItem = (ListView) findViewById(R.id.listView);
 
         initMainListItems();
@@ -82,7 +90,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Log.d("TG", "pos - "+i);
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        fragmentManager = getFragmentManager();
+
+        switch (position){
+            case 0:
+                fragment = new FragAbout();
+                if(!fragment.isAdded()) {
+                    mainWnd.setVisibility(View.GONE);
+                    fragmentTransaction = fragmentManager
+                            .beginTransaction()
+                            .add(R.id.container, fragment, "FR");
+                    fragmentTransaction.commit();
+                }
+
+                break;
+        }
     }
 }
