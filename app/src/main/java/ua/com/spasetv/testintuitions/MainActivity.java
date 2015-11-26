@@ -36,7 +36,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_apps_white_18dp);
-        getSupportActionBar().setHomeButtonEnabled(true);
+
+
+
+        fragAbout = null;
 
         mainListItem = (ListView) findViewById(R.id.listView);
         initMainListItems();
@@ -93,16 +96,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }else if(id == android.R.id.home){
-            Log.d("TG", "Home pressed");
+            if(getSupportActionBar().getTitle()!=
+                    getString(R.string.app_name))
+                transactionFragments();
         }
 
         return super.onOptionsItemSelected(item);
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case 0:
                 fragAbout = new FragAbout();
                 if(!fragAbout.isAdded()) {
+                    Log.d("TG", "fragAbout is not isAdded");
                     fragmentTransaction = fragmentManager
                             .beginTransaction()
                             .add(R.id.container, fragAbout, "FRAG_ABOUT");
@@ -128,20 +130,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onBackPressed(){
+        transactionFragments();
+    }
+
+    private void transactionFragments(){
         Fragment fragTmp = null;
 
+        if(fragAbout!=null)
             if (fragAbout.isAdded()) {
                 refreshActionBar(MAIN_ACTIVITY);
                 fragTmp = fragAbout;
             }
 
         if(fragTmp!=null) {
-
             fragmentTransaction = fragmentManager
                     .beginTransaction();
             fragmentTransaction.detach(fragTmp).commit();
-        }
-
+        }else finish();
     }
 
 
