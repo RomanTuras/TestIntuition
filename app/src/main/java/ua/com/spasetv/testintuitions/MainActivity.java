@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        refreshActionBar(MAIN_ACTIVITY);
+        toolbar.setNavigationIcon(R.drawable.ic_apps_white_18dp);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         mainListItem = (ListView) findViewById(R.id.listView);
         initMainListItems();
@@ -47,14 +48,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void refreshActionBar(int key){
         switch (key){
             case MAIN_ACTIVITY:
-                toolbar.setNavigationIcon(R.drawable.ic_apps_white_18dp);
-                getSupportActionBar().setHomeButtonEnabled(true);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                toolbar.setNavigationIcon(R.drawable.ic_apps_white_18dp);
+                getSupportActionBar().setTitle(R.string.app_name);
                 break;
             case FRAGMENT_ABOUT:
-                toolbar.setNavigationIcon(R.drawable.ic_apps_white_18dp);
-                getSupportActionBar().setHomeButtonEnabled(false);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setTitle(R.string.titleAbout);
                 break;
         }
     }
@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if(id == android.R.id.home){
+            Log.d("TG", "Home pressed");
         }
 
         return super.onOptionsItemSelected(item);
@@ -126,14 +128,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onBackPressed(){
-        Fragment fragTmp=null;
-        if(fragAbout.isAdded()) {
-            Log.d("TG", "Find Fragment " + fragAbout.getTag());
-            fragTmp = fragAbout;
-        }
+        Fragment fragTmp = null;
+
+            if (fragAbout.isAdded()) {
+                refreshActionBar(MAIN_ACTIVITY);
+                fragTmp = fragAbout;
+            }
+
+        if(fragTmp!=null) {
+
             fragmentTransaction = fragmentManager
-            .beginTransaction();
+                    .beginTransaction();
             fragmentTransaction.detach(fragTmp).commit();
+        }
 
     }
 
