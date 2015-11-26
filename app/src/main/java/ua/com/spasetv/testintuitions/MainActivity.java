@@ -16,17 +16,17 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity
+        implements AdapterView.OnItemClickListener, StaticFields {
 
     ArrayList<ListData> arrayList;
     MyAdapter myAdapter;
     ListView mainListItem;
-    Fragment fragAbout;
+    Fragment fragAbout, fragExerciseOne;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     Toolbar toolbar;
-    public static final int MAIN_ACTIVITY=0;
-    public static final int FRAGMENT_ABOUT=1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +37,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_apps_white_18dp);
 
-
-
         fragAbout = null;
+        fragExerciseOne = null;
 
         mainListItem = (ListView) findViewById(R.id.listView);
         initMainListItems();
@@ -58,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case FRAGMENT_ABOUT:
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 getSupportActionBar().setTitle(R.string.titleAbout);
+                break;
+            case FRAGMENT_EXERCISE_ONE:
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setTitle(R.string.titleExerciseOne);
                 break;
         }
     }
@@ -97,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.action_settings) {
             return true;
         }else if(id == android.R.id.home){
@@ -105,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     getString(R.string.app_name))
                 transactionFragments();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -114,16 +115,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         fragmentManager = getFragmentManager();
 
         switch (position){
-            case 0:
+            case ITEM_ABOUT:
                 fragAbout = new FragAbout();
                 if(!fragAbout.isAdded()) {
-                    Log.d("TG", "fragAbout is not isAdded");
+                    Log.d("TG", "fragAbout.isAdded == false");
                     fragmentTransaction = fragmentManager
                             .beginTransaction()
                             .add(R.id.container, fragAbout, "FRAG_ABOUT");
                     fragmentTransaction.commit();
                 }
+                break;
 
+            case ITEM_EXERCISE_ONE:
+                fragExerciseOne = new FragExerciseOne();
+                if(!fragExerciseOne.isAdded()) {
+                    Log.d("TG", "fragExerciseOne.isAdded == false");
+                    fragmentTransaction = fragmentManager
+                            .beginTransaction()
+                            .add(R.id.container, fragExerciseOne, "FRAG_EXERCISE_ONE");
+                    fragmentTransaction.commit();
+                }
                 break;
         }
     }
@@ -136,16 +147,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void transactionFragments(){
         Fragment fragTmp = null;
 
-        if(fragAbout!=null)
+        if(fragAbout != null)
             if (fragAbout.isAdded()) {
                 refreshActionBar(MAIN_ACTIVITY);
                 fragTmp = fragAbout;
+            }else if(fragExerciseOne != null) {
+                if (fragExerciseOne.isAdded()) {
+                    refreshActionBar(MAIN_ACTIVITY);
+                    fragTmp = fragExerciseOne;
+                }
             }
 
+
+        Log.d("TG", "fragTmp ="+fragTmp);
         if(fragTmp!=null) {
             fragmentTransaction = fragmentManager
                     .beginTransaction();
-            fragmentTransaction.detach(fragTmp).commit();
+            fragmentTransaction.remove(fragTmp).commit();
         }else finish();
     }
 

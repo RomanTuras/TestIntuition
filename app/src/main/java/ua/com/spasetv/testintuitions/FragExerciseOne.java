@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class FragAbout extends Fragment
+public class FragExerciseOne extends Fragment
         implements StaticFields{
 
     Activity activity;
@@ -24,30 +24,20 @@ public class FragAbout extends Fragment
 
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup,
                              Bundle saveInstanceState){
-        View view = inflater.inflate(R.layout.fragment_about, null);
+        View view = inflater.inflate(R.layout.fragment_exercise_one, null);
 
-        textViewAbout = (TextView) view.findViewById(R.id.textViewAbout);
 
         if(getActivity()!=null){
             mainActivity = (MainActivity) getActivity();
         }
-        showTextHelp();
+
         restoreActionBar();
 
         return view;
     }
 
     private void restoreActionBar() {
-        mainActivity.refreshActionBar(FRAGMENT_ABOUT);
-    }
-
-    private void showTextHelp() {
-        String[] arrayTextAbout = getResources().getStringArray(R.array.textAbout);
-        String tmpString="";
-        for(String string: arrayTextAbout){
-            tmpString+=string;
-        }
-        textViewAbout.setText(tmpString);
+        mainActivity.refreshActionBar(FRAGMENT_EXERCISE_ONE);
     }
 
     @Override

@@ -5,6 +5,8 @@
     <string name="titleAbout">About Intuition</string>
     <string name="descriptionAbout">How improve your Six Sense - read more...</string>
 
+    <string name="titleExerciseOne">Exercise one</string>
+
     <string name="amount">Amount:</string>
     <string name="times">times</string>
     <string name="bestResult">Your best result:</string>
