@@ -6,6 +6,9 @@
     <string name="descriptionAbout">How improve your Six Sense - read more...</string>
 
     <string name="titleExerciseOne">Exercise one</string>
+    <string name="titleExerciseTwo">Exercise two</string>
+    <string name="titleExerciseThree">Exercise three</string>
+    <string name="titleStatistic">Statistic</string>
 
     <string name="amount">Amount:</string>
     <string name="times">times</string>

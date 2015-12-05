@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class FragExerciseOne extends Fragment
+public class FragStatistic extends Fragment
         implements StaticFields{
 
     Activity activity;
@@ -24,7 +24,7 @@ public class FragExerciseOne extends Fragment
 
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup,
                              Bundle saveInstanceState){
-        View view = inflater.inflate(R.layout.fragment_exercise_one, null);
+        View view = inflater.inflate(R.layout.fragment_statistic, null);
 
         if(getActivity()!=null){
             mainActivity = (MainActivity) getActivity();
@@ -36,7 +36,7 @@ public class FragExerciseOne extends Fragment
     }
 
     private void restoreActionBar() {
-        mainActivity.refreshActionBar(FRAGMENT_EXERCISE_ONE);
+        mainActivity.refreshActionBar(FRAGMENT_STATISTIC);
     }
 
     @Override

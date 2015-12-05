@@ -53,7 +53,6 @@ public class FragAbout extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);  //for the control ActionBar from Fragment !!!!!!!
     }
 
     @Override
