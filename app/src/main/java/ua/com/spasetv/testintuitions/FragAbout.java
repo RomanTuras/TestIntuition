@@ -6,13 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 public class FragAbout extends Fragment
         implements StaticFields{
 
     Activity activity;
-    TextView textViewAbout;
+    ExTextView textViewAbout;
     MainActivity mainActivity;
 
     @Override
@@ -26,7 +25,7 @@ public class FragAbout extends Fragment
                              Bundle saveInstanceState){
         View view = inflater.inflate(R.layout.fragment_about, null);
 
-        textViewAbout = (TextView) view.findViewById(R.id.textViewAbout);
+        textViewAbout = (ExTextView) view.findViewById(R.id.textViewAbout);
 
         if(getActivity()!=null){
             mainActivity = (MainActivity) getActivity();

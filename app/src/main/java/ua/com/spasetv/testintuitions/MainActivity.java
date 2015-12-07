@@ -10,6 +10,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TypefaceSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -55,6 +58,13 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_apps_white_18dp);
 
+        SpannableString s = new SpannableString("qerqewtew");
+        s.setSpan(new TypefaceSpan("fonts/DroidSans.ttf"), 0, s.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        getSupportActionBar().setTitle(s);
+
+
         fragAbout = null;
         fragExerciseOne = null;
         fragExerciseTwo = null;
@@ -69,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         /**
          * Salden:
          * IMPORTANT!!!! If set onClickListener added to cardView in ANOTHER class - this will
-         * cause an ERRORS (Like back stack of fragment e.t.c.)
+         * cause an ERRORS (Like back stack of fragment etc..)
          * Make cardView.setOnClickListener ONLY from MainActivity!!!!!!!!!
          */
         cardHolders = cardsAdapter.setCardsOnLayout(cardsContainer);

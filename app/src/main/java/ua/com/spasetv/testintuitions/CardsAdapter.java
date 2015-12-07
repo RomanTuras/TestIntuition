@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -28,7 +27,7 @@ public class CardsAdapter implements StaticFields {
     int padding10;
     int padding5;
     float elevation;
-    CardHolder cardHolder;
+
 
     CardsAdapter(Context context, ArrayList<ListData> arrayList){
         this.context = context;
@@ -61,8 +60,6 @@ public class CardsAdapter implements StaticFields {
             cardView.setContentPadding(padding10, padding10, padding10, padding10);
 
             cardView.setId(id++);
-//            cardView.setOnClickListener(mainActivity);
-
 
             if(Build.VERSION.SDK_INT > 10) {
 //                cardView.setElevation(elevation);
@@ -87,15 +84,15 @@ public class CardsAdapter implements StaticFields {
                 }
             cardView.setCardBackgroundColor(color);
 
-            TextView textTitle = (TextView) view.findViewById(R.id.textTitle);
+            ExTextView textTitle = (ExTextView) view.findViewById(R.id.textTitle);
             textTitle.setText(listData.title);
             textTitle.setTextSize(mainActivity.sizeTitle);
 
-            TextView textAmountTimes = (TextView) view.findViewById(R.id.textAmountTimes);
+            ExTextView textAmountTimes = (ExTextView) view.findViewById(R.id.textAmountTimes);
             textAmountTimes.setText(listData.amountTimes);
             textAmountTimes.setTextSize(mainActivity.sizeSubTitle);
 
-            TextView textBestResult = (TextView) view.findViewById(R.id.textBestResult);
+            ExTextView textBestResult = (ExTextView) view.findViewById(R.id.textBestResult);
             if(listData.bestResult != null) {
 //                textBestResult.setText(listData.bestResult);
                 textBestResult.setText("Width: " + mainActivity.width +
