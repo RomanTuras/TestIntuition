@@ -19,22 +19,26 @@ import java.util.ArrayList;
  * Class CardsAdapter for adding content to Main Activity
  * It working with CardView
  */
-public class CardsAdapter implements StaticFields{
+public class CardsAdapter implements StaticFields {
 
     Context context;
     ArrayList<ListData> objects;
+    ArrayList<CardView> cardHolders;
     MainActivity mainActivity;
     int padding10;
     int padding5;
     float elevation;
+    CardHolder cardHolder;
 
     CardsAdapter(Context context, ArrayList<ListData> arrayList){
         this.context = context;
         this.objects = arrayList;
+        cardHolders = new ArrayList<>();
         mainActivity = new MainActivity();
     }
 
-    public void setCardsOnLayout(LinearLayout cardsContainer){
+
+    public ArrayList setCardsOnLayout(LinearLayout cardsContainer){
 
         LayoutInflater inflater1 = (LayoutInflater) this.context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -42,9 +46,10 @@ public class CardsAdapter implements StaticFields{
         padding10 = (int)mainActivity.padding10;
         padding5 = (int)mainActivity.padding5;
         elevation = mainActivity.elevation;
+        CardView cardView;
         int id = 0;
         for(ListData listData: objects) {
-            View view = inflater1.inflate(R.layout.card_view, null, false);
+            View view = inflater1.inflate(R.layout.card_view, cardsContainer, false);
 
             LinearLayout layout_images = (LinearLayout) view.findViewById(R.id.layout_images);
             layout_images.setPadding(0, padding10*2, 0, padding10*2);
@@ -52,11 +57,12 @@ public class CardsAdapter implements StaticFields{
             FrameLayout fr = (FrameLayout) view.findViewById(R.id.frame_card);
             fr.setPadding(padding10, padding5, padding10, padding5);
 
-            CardView cardView = (CardView) view.findViewById(R.id.card);
+            cardView = (CardView) view.findViewById(R.id.card);
             cardView.setContentPadding(padding10, padding10, padding10, padding10);
 
             cardView.setId(id++);
-            cardView.setOnClickListener(mainActivity);
+//            cardView.setOnClickListener(mainActivity);
+
 
             if(Build.VERSION.SDK_INT > 10) {
 //                cardView.setElevation(elevation);
@@ -93,7 +99,7 @@ public class CardsAdapter implements StaticFields{
             if(listData.bestResult != null) {
 //                textBestResult.setText(listData.bestResult);
                 textBestResult.setText("Width: " + mainActivity.width +
-                        "  Hight: " + mainActivity.hight + "  Dpi: "+mainActivity.dpi);
+                        "  Hight: " + mainActivity.high + "  Dpi: "+mainActivity.dpi);
                 textBestResult.setTextSize(mainActivity.sizeSubTitle);
             }else textBestResult.setVisibility(View.GONE);
 
@@ -109,7 +115,9 @@ public class CardsAdapter implements StaticFields{
 
 
             cardsContainer.addView(fr);
+            cardHolders.add(cardView);
         }
+        return cardHolders;
     }
 
 }
