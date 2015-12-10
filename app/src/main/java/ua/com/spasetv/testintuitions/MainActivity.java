@@ -16,7 +16,6 @@
 
 package ua.com.spasetv.testintuitions;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -36,8 +35,9 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 
 import ua.com.spasetv.testintuitions.tools.CardsAdapter;
-import ua.com.spasetv.testintuitions.tools.ListData;
+import ua.com.spasetv.testintuitions.tools.InitCardViewItems;
 import ua.com.spasetv.testintuitions.tools.StaticFields;
+
 
 /**
  * Main class, start point of project.
@@ -46,7 +46,6 @@ import ua.com.spasetv.testintuitions.tools.StaticFields;
 public class MainActivity extends AppCompatActivity
         implements StaticFields, View.OnClickListener{
 
-    ArrayList<ListData> arrayList;
     ArrayList<CardView> cardHolders;
     Fragment fragAbout, fragExerciseOne,
             fragExerciseTwo, fragExerciseThree, fragStatistic;
@@ -71,10 +70,9 @@ public class MainActivity extends AppCompatActivity
 
         if(getSupportActionBar() != null) getSupportActionBar().setTitle(s);
 
-        initMainListItems();
-
         cardsContainer = (LinearLayout) findViewById(R.id.cards_container);
-        CardsAdapter cardsAdapter = new CardsAdapter(this, arrayList, getWindowManager());
+        CardsAdapter cardsAdapter = new CardsAdapter(this,
+                new InitCardViewItems(this).getArrayList(), getWindowManager());
         /**
          * Salden:
          * IMPORTANT!!!! If set onClickListener added to cardView in ANOTHER class - this will
@@ -120,37 +118,6 @@ public class MainActivity extends AppCompatActivity
             getSupportActionBar().setTitle(title);
             if(!enabledHomeArrow) toolbar.setNavigationIcon(R.drawable.ic_apps_white_18dp);
         }
-    }
-
-    /**Fill arrayList with data required to Cards from Main Screen*/
-    public void initMainListItems(){
-        arrayList = new ArrayList<>();
-        Resources res = getResources();
-        int amountTimes = 0;
-        int bestResult = 0;
-        String dateOfBestResult = "01.01.1953";
-        String [] titleExercises = getResources().getStringArray(R.array.titleExercise);
-
-        arrayList.add(new ListData(res.getString(R.string.titleAbout),
-                res.getString(R.string.descriptionAbout), null, R.drawable.ic_help_outline_black_24dp));
-
-        int i = 0;
-        for (String titleEx: titleExercises){
-            int image = i==0?R.drawable.ic_grid_off_black_48dp:
-                    (i==1?R.drawable.ic_blur_linear_black_48dp:R.drawable.ic_healing_black_48dp);
-            arrayList.add(new ListData(titleEx,
-                    res.getString(R.string.amount) + " " + amountTimes + " " +
-                            res.getString(R.string.times),
-                    res.getString(R.string.bestResult) + " " + bestResult +
-                            res.getString(R.string.was)+" "+dateOfBestResult,
-                    image));
-            i++;
-        }
-
-        arrayList.add(new ListData(res.getString(R.string.titleEnableStat),
-                res.getString(R.string.descriptionStat),
-                res.getString(R.string.descriptionStat2),
-                R.drawable.ic_shopping_cart_black_36dp));
     }
 
     @Override
@@ -204,7 +171,6 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.remove(fragTmp).commit();
         }else finish();
     }
-
 
     /**Attach a necessary fragment to activity, depending from select card*/
     @Override
