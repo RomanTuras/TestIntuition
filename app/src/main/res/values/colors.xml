@@ -3,6 +3,10 @@
     <color name="colorPrimary">#2196F3</color>
     <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorPrimaryBackground">#BBDEFB</color>
-    <color name="colorPrimary300">#4DB6AC</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorAboutBackground">#CEFC9A</color>
+    <color name="colorExOneBackground">#FFAC40</color>
+    <color name="colorExTwoBackground">#1CE8B5</color>
+    <color name="colorExThreeBackground">#E5ED9C</color>
+    <color name="colorStatisticBackground">#E1FFBF</color>
 </resources>

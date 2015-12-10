@@ -37,7 +37,7 @@ public class FragAbout extends Fragment
     }
 
     private void restoreActionBar() {
-        mainActivity.refreshActionBar(FRAGMENT_ABOUT);
+        mainActivity.overrideActionBar(FRAGMENT_ABOUT);
     }
 
     private void showTextHelp() {

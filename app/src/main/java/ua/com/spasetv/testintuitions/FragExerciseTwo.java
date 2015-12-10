@@ -36,7 +36,7 @@ public class FragExerciseTwo extends Fragment
     }
 
     private void restoreActionBar() {
-        mainActivity.refreshActionBar(FRAGMENT_EXERCISE_TWO);
+        mainActivity.overrideActionBar(FRAGMENT_EXERCISE_TWO);
     }
 
     @Override

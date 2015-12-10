@@ -1,7 +1,21 @@
+/*
+ * Copyright (C) 2015 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package ua.com.spasetv.testintuitions;
 
-
-import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,9 +27,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.TypefaceSpan;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,8 +35,12 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
+/**
+ * Main class, start point of project.
+ */
+
 public class MainActivity extends AppCompatActivity
-        implements StaticFields, View.OnClickListener {
+        implements StaticFields, View.OnClickListener{
 
     ArrayList<ListData> arrayList;
     ArrayList<CardView> cardHolders;
@@ -33,26 +49,13 @@ public class MainActivity extends AppCompatActivity
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     Toolbar toolbar;
-    Context context;
     public static LinearLayout cardsContainer;
-    public static float sizeTitle;
-    public static float sizeSubTitle;
-    public static int widthImage;
-    public static int widthImageArrow;
-    public static float padding10;
-    public static float padding5;
-    public static float elevation;
-    public static float width;
-    public static float high;
-    public static float dpi;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        this.context = getBaseContext();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -62,8 +65,7 @@ public class MainActivity extends AppCompatActivity
         s.setSpan(new TypefaceSpan("fonts/DroidSans.ttf"), 0, s.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        getSupportActionBar().setTitle(s);
-
+        if(getSupportActionBar() != null) getSupportActionBar().setTitle(s);
 
         fragAbout = null;
         fragExerciseOne = null;
@@ -71,11 +73,10 @@ public class MainActivity extends AppCompatActivity
         fragExerciseThree = null;
         fragStatistic = null;
 
-        initDisplay();
         initMainListItems();
 
         cardsContainer = (LinearLayout) findViewById(R.id.cards_container);
-        CardsAdapter cardsAdapter = new CardsAdapter(this, arrayList);
+        CardsAdapter cardsAdapter = new CardsAdapter(this, arrayList, getWindowManager());
         /**
          * Salden:
          * IMPORTANT!!!! If set onClickListener added to cardView in ANOTHER class - this will
@@ -90,55 +91,40 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void initDisplay(){
-        Display display = getWindowManager().getDefaultDisplay();
-        DisplayMetrics metrix = new DisplayMetrics();
-        display.getMetrics(metrix);
-        width = metrix.widthPixels;
-        high = metrix.heightPixels;
-        dpi = metrix.densityDpi;
-        sizeTitle = (width/20)*(160/dpi);
-        sizeSubTitle = (width/28)*(160/dpi);
-        widthImage = (int)((width/5)*(160/dpi));
-        widthImageArrow = (int)((width/15)*(160/dpi));
-        padding10 = (width/48)*(160/dpi);
-        padding5 = padding10/2;
-        elevation = (width/24)*(160/dpi); /// !!!!!!!!!!!!!
-        Log.d("TG", "sizeTitle "+sizeTitle+"  sizeSubTitle "+sizeSubTitle);
-        Log.d("TG", "widthImage "+widthImage+"  widthImageArrow "+widthImageArrow);
-        Log.d("TG", "elevation "+elevation);
-    }
 
-    public void refreshActionBar(int key){
+    /**Set new title and show back-arrow or app-icon to ActionBar depending from attached fragment*/
+    public void overrideActionBar(int key){
+        boolean enabledHomeArrow = true;
+        String title = "";
         switch (key){
             case MAIN_ACTIVITY:
-                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                toolbar.setNavigationIcon(R.drawable.ic_apps_white_18dp);
-                getSupportActionBar().setTitle(R.string.app_name);
+                enabledHomeArrow = false;
+                title = getString(R.string.app_name);
                 break;
             case FRAGMENT_ABOUT:
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                getSupportActionBar().setTitle(R.string.titleAbout);
+                title = getString(R.string.titleAbout);
                 break;
             case FRAGMENT_EXERCISE_ONE:
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                getSupportActionBar().setTitle(R.string.titleExerciseOne);
+                title = getString(R.string.titleExerciseOne);
                 break;
             case FRAGMENT_EXERCISE_TWO:
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                getSupportActionBar().setTitle(R.string.titleExerciseTwo);
+                title = getString(R.string.titleExerciseTwo);
                 break;
             case FRAGMENT_EXERCISE_THREE:
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                getSupportActionBar().setTitle(R.string.titleExerciseThree);
+                title = getString(R.string.titleExerciseThree);
                 break;
             case FRAGMENT_STATISTIC:
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                getSupportActionBar().setTitle(R.string.titleStatistic);
+                title = getString(R.string.titleStatistic);
                 break;
+        }
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(enabledHomeArrow);
+            getSupportActionBar().setTitle(title);
+            if(!enabledHomeArrow) toolbar.setNavigationIcon(R.drawable.ic_apps_white_18dp);
         }
     }
 
+    /**Fill arrayList with data required to Cards from Main Screen*/
     public void initMainListItems(){
         arrayList = new ArrayList<>();
         Resources res = getResources();
@@ -151,13 +137,13 @@ public class MainActivity extends AppCompatActivity
                 res.getString(R.string.descriptionAbout), null, R.drawable.ic_help_outline_black_24dp));
 
         int i = 0;
-        for (String titleEx: titleExercises) {
+        for (String titleEx: titleExercises){
             int image = i==0?R.drawable.ic_grid_off_black_48dp:
                     (i==1?R.drawable.ic_blur_linear_black_48dp:R.drawable.ic_healing_black_48dp);
             arrayList.add(new ListData(titleEx,
-                    res.getString(R.string.amount)+" "+amountTimes+" "+
+                    res.getString(R.string.amount) + " " + amountTimes + " " +
                             res.getString(R.string.times),
-                    res.getString(R.string.bestResult)+" "+bestResult+
+                    res.getString(R.string.bestResult) + " " + bestResult +
                             res.getString(R.string.was)+" "+dateOfBestResult,
                     image));
             i++;
@@ -170,25 +156,18 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            fragmentManager = getSupportFragmentManager();
-            fragAbout = new FragAbout();
-            if(!fragAbout.isAdded()) {
-                Log.d("TG", "fragAbout.isAdded == false");
-                fragmentTransaction = getSupportFragmentManager().beginTransaction()
-                .add(R.id.container, fragAbout, "FRAG_ABOUT");
-                fragmentTransaction.commit();
-            }
-            return true;
+        if (id == R.id.action_settings){
+            // some event
         }else if(id == android.R.id.home){
+            /**If Home pressed from any fragment - return to the Main Screen*/
             if(getSupportActionBar().getTitle()!=
                     getString(R.string.app_name))
                 transactionFragments();
@@ -204,26 +183,24 @@ public class MainActivity extends AppCompatActivity
     private void transactionFragments(){
         Fragment fragTmp = null;
 
-        if(fragAbout != null && fragAbout.isAdded()) {
-            refreshActionBar(MAIN_ACTIVITY);
+        if(fragAbout != null && fragAbout.isAdded()){
+            overrideActionBar(MAIN_ACTIVITY);
             fragTmp = fragAbout;
-        }else if (fragExerciseOne != null && fragExerciseOne.isAdded()) {
-            refreshActionBar(MAIN_ACTIVITY);
+        }else if (fragExerciseOne != null && fragExerciseOne.isAdded()){
+            overrideActionBar(MAIN_ACTIVITY);
             fragTmp = fragExerciseOne;
-        }else if (fragExerciseTwo != null && fragExerciseTwo.isAdded()) {
-            refreshActionBar(MAIN_ACTIVITY);
+        }else if (fragExerciseTwo != null && fragExerciseTwo.isAdded()){
+            overrideActionBar(MAIN_ACTIVITY);
             fragTmp = fragExerciseTwo;
-        }else if (fragExerciseThree != null && fragExerciseThree.isAdded()) {
-            refreshActionBar(MAIN_ACTIVITY);
+        }else if (fragExerciseThree != null && fragExerciseThree.isAdded()){
+            overrideActionBar(MAIN_ACTIVITY);
             fragTmp = fragExerciseThree;
-        }else if (fragStatistic != null && fragStatistic.isAdded()) {
-            refreshActionBar(MAIN_ACTIVITY);
+        }else if (fragStatistic != null && fragStatistic.isAdded()){
+            overrideActionBar(MAIN_ACTIVITY);
             fragTmp = fragStatistic;
         }
 
-
-        Log.d("TG", "fragTmp ="+fragTmp);
-        if(fragTmp!=null) {
+        if(fragTmp!=null){
             fragmentTransaction = fragmentManager
                     .beginTransaction();
             fragmentTransaction.remove(fragTmp).commit();
@@ -231,8 +208,9 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    /**Attach a necessary fragment to activity, depending from select card*/
     @Override
-    public void onClick(View view) {
+    public void onClick(View view){
         /**
          * Salden:
          * Attention! Use android.support.v4.app when working with Fragments
@@ -244,7 +222,7 @@ public class MainActivity extends AppCompatActivity
         switch (view.getId()){
             case ITEM_ABOUT:
                 fragAbout = new FragAbout();
-                if(!fragAbout.isAdded()) {
+                if(!fragAbout.isAdded()){
                     fragmentTransaction = getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, fragAbout, "FRAG_ABOUT");
                     fragmentTransaction.commit();
@@ -253,7 +231,7 @@ public class MainActivity extends AppCompatActivity
 
             case ITEM_EXERCISE_ONE:
                 fragExerciseOne = new FragExerciseOne();
-                if(!fragExerciseOne.isAdded()) {
+                if(!fragExerciseOne.isAdded()){
                     Log.d("TG", "fragExerciseOne.isAdded");
                     fragmentTransaction = getSupportFragmentManager().beginTransaction()
                             .add(R.id.container, fragExerciseOne, "FRAG_EXERCISE_ONE");
@@ -263,7 +241,7 @@ public class MainActivity extends AppCompatActivity
 
             case ITEM_EXERCISE_TWO:
                 fragExerciseTwo = new FragExerciseTwo();
-                if(!fragExerciseTwo.isAdded()) {
+                if(!fragExerciseTwo.isAdded()){
                     fragmentTransaction = getSupportFragmentManager().beginTransaction()
                             .add(R.id.container, fragExerciseTwo, "FRAG_EXERCISE_TWO");
                     fragmentTransaction.commit();
@@ -272,7 +250,7 @@ public class MainActivity extends AppCompatActivity
 
             case ITEM_EXERCISE_THREE:
                 fragExerciseThree = new FragExerciseThree();
-                if(!fragExerciseThree.isAdded()) {
+                if(!fragExerciseThree.isAdded()){
                     fragmentTransaction = getSupportFragmentManager().beginTransaction()
                             .add(R.id.container, fragExerciseThree, "FRAG_EXERCISE_THREE");
                     fragmentTransaction.commit();
@@ -281,7 +259,7 @@ public class MainActivity extends AppCompatActivity
 
             case ITEM_STATISTIC:
                 fragStatistic = new FragStatistic();
-                if(!fragStatistic.isAdded()) {
+                if(!fragStatistic.isAdded()){
                     fragmentTransaction = getSupportFragmentManager().beginTransaction()
                             .add(R.id.container, fragStatistic, "FRAG_STATISTIC");
                     fragmentTransaction.commit();
@@ -289,4 +267,5 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
     }
+
 }

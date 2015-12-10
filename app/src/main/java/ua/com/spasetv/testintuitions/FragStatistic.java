@@ -36,7 +36,7 @@ public class FragStatistic extends Fragment
     }
 
     private void restoreActionBar() {
-        mainActivity.refreshActionBar(FRAGMENT_STATISTIC);
+        mainActivity.overrideActionBar(FRAGMENT_STATISTIC);
     }
 
     @Override
