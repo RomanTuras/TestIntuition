@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import ua.com.spasetv.testintuitions.tools.StaticFields;
+
 public class FragExerciseThree extends Fragment
-        implements StaticFields{
+        implements StaticFields {
 
     Activity activity;
     TextView textViewAbout;

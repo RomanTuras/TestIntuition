@@ -14,22 +14,27 @@
  * limitations under the License.
  */
 
-package ua.com.spasetv.testintuitions;
+package ua.com.spasetv.testintuitions.tools;
 
 /**
- * Created by salden on 25/11/2015.
- * Container of information for fields in CardView on main screen
+ * Created by salden on 26/11/2015.
+ * Described static fields that is using from all class
  */
-public class ListData {
-    String title;
-    String amountTimes;
-    String bestResult;
-    int idImg;
+public interface StaticFields {
 
-    public ListData(String title, String amountTimes, String bestResult, int idImg){
-        this.title = title;
-        this.amountTimes = amountTimes;
-        this.bestResult = bestResult;
-        this.idImg = idImg;
-    }
+    // Fragment and activity:
+    int MAIN_ACTIVITY = 0;
+    int FRAGMENT_ABOUT = 1;
+    int FRAGMENT_EXERCISE_ONE = 2;
+    int FRAGMENT_EXERCISE_TWO = 3;
+    int FRAGMENT_EXERCISE_THREE = 4;
+    int FRAGMENT_STATISTIC = 5;
+
+    // Items from Card View:
+    int ITEM_ABOUT = 0;
+    int ITEM_EXERCISE_ONE = 1;
+    int ITEM_EXERCISE_TWO = 2;
+    int ITEM_EXERCISE_THREE = 3;
+    int ITEM_STATISTIC = 4;
+
 }

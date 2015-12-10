@@ -35,6 +35,10 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
+import ua.com.spasetv.testintuitions.tools.CardsAdapter;
+import ua.com.spasetv.testintuitions.tools.ListData;
+import ua.com.spasetv.testintuitions.tools.StaticFields;
+
 /**
  * Main class, start point of project.
  */
@@ -66,12 +70,6 @@ public class MainActivity extends AppCompatActivity
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         if(getSupportActionBar() != null) getSupportActionBar().setTitle(s);
-
-        fragAbout = null;
-        fragExerciseOne = null;
-        fragExerciseTwo = null;
-        fragExerciseThree = null;
-        fragStatistic = null;
 
         initMainListItems();
 

@@ -7,8 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import ua.com.spasetv.testintuitions.tools.ExTextView;
+import ua.com.spasetv.testintuitions.tools.StaticFields;
+
 public class FragAbout extends Fragment
-        implements StaticFields{
+        implements StaticFields {
 
     Activity activity;
     ExTextView textViewAbout;

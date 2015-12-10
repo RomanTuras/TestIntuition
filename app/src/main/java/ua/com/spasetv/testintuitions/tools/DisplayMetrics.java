@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ua.com.spasetv.testintuitions;
+package ua.com.spasetv.testintuitions.tools;
 
 import android.util.Log;
 import android.view.Display;
@@ -27,15 +27,15 @@ import android.view.WindowManager;
 public class DisplayMetrics {
 
     WindowManager windowManager;
-    int widthImage;
-    int widthImageArrow;
-    int padding;
-    float elevation;
-    float width;
-    float high;
-    float dpi;
-    float sizeTitle;
-    float sizeSubTitle;
+    private int widthImage;
+    private int widthImageArrow;
+    private int padding;
+    private float elevation;
+    private float widthDisplay;
+    private float highDisplay;
+    private float dpiDisplay;
+    private float sizeTitle;
+    private float sizeSubTitle;
 
 
     public DisplayMetrics(WindowManager windowManager){
@@ -46,15 +46,15 @@ public class DisplayMetrics {
         android.util.DisplayMetrics metrics = new android.util.DisplayMetrics();
         display.getMetrics(metrics);
 
-        width = metrics.widthPixels;
-        high = metrics.heightPixels;
-        dpi = metrics.densityDpi;
-        sizeTitle = (width/20)*(160/dpi);
-        sizeSubTitle = (width/28)*(160/dpi);
-        widthImage = (int)((width/5)*(160/dpi));
-        widthImageArrow = (int)((width/15)*(160/dpi));
-        padding = (int)((width/48)*(160/dpi));
-        elevation = (width/24)*(160/dpi);
+        widthDisplay = metrics.widthPixels;
+        highDisplay = metrics.heightPixels;
+        dpiDisplay = metrics.densityDpi;
+        sizeTitle = (widthDisplay/20)*(160/dpiDisplay);
+        sizeSubTitle = (widthDisplay/28)*(160/dpiDisplay);
+        widthImage = (int)((widthDisplay/5)*(160/dpiDisplay));
+        widthImageArrow = (int)((widthDisplay/15)*(160/dpiDisplay));
+        padding = (int)((widthDisplay/48)*(160/dpiDisplay));
+        elevation = (widthDisplay/24)*(160/dpiDisplay);
 
         Log.d("TG", "sizeTitle " + sizeTitle + "  sizeSubTitle " + sizeSubTitle);
         Log.d("TG", "widthImage "+widthImage+"  widthImageArrow "+widthImageArrow);
@@ -83,5 +83,17 @@ public class DisplayMetrics {
 
     public int getWidthImageArrow(){
         return widthImageArrow;
+    }
+
+    public float getWidthDisplay(){
+        return widthDisplay;
+    }
+
+    public float getHighDisplay(){
+        return highDisplay;
+    }
+
+    public float getDpiDisplay(){
+        return dpiDisplay;
     }
 }

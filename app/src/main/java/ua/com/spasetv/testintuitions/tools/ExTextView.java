@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ua.com.spasetv.testintuitions;
+package ua.com.spasetv.testintuitions.tools;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -28,8 +28,8 @@ import android.util.AttributeSet;
 
 public class ExTextView extends AppCompatTextView{
 
-    String fontDroidSans = "fonts/DroidSans.ttf";
-    Typeface CF;
+    private String fontDroidSans = "fonts/DroidSans.ttf";
+    private Typeface CF;
 
     public ExTextView(Context context){
         super(context);
