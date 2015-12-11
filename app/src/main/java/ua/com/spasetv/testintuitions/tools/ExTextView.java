@@ -22,7 +22,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
 /**
- * Created by salden on 07/12/2015.
+ * Created by Roman Turas on 07/12/2015.
  * Overriding class TextView for adding TypeFace in each TextView in this activity
  */
 

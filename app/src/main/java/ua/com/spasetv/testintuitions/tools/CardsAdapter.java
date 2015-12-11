@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import ua.com.spasetv.testintuitions.R;
 
 /**
- * Created by salden on 25/11/2015.
+ * Created by Roman Turas on 25/11/2015.
  * Class CardsAdapter for adding content to Main Activity
  * It working with CardView
  */
@@ -58,7 +58,7 @@ public class CardsAdapter implements StaticFields {
         float sizeTitle = displayMetrics.getSizeTitle();
         float sizeSubTitle = displayMetrics.getSizeSubTitle();
         float widthDisplay = displayMetrics.getWidthDisplay();
-        float highDisplay = displayMetrics.getHighDisplay();
+        float heightDisplay = displayMetrics.getHeightDisplay();
         float dpiDisplay = displayMetrics.getDpiDisplay();
         int widthImage = displayMetrics.getWidthImage();
         int widthImageArrow = displayMetrics.getWidthImageArrow();
@@ -100,7 +100,7 @@ public class CardsAdapter implements StaticFields {
             if(listData.getCardBestResult() != null) {
 //                textBestResult.setText(listData.bestResult);
                 textBestResult.setText("Width: " + widthDisplay +
-                        "  Hight: " + highDisplay + "  Dpi: "+dpiDisplay);
+                        "  Hight: " + heightDisplay + "  Dpi: "+dpiDisplay);
                 textBestResult.setTextSize(sizeSubTitle);
             }else textBestResult.setVisibility(View.GONE);
 

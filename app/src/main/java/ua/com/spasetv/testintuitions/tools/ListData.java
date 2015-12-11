@@ -17,7 +17,7 @@
 package ua.com.spasetv.testintuitions.tools;
 
 /**
- * Created by salden on 25/11/2015.
+ * Created by Roman Turas on 25/11/2015.
  * Container of information for fields in CardView on main screen
  */
 public class ListData {

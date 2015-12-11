@@ -21,7 +21,7 @@ import android.view.Display;
 import android.view.WindowManager;
 
 /**
- * Created by salden on 09/12/2015.
+ * Created by Roman Turas on 09/12/2015.
  * Assigns values to static variables depending from display resolution.
  */
 public class DisplayMetrics {
@@ -32,7 +32,7 @@ public class DisplayMetrics {
     private int padding;
     private float elevation;
     private float widthDisplay;
-    private float highDisplay;
+    private float heightDisplay;
     private float dpiDisplay;
     private float sizeTitle;
     private float sizeSubTitle;
@@ -47,7 +47,7 @@ public class DisplayMetrics {
         display.getMetrics(metrics);
 
         widthDisplay = metrics.widthPixels;
-        highDisplay = metrics.heightPixels;
+        heightDisplay = metrics.heightPixels;
         dpiDisplay = metrics.densityDpi;
         sizeTitle = (widthDisplay/20)*(160/dpiDisplay);
         sizeSubTitle = (widthDisplay/28)*(160/dpiDisplay);
@@ -89,8 +89,8 @@ public class DisplayMetrics {
         return widthDisplay;
     }
 
-    public float getHighDisplay(){
-        return highDisplay;
+    public float getHeightDisplay(){
+        return heightDisplay;
     }
 
     public float getDpiDisplay(){

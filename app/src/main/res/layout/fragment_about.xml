@@ -1,25 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryBackground"
     android:orientation="vertical">
 
 
-    <LinearLayout
-        android:orientation="vertical"
+    <!-- Salden:
+         Be sure, used cardView:cardUseCompatPadding="true" !!!
+         If not use - cardElevation & translation will NOT work!!!!      -->
+
+    <android.support.v7.widget.CardView
+        xmlns:cardView="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardAbout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp"
+        cardView:cardUseCompatPadding="true"
+        cardView:cardElevation="4dp"
+        cardView:cardBackgroundColor="#000000"
+        android:translationZ="1dp"
+        android:elevation="4dp"
+        cardView:cardCornerRadius="2dp"
+        android:foregroundGravity="top">
 
-        <ua.com.spasetv.testintuitions.tools.ExTextView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:clickable="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:longClickable="false"
-            android:id="@+id/textViewAbout" />
-    </LinearLayout>
+            android:layout_height="match_parent">
 
-</RelativeLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="1dp"
+                    android:id="@+id/imgBannerAbout"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/head_about"
+                    android:layout_gravity="top"
+                    android:foregroundGravity="top" />
+
+                <ua.com.spasetv.testintuitions.tools.ExTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="7dp"
+                    android:paddingRight="7dp"
+                    android:textColor="#00F5E9"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"
+                    android:id="@+id/textAboutOne" />
+
+                <include layout="@layout/paragraph_separate" />
+
+                <ua.com.spasetv.testintuitions.tools.ExTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="7dp"
+                    android:paddingRight="7dp"
+                    android:textColor="#00F5E9"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"
+                    android:id="@+id/textAboutTwo" />
+
+                <include layout="@layout/paragraph_separate" />
+
+                <ua.com.spasetv.testintuitions.tools.ExTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="7dp"
+                    android:paddingRight="7dp"
+                    android:textColor="#00F5E9"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"
+                    android:id="@+id/textAboutThree" />
+
+                <include layout="@layout/paragraph_separate" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

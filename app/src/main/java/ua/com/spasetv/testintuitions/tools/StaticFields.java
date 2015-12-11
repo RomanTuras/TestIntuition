@@ -17,7 +17,7 @@
 package ua.com.spasetv.testintuitions.tools;
 
 /**
- * Created by salden on 26/11/2015.
+ * Created by Roman Turas on 26/11/2015.
  * Described static fields that is using from all class
  */
 public interface StaticFields {
