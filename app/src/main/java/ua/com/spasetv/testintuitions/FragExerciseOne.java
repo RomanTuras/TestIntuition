@@ -6,16 +6,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import ua.com.spasetv.testintuitions.tools.DisplayMetrics;
+import ua.com.spasetv.testintuitions.tools.ExTextView;
 import ua.com.spasetv.testintuitions.tools.StaticFields;
 
 public class FragExerciseOne extends Fragment
         implements StaticFields {
 
-    Activity activity;
-    TextView textViewAbout;
-    MainActivity mainActivity;
+    private Activity activity;
+    private MainActivity mainActivity;
 
     @Override
     public void onAttach(Activity activity){
@@ -27,6 +27,13 @@ public class FragExerciseOne extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup,
                              Bundle saveInstanceState){
         View view = inflater.inflate(R.layout.fragment_exercise_one, null);
+        ExTextView textExOneHead = (ExTextView) view.findViewById(R.id.textExOneHead);
+        ExTextView textExOneOr = (ExTextView) view.findViewById(R.id.textExOneOr);
+
+        float textSize = new DisplayMetrics(getActivity().getWindowManager()).getSizeTitle();
+
+        textExOneHead.setTextSize(textSize);
+        textExOneOr.setTextSize(textSize);
 
         if(getActivity()!=null){
             mainActivity = (MainActivity) getActivity();

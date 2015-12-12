@@ -12,11 +12,8 @@
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="0dp"
     cardView:cardUseCompatPadding="true"
-    cardView:cardElevation="4dp"
-    android:translationZ="1dp"
-    android:elevation="4dp"
+    cardView:cardElevation="7dp"
     cardView:cardCornerRadius="2dp">
 
     <LinearLayout
@@ -64,7 +61,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/layout_images"
             android:layout_gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:gravity="right">
 
             <ImageView
                 android:id="@+id/img"

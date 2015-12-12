@@ -48,10 +48,10 @@ public class DisplayMetrics {
         dpiDisplay = metrics.densityDpi;
         sizeTitle = (widthDisplay/20)*(160/dpiDisplay);
         sizeSubTitle = (widthDisplay/28)*(160/dpiDisplay);
-        widthImage = (int)((widthDisplay/5)*(160/dpiDisplay));
-        widthImageArrow = (int)((widthDisplay/15)*(160/dpiDisplay));
-        padding = (int)((widthDisplay/48)*(160/dpiDisplay));
-        elevation = (widthDisplay/24)*(160/dpiDisplay);
+        widthImage = (int)((widthDisplay/5));
+        widthImageArrow = (int)((widthDisplay/15));
+        padding = (int)((widthDisplay/48));
+        elevation = (widthDisplay/24);
     }
 
     public int getPadding(){

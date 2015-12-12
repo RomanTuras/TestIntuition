@@ -10,10 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="0dp"
-        cardView:cardElevation="4dp"
+        cardView:cardElevation="7dp"
         cardView:cardBackgroundColor="#000000"
-        android:translationZ="1dp"
-        android:elevation="4dp"
         cardView:cardCornerRadius="2dp"
         cardView:cardUseCompatPadding="true" ><!-- If not use - cardElevation & translation will NOT work! -->
 
@@ -80,8 +78,6 @@
                     android:focusableInTouchMode="false"
                     android:longClickable="false"
                     android:id="@+id/textAboutThree" />
-
-                <include layout="@layout/paragraph_separate" />
 
             </LinearLayout>
 

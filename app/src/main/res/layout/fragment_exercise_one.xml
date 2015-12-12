@@ -10,19 +10,16 @@
 
     <android.support.v7.widget.CardView
         xmlns:cardView="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cardAbout"
+        android:id="@+id/cardExOne"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="false"
         android:focusable="false"
         android:layout_marginTop="0dp"
         cardView:cardUseCompatPadding="true"
-        cardView:cardElevation="4dp"
-        cardView:cardBackgroundColor="@color/colorExOneBackground"
-        android:translationZ="1dp"
-        android:elevation="4dp"
-        cardView:cardCornerRadius="2dp"
-        android:foregroundGravity="top" >
+        cardView:cardElevation="15dp"
+        cardView:cardBackgroundColor="@color/colorPrimaryBackground"
+        cardView:cardCornerRadius="2dp" >
 
         <ScrollView
             android:layout_width="match_parent"

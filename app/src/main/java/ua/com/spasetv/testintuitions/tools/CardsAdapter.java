@@ -17,9 +17,7 @@
 package ua.com.spasetv.testintuitions.tools;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -72,21 +70,17 @@ public class CardsAdapter implements StaticFields {
             layout_images.setPadding(0, padding*2, 0, padding*2);
 
             FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.frame_card);
-            frameLayout.setPadding(padding, padding/2, padding, padding/2);
+//            frameLayout.setPadding(padding, padding/2, padding, padding/2);
 
             cardView = (CardView) view.findViewById(R.id.card);
-            cardView.setContentPadding(padding, padding, padding, padding);
+            cardView.setContentPadding(padding, padding, 0, padding);
             cardView.setId(id);
             cardView.setCardBackgroundColor(getColorForCard(++id));
+//            cardView.setUseCompatPadding(true);
+//            if(Build.VERSION.SDK_INT < 21) cardView.setCardElevation(10.0f);
+//            if(Build.VERSION.SDK_INT > 20) cardView.setElevation(10.f);
 
 
-            if(Build.VERSION.SDK_INT > 10) {
-//                cardView.setElevation(elevation);
-                cardView.setUseCompatPadding(true);
-                cardView.setCardElevation(elevation);
-//                cardView.setTranslationZ(elevation);
-                Log.d("TG", "Build.VERSION.SDK_INT = " + Build.VERSION.SDK_INT);
-            }
 
             ExTextView textTitle = (ExTextView) view.findViewById(R.id.textTitle);
             textTitle.setText(listData.getCardTitle());
@@ -99,8 +93,8 @@ public class CardsAdapter implements StaticFields {
             ExTextView textBestResult = (ExTextView) view.findViewById(R.id.textBestResult);
             if(listData.getCardBestResult() != null) {
 //                textBestResult.setText(listData.bestResult);
-                textBestResult.setText("Width: " + widthDisplay +
-                        "  Hight: " + heightDisplay + "  Dpi: "+dpiDisplay);
+                textBestResult.setText(widthDisplay +"x"+ heightDisplay + "x"+dpiDisplay+
+                " : imgW="+widthImage+" : pad="+padding+" : txtS="+sizeTitle);
                 textBestResult.setTextSize(sizeSubTitle);
             }else textBestResult.setVisibility(View.GONE);
 

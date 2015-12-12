@@ -34,7 +34,6 @@ import ua.com.spasetv.testintuitions.tools.CardsAdapter;
 import ua.com.spasetv.testintuitions.tools.InitCardViewItems;
 import ua.com.spasetv.testintuitions.tools.StaticFields;
 
-
 /**
  * Main class, start point of project.
  */
@@ -48,7 +47,6 @@ public class MainActivity extends AppCompatActivity
     private FragmentTransaction fragmentTransaction;
     private Toolbar toolbar;
     private LinearLayout cardsContainer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
