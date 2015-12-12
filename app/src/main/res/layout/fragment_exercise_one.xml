@@ -2,19 +2,125 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryBackground"
     android:orientation="vertical">
 
+    <!-- Roman Turas:
+         Be sure, used cardView:cardUseCompatPadding="true" !!!
+         If not use - cardElevation & translation will NOT work!!!!      -->
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.v7.widget.CardView
+        xmlns:cardView="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardAbout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:focusable="false"
+        android:layout_marginTop="0dp"
+        cardView:cardUseCompatPadding="true"
+        cardView:cardElevation="4dp"
+        cardView:cardBackgroundColor="@color/colorExOneBackground"
+        android:translationZ="1dp"
+        android:elevation="4dp"
+        cardView:cardCornerRadius="2dp"
+        android:foregroundGravity="top" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Exercise One"/>
-    </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <ua.com.spasetv.testintuitions.tools.ExTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"
+                    android:text="@string/textExOneHead"
+                    android:id="@+id/textExOneHead"
+                    android:gravity="center_horizontal" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_help_outline_black_24dp"
+                    android:alpha="0.3"
+                    android:adjustViewBounds="true" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_vertical|center_horizontal">
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:src="@drawable/ic_brightness_2_black_48dp"
+                        android:id="@+id/imageView4" />
+
+                    <ua.com.spasetv.testintuitions.tools.ExTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:longClickable="false"
+                        android:text="@string/textExOneOr"
+                        android:id="@+id/textExOneOr"
+                        android:gravity="center_horizontal" />
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:src="@drawable/ic_brightness_5_black_48dp"
+                        android:id="@+id/imageView5" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/frame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <ProgressBar
+                        android:id="@+id/progressBarExOne"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:indeterminate="false"
+                        android:progressDrawable="@drawable/circle_progress"
+                        android:background="@drawable/circle_shape"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:max="100"
+                        android:progress="95" />
+
+                    <ua.com.spasetv.testintuitions.tools.ExTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:longClickable="false"
+                        android:textColor="#fd3c00"
+                        android:text="5/25"
+                        android:id="@+id/textExOneProgress"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

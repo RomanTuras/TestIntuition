@@ -23,10 +23,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.TypefaceSpan;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,13 +42,12 @@ import ua.com.spasetv.testintuitions.tools.StaticFields;
 public class MainActivity extends AppCompatActivity
         implements StaticFields, View.OnClickListener{
 
-    ArrayList<CardView> cardHolders;
-    Fragment fragAbout, fragExerciseOne,
-            fragExerciseTwo, fragExerciseThree, fragStatistic;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
-    Toolbar toolbar;
-    public static LinearLayout cardsContainer;
+    private ArrayList<CardView> cardHolders;
+    private Fragment fragment;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+    private Toolbar toolbar;
+    private LinearLayout cardsContainer;
 
 
     @Override
@@ -62,31 +57,24 @@ public class MainActivity extends AppCompatActivity
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_apps_white_18dp);
 
-        SpannableString s = new SpannableString("qerqewtew");
-        s.setSpan(new TypefaceSpan("fonts/DroidSans.ttf"), 0, s.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        if(getSupportActionBar() != null) getSupportActionBar().setTitle(s);
+        overrideActionBar(MAIN_ACTIVITY);
 
         cardsContainer = (LinearLayout) findViewById(R.id.cards_container);
         CardsAdapter cardsAdapter = new CardsAdapter(this,
                 new InitCardViewItems(this).getArrayList(), getWindowManager());
         /**
-         * Salden:
-         * IMPORTANT!!!! If set onClickListener added to cardView in ANOTHER class - this will
+         * Roman Turas:
+         * IMPORTANT! If set onClickListener added to cardView in ANOTHER class - this will
          * cause an ERRORS (Like back stack of fragment etc..)
-         * Make cardView.setOnClickListener ONLY from MainActivity!!!!!!!!!
+         * Make cardView.setOnClickListener ONLY from MainActivity!
          */
         cardHolders = cardsAdapter.setCardsOnLayout(cardsContainer);
         for(CardView cardView: cardHolders){
             if(cardView!=null)
                 cardView.setOnClickListener(this);
         }
-
     }
-
 
     /**Set new title and show back-arrow or app-icon to ActionBar depending from attached fragment*/
     public void overrideActionBar(int key){
@@ -145,38 +133,23 @@ public class MainActivity extends AppCompatActivity
         transactionFragments();
     }
 
+    /** If fragment is attached ,remove him, override action bar, make visible main layout
+     * If back pressed on main screen -> finish */
     private void transactionFragments(){
-        Fragment fragTmp = null;
-
-        if(fragAbout != null && fragAbout.isAdded()){
-            overrideActionBar(MAIN_ACTIVITY);
-            fragTmp = fragAbout;
-        }else if (fragExerciseOne != null && fragExerciseOne.isAdded()){
-            overrideActionBar(MAIN_ACTIVITY);
-            fragTmp = fragExerciseOne;
-        }else if (fragExerciseTwo != null && fragExerciseTwo.isAdded()){
-            overrideActionBar(MAIN_ACTIVITY);
-            fragTmp = fragExerciseTwo;
-        }else if (fragExerciseThree != null && fragExerciseThree.isAdded()){
-            overrideActionBar(MAIN_ACTIVITY);
-            fragTmp = fragExerciseThree;
-        }else if (fragStatistic != null && fragStatistic.isAdded()){
-            overrideActionBar(MAIN_ACTIVITY);
-            fragTmp = fragStatistic;
-        }
-
-        if(fragTmp!=null){
+        String title = getString(R.string.app_name);
+        if(fragment!=null && !getSupportActionBar().getTitle().equals(title)){
             fragmentTransaction = fragmentManager
                     .beginTransaction();
-            fragmentTransaction.remove(fragTmp).commit();
-        }else finish();
+            fragmentTransaction.remove(fragment).commit();
+            cardsContainer.setVisibility(View.VISIBLE);
+        }else if(getSupportActionBar().getTitle().equals(title)) finish();
     }
 
     /**Attach a necessary fragment to activity, depending from select card*/
     @Override
     public void onClick(View view){
         /**
-         * Salden:
+         * Roman Turas:
          * Attention! Use android.support.v4.app when working with Fragments
          * Check all imports (in each Classes)
          * Use "getSupportFragmentManager" instead "getFragmentManager"
@@ -185,51 +158,37 @@ public class MainActivity extends AppCompatActivity
 
         switch (view.getId()){
             case ITEM_ABOUT:
-                fragAbout = new FragAbout();
-                if(!fragAbout.isAdded()){
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, fragAbout, "FRAG_ABOUT");
-                    fragmentTransaction.commit();
-                }
+                fragment = new FragAbout();
+                if(!fragment.isAdded()) addFragment(TAG_ABOUT);
                 break;
 
             case ITEM_EXERCISE_ONE:
-                fragExerciseOne = new FragExerciseOne();
-                if(!fragExerciseOne.isAdded()){
-                    Log.d("TG", "fragExerciseOne.isAdded");
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction()
-                            .add(R.id.container, fragExerciseOne, "FRAG_EXERCISE_ONE");
-                    fragmentTransaction.commit();
-                }
+                fragment = new FragExerciseOne();
+                if(!fragment.isAdded()) addFragment(TAG_EXERCISE_ONE);
                 break;
 
             case ITEM_EXERCISE_TWO:
-                fragExerciseTwo = new FragExerciseTwo();
-                if(!fragExerciseTwo.isAdded()){
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction()
-                            .add(R.id.container, fragExerciseTwo, "FRAG_EXERCISE_TWO");
-                    fragmentTransaction.commit();
-                }
+                fragment = new FragExerciseTwo();
+                if(!fragment.isAdded()) addFragment(TAG_EXERCISE_TWO);
                 break;
 
             case ITEM_EXERCISE_THREE:
-                fragExerciseThree = new FragExerciseThree();
-                if(!fragExerciseThree.isAdded()){
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction()
-                            .add(R.id.container, fragExerciseThree, "FRAG_EXERCISE_THREE");
-                    fragmentTransaction.commit();
-                }
+                fragment = new FragExerciseThree();
+                if(!fragment.isAdded()) addFragment(TAG_EXERCISE_THREE);
                 break;
 
             case ITEM_STATISTIC:
-                fragStatistic = new FragStatistic();
-                if(!fragStatistic.isAdded()){
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction()
-                            .add(R.id.container, fragStatistic, "FRAG_STATISTIC");
-                    fragmentTransaction.commit();
-                }
+                fragment = new FragStatistic();
+                if(!fragment.isAdded()) addFragment(TAG_STATISTIC);
                 break;
         }
+    }
+
+    private void addFragment(String tag){
+        fragmentTransaction = getSupportFragmentManager().beginTransaction()
+                .add(R.id.container, fragment, tag);
+        fragmentTransaction.commit();
+        cardsContainer.setVisibility(View.GONE);
     }
 
 }

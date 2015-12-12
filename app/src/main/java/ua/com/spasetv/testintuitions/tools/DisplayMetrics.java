@@ -16,13 +16,12 @@
 
 package ua.com.spasetv.testintuitions.tools;
 
-import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
 /**
  * Created by Roman Turas on 09/12/2015.
- * Assigns values to static variables depending from display resolution.
+ * Assigns values depending from display resolution.
  */
 public class DisplayMetrics {
 
@@ -37,9 +36,7 @@ public class DisplayMetrics {
     private float sizeTitle;
     private float sizeSubTitle;
 
-
     public DisplayMetrics(WindowManager windowManager){
-
         this.windowManager = windowManager;
 
         Display display = windowManager.getDefaultDisplay();
@@ -55,10 +52,6 @@ public class DisplayMetrics {
         widthImageArrow = (int)((widthDisplay/15)*(160/dpiDisplay));
         padding = (int)((widthDisplay/48)*(160/dpiDisplay));
         elevation = (widthDisplay/24)*(160/dpiDisplay);
-
-        Log.d("TG", "sizeTitle " + sizeTitle + "  sizeSubTitle " + sizeSubTitle);
-        Log.d("TG", "widthImage "+widthImage+"  widthImageArrow "+widthImageArrow);
-        Log.d("TG", "elevation "+elevation);
     }
 
     public int getPadding(){

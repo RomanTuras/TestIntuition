@@ -49,6 +49,7 @@ public class FragExerciseTwo extends Fragment
     @Override
     public void onDetach(){
         super.onDetach();
+        mainActivity.overrideActionBar(MAIN_ACTIVITY);
     }
 
 }

@@ -37,7 +37,6 @@ import ua.com.spasetv.testintuitions.tools.StaticFields;
 public class FragAbout extends Fragment
         implements StaticFields {
 
-    private Activity activity;
     private View view;
     private MainActivity mainActivity;
     private ImageView imageView;
@@ -45,7 +44,6 @@ public class FragAbout extends Fragment
     @Override
     public void onAttach(Activity activity){
         super.onAttach(activity);
-        this.activity = activity;
     }
 
 
@@ -62,6 +60,7 @@ public class FragAbout extends Fragment
         return view;
     }
 
+    /**Set title & back-icon in Action Bar*/
     private void restoreActionBar() {
         mainActivity.overrideActionBar(FRAGMENT_ABOUT);
     }
@@ -113,6 +112,7 @@ public class FragAbout extends Fragment
     @Override
     public void onDetach(){
         super.onDetach();
+        mainActivity.overrideActionBar(MAIN_ACTIVITY);
     }
 
 }

@@ -37,4 +37,12 @@ public interface StaticFields {
     int ITEM_EXERCISE_THREE = 3;
     int ITEM_STATISTIC = 4;
 
+    // Tags for fragments
+
+    String TAG_ABOUT = "ABOUT";
+    String TAG_EXERCISE_ONE = "EXERCISE_ONE";
+    String TAG_EXERCISE_TWO = "EXERCISE_TWO";
+    String TAG_EXERCISE_THREE = "EXERCISE_THREE";
+    String TAG_STATISTIC = "STATISTIC";
+
 }
