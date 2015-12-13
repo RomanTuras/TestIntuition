@@ -4,6 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!-- Roman Turas:
+         Be sure, used cardView:cardUseCompatPadding="true" !!!
+         If not use - cardElevation & translation will NOT work!!!!      -->
+
     <android.support.v7.widget.CardView
         xmlns:cardView="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cardAbout"
@@ -11,9 +15,9 @@
         android:layout_height="match_parent"
         android:layout_marginTop="0dp"
         cardView:cardElevation="7dp"
-        cardView:cardBackgroundColor="#000000"
+        cardView:cardBackgroundColor="@color/colorFragmentAboutBackground"
         cardView:cardCornerRadius="2dp"
-        cardView:cardUseCompatPadding="true" ><!-- If not use - cardElevation & translation will NOT work! -->
+        cardView:cardUseCompatPadding="true" >
 
         <ScrollView
             android:layout_width="match_parent"
@@ -40,7 +44,7 @@
                     android:paddingTop="5dp"
                     android:paddingLeft="7dp"
                     android:paddingRight="7dp"
-                    android:textColor="#00F5E9"
+                    android:textColor="@color/colorFontFragmentAbout"
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
@@ -56,7 +60,7 @@
                     android:paddingTop="5dp"
                     android:paddingLeft="7dp"
                     android:paddingRight="7dp"
-                    android:textColor="#00F5E9"
+                    android:textColor="@color/colorFontFragmentAbout"
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
@@ -72,7 +76,7 @@
                     android:paddingTop="5dp"
                     android:paddingLeft="7dp"
                     android:paddingRight="7dp"
-                    android:textColor="#00F5E9"
+                    android:textColor="@color/colorFontFragmentAbout"
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"

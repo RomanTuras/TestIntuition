@@ -55,13 +55,13 @@ public class FragAbout extends Fragment
             mainActivity = (MainActivity) getActivity();
         }
         showTextHelp();
-        restoreActionBar();
+        overrideActionBar();
 
         return view;
     }
 
     /**Set title & back-icon in Action Bar*/
-    private void restoreActionBar() {
+    private void overrideActionBar() {
         mainActivity.overrideActionBar(FRAGMENT_ABOUT);
     }
 
@@ -88,7 +88,7 @@ public class FragAbout extends Fragment
         String tmpString = "";
         String[] arrayTextAbout = getResources().getStringArray(idArray);
         for(String string: arrayTextAbout){
-            tmpString+=string;
+            tmpString += string;
         }
         return tmpString;
     }

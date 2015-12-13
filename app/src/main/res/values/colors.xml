@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Status, action bar & background Main S -->
     <color name="colorPrimary">#2196F3</color>
     <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorPrimaryBackground">#BBDEFB</color>
 
+    <!-- Color for cards in main screen -->
     <color name="colorAboutBackground">#CEFC9A</color>
     <color name="colorExOneBackground">#FFAC40</color>
     <color name="colorExTwoBackground">#1CE8B5</color>
     <color name="colorExThreeBackground">#E5ED9C</color>
     <color name="colorStatisticBackground">#E1FFBF</color>
 
-    <color name="colorLightGray">#a5a5a5</color>
+    <!-- Color for fragment About -->
+    <color name="colorFontFragmentAbout">#00F5E9</color>
+    <color name="colorFragmentAboutBackground">#000000</color>
+
+
+    <!-- Color for progress bar ExOne -->
+    <color name="colorLightGray">#839CB0</color>
     <color name="colorDarkGray">#454545</color>
 </resources>

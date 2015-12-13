@@ -44,4 +44,15 @@ public interface StaticFields {
     String TAG_EXERCISE_THREE = "EXERCISE_THREE";
     String TAG_STATISTIC = "STATISTIC";
 
+    // id Exercises
+    int EXERCISE_ONE = 1;
+    int EXERCISE_TWO = 2;
+    int EXERCISE_THREE = 3;
+
+    // Describe quantity of questions for exercises
+    int TOTAL_QUESTIONS_EX_ONE = 25;
+    int TOTAL_QUESTIONS_EX_TWO = 9;
+    int CORRECT_QUESTIONS_EX_TWO = 5;
+    int TOTAL_QUESTIONS_EX_THREE = 20;
+
 }

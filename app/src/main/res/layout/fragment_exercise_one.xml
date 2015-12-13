@@ -21,8 +21,6 @@
         cardView:cardBackgroundColor="@color/colorPrimaryBackground"
         cardView:cardCornerRadius="2dp" >
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -68,7 +66,7 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal">
@@ -80,13 +78,25 @@
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_vertical|center_horizontal">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal">
                     <ImageView
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:src="@drawable/ic_brightness_2_black_48dp"
-                        android:id="@+id/imgExOneMoon"
-                        android:layout_weight="0" />
+                        android:id="@+id/imgExOneMoon" />
+                    </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical|center_horizontal">
                     <ua.com.spasetv.testintuitions.tools.ExTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -97,15 +107,22 @@
                         android:text="@string/textExOneOr"
                         android:id="@+id/textExOneOr"
                         android:gravity="center_vertical|center_horizontal"
-                        android:layout_weight="0"
-                        android:maxLines="1" />
+                        android:layout_weight="0" />
+                    </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal">
                     <ImageView
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:src="@drawable/ic_brightness_5_black_48dp"
-                        android:id="@+id/imgExOneSun"
-                        android:layout_weight="0" />
+                        android:id="@+id/imgExOneSun" />
+                    </LinearLayout>
+
                 </LinearLayout>
                 </LinearLayout>
 
