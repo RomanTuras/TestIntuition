@@ -21,15 +21,19 @@
         cardView:cardBackgroundColor="@color/colorPrimaryBackground"
         cardView:cardCornerRadius="2dp" >
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|center_horizontal">
 
                 <ua.com.spasetv.testintuitions.tools.ExTextView
                     android:layout_width="match_parent"
@@ -43,15 +47,31 @@
                     android:text="@string/textExOneHead"
                     android:id="@+id/textExOneHead"
                     android:gravity="center_horizontal" />
+                </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/imageView"
-                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/imgExOneQuestion"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_help_outline_black_24dp"
                     android:alpha="0.3"
                     android:adjustViewBounds="true" />
+                </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal">
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -64,7 +84,8 @@
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:src="@drawable/ic_brightness_2_black_48dp"
-                        android:id="@+id/imageView4" />
+                        android:id="@+id/imgExOneMoon"
+                        android:layout_weight="0" />
 
                     <ua.com.spasetv.testintuitions.tools.ExTextView
                         android:layout_width="wrap_content"
@@ -75,14 +96,25 @@
                         android:longClickable="false"
                         android:text="@string/textExOneOr"
                         android:id="@+id/textExOneOr"
-                        android:gravity="center_horizontal" />
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_weight="0"
+                        android:maxLines="1" />
 
                     <ImageView
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:src="@drawable/ic_brightness_5_black_48dp"
-                        android:id="@+id/imageView5" />
+                        android:id="@+id/imgExOneSun"
+                        android:layout_weight="0" />
                 </LinearLayout>
+                </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal">
 
                 <FrameLayout
                     android:id="@+id/frame"
@@ -98,7 +130,7 @@
                         android:background="@drawable/circle_shape"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:max="100"
-                        android:progress="95" />
+                        android:progress="60" />
 
                     <ua.com.spasetv.testintuitions.tools.ExTextView
                         android:layout_width="wrap_content"
@@ -107,16 +139,15 @@
                         android:focusable="false"
                         android:focusableInTouchMode="false"
                         android:longClickable="false"
-                        android:textColor="#fd3c00"
                         android:text="5/25"
                         android:id="@+id/textExOneProgress"
                         android:gravity="center_horizontal"
                         android:layout_gravity="center"/>
                 </FrameLayout>
+                </LinearLayout>
+        </LinearLayout>
 
-            </LinearLayout>
 
-        </ScrollView>
 
     </android.support.v7.widget.CardView>
 

@@ -9,4 +9,7 @@
     <color name="colorExTwoBackground">#1CE8B5</color>
     <color name="colorExThreeBackground">#E5ED9C</color>
     <color name="colorStatisticBackground">#E1FFBF</color>
+
+    <color name="colorLightGray">#a5a5a5</color>
+    <color name="colorDarkGray">#454545</color>
 </resources>
