@@ -24,36 +24,36 @@ import ua.com.spasetv.testintuitions.tools.StaticFields;
  * Created by salden on 13/12/2015.
  * Set random numbers, depending what kind exercises called and return filled array
  *
- * @param int idExercise
+ * @param byte idExercise
  */
 public class RndHelper implements StaticFields{
-    private int[] arrayCorrectAnswers;
+    private byte[] arrayCorrectAnswers;
     private final Random random = new Random();
 
     public RndHelper(int idExercise) {
         switch (idExercise){
-            case EXERCISE_ONE: setArrayExOne();
+            case ID_EXERCISE_ONE: setArrayExOne();
                 break;
-            case EXERCISE_TWO: setArrayExTwo();
+            case ID_EXERCISE_TWO: setArrayExTwo();
                 break;
-            case EXERCISE_THREE: setArrayExThree();
+            case ID_EXERCISE_THREE: setArrayExThree();
                 break;
         }
     }
 
     /** Init array on 25 elements. Filled random 0 and 1 */
     private void setArrayExOne() {
-        arrayCorrectAnswers = new int[TOTAL_QUESTIONS_EX_ONE];
-        for(int i=0; i<TOTAL_QUESTIONS_EX_ONE; i++) arrayCorrectAnswers[i] = random.nextInt(2);
+        arrayCorrectAnswers = new byte[TOTAL_QUESTIONS_EX_ONE];
+        for(byte i=0; i<TOTAL_QUESTIONS_EX_ONE; i++) arrayCorrectAnswers[i] = (byte)random.nextInt(2);
     }
 
     /** Init array on 9 elements. Set 5 smiles - mark as (1), other - (0) */
     private void setArrayExTwo() {
-        arrayCorrectAnswers = new int[TOTAL_QUESTIONS_EX_TWO];
-        int c=0;
+        arrayCorrectAnswers = new byte[TOTAL_QUESTIONS_EX_TWO];
+        byte c=0;
         while (c<CORRECT_QUESTIONS_EX_TWO){
-            for(int i=0;i<TOTAL_QUESTIONS_EX_TWO;i++){
-                int x = random.nextInt(9);
+            for(byte i=0;i<TOTAL_QUESTIONS_EX_TWO;i++){
+                byte x = (byte)random.nextInt(9);
                 if(arrayCorrectAnswers[x] == 0){
                     arrayCorrectAnswers[x] = 1;
                     if(++c > 4) break;
@@ -64,11 +64,11 @@ public class RndHelper implements StaticFields{
 
     /** Init array on 20 elements. Filled random numbers from 0 to 5 */
     private void setArrayExThree() {
-        arrayCorrectAnswers = new int[TOTAL_QUESTIONS_EX_THREE];
-        for(int i=0; i<TOTAL_QUESTIONS_EX_THREE; i++) arrayCorrectAnswers[i] = random.nextInt(6);
+        arrayCorrectAnswers = new byte[TOTAL_QUESTIONS_EX_THREE];
+        for(byte i=0; i<TOTAL_QUESTIONS_EX_THREE; i++) arrayCorrectAnswers[i] = (byte)random.nextInt(6);
     }
 
-    public int[] getArrayCorrectAnswers(){
+    public byte[] getArrayCorrectAnswers(){
         return this.arrayCorrectAnswers;
     }
 

@@ -23,6 +23,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 
 import ua.com.spasetv.testintuitions.tools.CardsAdapter;
 import ua.com.spasetv.testintuitions.tools.InitCardViewItems;
+import ua.com.spasetv.testintuitions.tools.OnExerciseFinishListener;
 import ua.com.spasetv.testintuitions.tools.StaticFields;
 
 /**
@@ -39,7 +41,7 @@ import ua.com.spasetv.testintuitions.tools.StaticFields;
  */
 
 public class MainActivity extends AppCompatActivity
-        implements StaticFields, View.OnClickListener{
+        implements StaticFields, View.OnClickListener, OnExerciseFinishListener {
 
     private ArrayList<CardView> cardHolders;
     private Fragment fragment;
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity
     private FragmentTransaction fragmentTransaction;
     private Toolbar toolbar;
     private LinearLayout cardsContainer;
+//    private FrameLayout fragmentContainer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -57,6 +61,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         overrideActionBar(MAIN_ACTIVITY);
+
+//        fragmentContainer = (FrameLayout) findViewById(R.id.container);
 
         cardsContainer = (LinearLayout) findViewById(R.id.cards_container);
         CardsAdapter cardsAdapter = new CardsAdapter(this,
@@ -75,7 +81,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**Set new title and show back-arrow or app-icon to ActionBar depending from attached fragment*/
-    public void overrideActionBar(int key){
+    public void overrideActionBar(byte key){
         boolean enabledHomeArrow = true;
         String title = "";
         switch (key){
@@ -121,19 +127,19 @@ public class MainActivity extends AppCompatActivity
             /**If Home pressed from any fragment - return to the Main Screen*/
             if(getSupportActionBar().getTitle()!=
                     getString(R.string.app_name))
-                transactionFragments();
+                removeFragment();
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed(){
-        transactionFragments();
+        removeFragment();
     }
 
     /** If fragment is attached ,remove him, override action bar, make visible main layout
      * If back pressed on main screen -> finish */
-    private void transactionFragments(){
+    private void removeFragment(){
         String title = getString(R.string.app_name);
         if(fragment!=null && !getSupportActionBar().getTitle().equals(title)){
             fragmentTransaction = fragmentManager
@@ -141,6 +147,26 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.remove(fragment).commit();
             cardsContainer.setVisibility(View.VISIBLE);
         }else if(getSupportActionBar().getTitle().equals(title)) finish();
+    }
+
+    private void replaceFragment(byte idFragment) {
+        if (fragment != null) {
+            Bundle bundle = new Bundle();
+            switch (idFragment){
+                case FRAGMENT_EXERCISE_ONE:
+                    fragment = new FragResultExercise();
+                    bundle.putInt(ID_FRAGMENT, FRAGMENT_EXERCISE_ONE);
+                    break;
+                case FRAGMENT_EXERCISE_TWO:
+                    break;
+                case FRAGMENT_EXERCISE_THREE:
+                    break;
+            }
+            fragment.setArguments(bundle);
+            fragmentTransaction = fragmentManager
+                    .beginTransaction();
+            fragmentTransaction.replace(R.id.container, fragment).commit();
+        }
     }
 
     /**Attach a necessary fragment to activity, depending from select card*/
@@ -154,7 +180,7 @@ public class MainActivity extends AppCompatActivity
          */
         fragmentManager = getSupportFragmentManager();
 
-        switch (view.getId()){
+        switch ((byte)view.getId()){
             case ITEM_ABOUT:
                 fragment = new FragAbout();
                 if(!fragment.isAdded()) addFragment(TAG_ABOUT);
@@ -189,4 +215,18 @@ public class MainActivity extends AppCompatActivity
         cardsContainer.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onExerciseFinish(byte idFragment) {
+        switch (idFragment){
+            case FRAGMENT_EXERCISE_ONE:
+                Log.d("TG", "ID_EXERCISE_ONE finish!  Start Frag Result..");
+                replaceFragment(FRAGMENT_EXERCISE_ONE);
+                break;
+            case FRAGMENT_EXERCISE_TWO:
+                break;
+            case FRAGMENT_EXERCISE_THREE:
+                break;
+        }
+
+    }
 }

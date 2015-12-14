@@ -22,37 +22,56 @@ package ua.com.spasetv.testintuitions.tools;
  */
 public interface StaticFields {
 
-    // Fragment and activity:
-    int MAIN_ACTIVITY = 0;
-    int FRAGMENT_ABOUT = 1;
-    int FRAGMENT_EXERCISE_ONE = 2;
-    int FRAGMENT_EXERCISE_TWO = 3;
-    int FRAGMENT_EXERCISE_THREE = 4;
-    int FRAGMENT_STATISTIC = 5;
+    // Id of fragments and activity:
+    byte MAIN_ACTIVITY = 0;
+    byte FRAGMENT_ABOUT = 1;
+    byte FRAGMENT_EXERCISE_ONE = 2;
+    byte FRAGMENT_EXERCISE_TWO = 3;
+    byte FRAGMENT_EXERCISE_THREE = 4;
+    byte FRAGMENT_STATISTIC = 5;
+    byte FRAGMENT_RESULT_EXERCISE = 6;
+    String ID_FRAGMENT = "ID_FRAGMENT";
 
     // Items from Card View:
-    int ITEM_ABOUT = 0;
-    int ITEM_EXERCISE_ONE = 1;
-    int ITEM_EXERCISE_TWO = 2;
-    int ITEM_EXERCISE_THREE = 3;
-    int ITEM_STATISTIC = 4;
+    byte ITEM_ABOUT = 0;
+    byte ITEM_EXERCISE_ONE = 1;
+    byte ITEM_EXERCISE_TWO = 2;
+    byte ITEM_EXERCISE_THREE = 3;
+    byte ITEM_STATISTIC = 4;
 
     // Tags for fragments
     String TAG_ABOUT = "ABOUT";
-    String TAG_EXERCISE_ONE = "EXERCISE_ONE";
-    String TAG_EXERCISE_TWO = "EXERCISE_TWO";
-    String TAG_EXERCISE_THREE = "EXERCISE_THREE";
+    String TAG_EXERCISE_ONE = "ID_EXERCISE_ONE";
+    String TAG_EXERCISE_TWO = "ID_EXERCISE_TWO";
+    String TAG_EXERCISE_THREE = "ID_EXERCISE_THREE";
     String TAG_STATISTIC = "STATISTIC";
+    String TAG_RESULT_EX = "RESULT_EXERCISE";
 
-    // id Exercises
-    int EXERCISE_ONE = 1;
-    int EXERCISE_TWO = 2;
-    int EXERCISE_THREE = 3;
+    // id of Exercises
+    byte ID_EXERCISE_ONE = 1;
+    byte ID_EXERCISE_TWO = 2;
+    byte ID_EXERCISE_THREE = 3;
 
     // Describe quantity of questions for exercises
-    int TOTAL_QUESTIONS_EX_ONE = 25;
-    int TOTAL_QUESTIONS_EX_TWO = 9;
-    int CORRECT_QUESTIONS_EX_TWO = 5;
-    int TOTAL_QUESTIONS_EX_THREE = 20;
+    byte TOTAL_QUESTIONS_EX_ONE = 25;
+    byte TOTAL_QUESTIONS_EX_TWO = 9;
+    byte CORRECT_QUESTIONS_EX_TWO = 5;
+    byte TOTAL_QUESTIONS_EX_THREE = 20;
+
+    //Sound stream
+    int MAX_STREAM = 1;
+    int SRC_QUALITY = 0;
+    int PRIORITY = 0;
+    float VOLUME = 1;
+    int LOOP = 0;
+    float RATE = 1;
+
+    // ADS, Analytics & debug key
+    // TODO: set DEBUG_MODE_ON = FALSE , before add app to production
+
+    String AD_UNIT_ID = "ca-app-pub-748105251765XXXX/781875XXXX";
+    String TRACK_ID = "UA-6647XXXX-2";
+    String TEST_DEVICE = "77A1F05FE188A3F51A0FF103708EDEF9";
+    boolean DEBUG_MODE_ON = true;
 
 }
