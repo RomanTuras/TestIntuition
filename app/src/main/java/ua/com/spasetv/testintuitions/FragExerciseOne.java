@@ -18,7 +18,9 @@ package ua.com.spasetv.testintuitions;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -36,6 +38,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import ua.com.spasetv.testintuitions.helpers.DataBaseHelper;
 import ua.com.spasetv.testintuitions.helpers.RndHelper;
 import ua.com.spasetv.testintuitions.tools.DisplayMetrics;
 import ua.com.spasetv.testintuitions.tools.ExTextView;
@@ -51,7 +58,11 @@ public class FragExerciseOne extends Fragment
         implements StaticFields, View.OnTouchListener, Animation.AnimationListener {
 
     private MainActivity mainActivity;
+//    private Activity activity;
     private RndHelper rndHelper;
+    private DataBaseHelper dataBaseHelper;
+    private ContentValues contentValues;
+    private SQLiteDatabase database;
     private ProgressBar progressBarExOne;
     private ExTextView textExOneProgress;
     private ImageView imgExOneMoon, imgExOneSun, imgExOneQuestion;
@@ -62,21 +73,23 @@ public class FragExerciseOne extends Fragment
     private OnExerciseFinishListener onExerciseFinishListener;
 
     private int sndCorrect, sndWrong;
-    private long[] patternVibrator = {0,100,100};
     private byte numberOfQuestion = 23;
     private byte totalCorrectAnswers = 0;
     private byte[] arrayCorrectAnswers;
     private final static byte MOON_BUTTON = 0;
     private final static byte SUN_BUTTON = 1;
-    private boolean onTouchKey = true;
-    private boolean lastQuestionsKey = false;
+    private boolean isOnTouchKeyOn = true;
+    private boolean isLastQuestion = false;
 
     @Override
     public void onAttach(Activity activity){
         super.onAttach(activity);
+//        this.activity = activity;
         this.rndHelper = new RndHelper(ID_EXERCISE_ONE);
         this.arrayCorrectAnswers = rndHelper.getArrayCorrectAnswers();
         this.vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        this.contentValues = new ContentValues();
+        this.dataBaseHelper = new DataBaseHelper(activity);
 
         try {
             onExerciseFinishListener = (OnExerciseFinishListener) activity;
@@ -165,7 +178,7 @@ public class FragExerciseOne extends Fragment
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        if(onTouchKey) {
+        if(isOnTouchKeyOn) {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 if (view == imgExOneMoon) checkAnswer(MOON_BUTTON);
                 else if (view == imgExOneSun) checkAnswer(SUN_BUTTON);
@@ -189,21 +202,26 @@ public class FragExerciseOne extends Fragment
                 Log.d("TG", "Wrong! ");
                 Log.d("TG", "arr= "+arrayCorrectAnswers[numberOfQuestion-1]+" btn="+nameButton);
                 soundPool.play(sndWrong,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
-                vibrator.vibrate(patternVibrator, 0);
+                vibrator.vibrate(200);
 
                 showCorrectImage(arrayCorrectAnswers[numberOfQuestion-1]);
             }
         }
         if(TOTAL_QUESTIONS_EX_ONE == numberOfQuestion){
-            onTouchKey = false;
-            lastQuestionsKey = true;
+            isOnTouchKeyOn = false;
+            isLastQuestion = true;
+            try {
+                saveResultExercise();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             showCorrectImage(arrayCorrectAnswers[numberOfQuestion-1]);
             Log.d("TG", "n = "+numberOfQuestion+" -end!");
         }
     }
 
     private void showCorrectImage(int correctButton){
-        onTouchKey = false;
+        isOnTouchKeyOn = false;
         imgExOneQuestion.startAnimation(animScaleOut);
         if(correctButton == MOON_BUTTON) {
             imgExOneQuestion.setImageResource(R.drawable.ic_brightness_2_black_48dp);
@@ -211,7 +229,7 @@ public class FragExerciseOne extends Fragment
             imgExOneQuestion.setImageResource(R.drawable.ic_brightness_5_black_48dp);
         }
         imgExOneQuestion.startAnimation(animScaleIn);
-        if(lastQuestionsKey) imgExOneQuestion.startAnimation(animPause);
+        if(isLastQuestion) imgExOneQuestion.startAnimation(animPause);
 
 
     }
@@ -249,15 +267,14 @@ public class FragExerciseOne extends Fragment
 
     @Override
     public void onAnimationEnd(Animation animation) {
-        if(!lastQuestionsKey) {
+        if(!isLastQuestion) {
             if (animation == animScaleIn) {
                 imgExOneQuestion.startAnimation(animScaleOutOffset);
-                vibrator.cancel();
             }else if (animation == animScaleOutOffset) {
                 imgExOneQuestion.setImageResource(R.drawable.ic_help_outline_black_24dp);
                 imgExOneQuestion.startAnimation(animScaleInOffset);
             }else if (animation == animScaleInOffset) {
-                onTouchKey = true;
+                isOnTouchKeyOn = true;
                 setProgressBar(numberOfQuestion);
             }
         }else {
@@ -266,6 +283,21 @@ public class FragExerciseOne extends Fragment
                 onExerciseFinishListener.onExerciseFinish(FRAGMENT_EXERCISE_ONE);
             }
         }
+        vibrator.cancel();
+    }
+
+    private void saveResultExercise() throws IOException{
+        int resultPercent = (totalCorrectAnswers*100)/TOTAL_QUESTIONS_EX_ONE;
+        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy");
+        Date d = new Date();
+        String date = sdf.format(d);
+        Log.d("TG", "date: "+sdf.format(d));
+        database = dataBaseHelper.getReadableDatabase();
+        contentValues.put(COLUMN_DATE, date);
+        contentValues.put(COLUMN_RESULT, resultPercent);
+        database.insert(TABLE_NAME_EX_ONE, null, contentValues);
+        database.close();
+        dataBaseHelper.close();
     }
 
     @Override

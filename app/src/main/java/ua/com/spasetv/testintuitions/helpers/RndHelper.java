@@ -38,6 +38,8 @@ public class RndHelper implements StaticFields{
                 break;
             case ID_EXERCISE_THREE: setArrayExThree();
                 break;
+            default:
+                break;
         }
     }
 

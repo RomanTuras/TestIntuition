@@ -53,7 +53,7 @@ public class FragResultExercise extends Fragment
         if(bundle != null) idFragment = bundle.getInt(ID_FRAGMENT);
         Log.d("TG", "idFragment = "+idFragment);
 
-        ads = new Ads(getActivity());
+//        ads = new Ads(getActivity());
 
     }
 

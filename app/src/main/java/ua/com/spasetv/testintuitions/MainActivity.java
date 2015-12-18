@@ -16,6 +16,7 @@
 
 package ua.com.spasetv.testintuitions;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -29,8 +30,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import ua.com.spasetv.testintuitions.helpers.DataBaseHelper;
 import ua.com.spasetv.testintuitions.tools.CardsAdapter;
 import ua.com.spasetv.testintuitions.tools.InitCardViewItems;
 import ua.com.spasetv.testintuitions.tools.OnExerciseFinishListener;
@@ -62,7 +65,11 @@ public class MainActivity extends AppCompatActivity
 
         overrideActionBar(MAIN_ACTIVITY);
 
-//        fragmentContainer = (FrameLayout) findViewById(R.id.container);
+        try {
+            initDataBase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         cardsContainer = (LinearLayout) findViewById(R.id.cards_container);
         CardsAdapter cardsAdapter = new CardsAdapter(this,
@@ -78,6 +85,15 @@ public class MainActivity extends AppCompatActivity
             if(cardView!=null)
                 cardView.setOnClickListener(this);
         }
+    }
+
+    /** Make database (if not) search and move old result, delete old file (if it is)*/
+    private void initDataBase() throws IOException {
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
+        dataBaseHelper.createDataBase();
+        SQLiteDatabase database = dataBaseHelper.getReadableDatabase();
+        database.close();
+        dataBaseHelper.close();
     }
 
     /**Set new title and show back-arrow or app-icon to ActionBar depending from attached fragment*/
@@ -103,6 +119,10 @@ public class MainActivity extends AppCompatActivity
                 break;
             case FRAGMENT_STATISTIC:
                 title = getString(R.string.titleStatistic);
+                break;
+            default:
+                enabledHomeArrow = false;
+                title = getString(R.string.app_name);
                 break;
         }
         if(getSupportActionBar() != null){
@@ -161,6 +181,8 @@ public class MainActivity extends AppCompatActivity
                     break;
                 case FRAGMENT_EXERCISE_THREE:
                     break;
+                default:
+                    break;
             }
             fragment.setArguments(bundle);
             fragmentTransaction = fragmentManager
@@ -205,6 +227,8 @@ public class MainActivity extends AppCompatActivity
                 fragment = new FragStatistic();
                 if(!fragment.isAdded()) addFragment(TAG_STATISTIC);
                 break;
+            default:
+                break;
         }
     }
 
@@ -225,6 +249,8 @@ public class MainActivity extends AppCompatActivity
             case FRAGMENT_EXERCISE_TWO:
                 break;
             case FRAGMENT_EXERCISE_THREE:
+                break;
+            default:
                 break;
         }
 

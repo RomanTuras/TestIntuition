@@ -44,7 +44,7 @@ public class Ads extends AdListener implements StaticFields {
         interstitialAd.setAdUnitId(AD_UNIT_ID);
 
         AdRequest adRequest;
-        if (DEBUG_MODE_ON) {
+        if (isDebugModeOn) {
             adRequest = new com.google.android.gms.ads.AdRequest.Builder()
                     .addTestDevice(TEST_DEVICE).build();
         } else {
