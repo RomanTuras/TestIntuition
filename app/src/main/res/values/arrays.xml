@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="titleExercise">
-        <item>One From Two. Easy level.</item>
-        <item>Four From Nine. Medium level.</item>
-        <item>One From Five. Hard level.</item>
+        <item>One From Two</item>
+        <item>Four From Nine</item>
+        <item>One From Five</item>
     </string-array>
 
     <string-array name="textAboutOne">

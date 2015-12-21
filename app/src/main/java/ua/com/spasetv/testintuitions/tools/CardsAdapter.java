@@ -52,14 +52,16 @@ public class CardsAdapter implements StaticFields {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         int padding = displayMetrics.getPadding();
-        float elevation = displayMetrics.getElevation();
+//        float elevation = displayMetrics.getElevation();
         float sizeTitle = displayMetrics.getSizeTitle();
         float sizeSubTitle = displayMetrics.getSizeSubTitle();
         float widthDisplay = displayMetrics.getWidthDisplay();
-        float heightDisplay = displayMetrics.getHeightDisplay();
-        float dpiDisplay = displayMetrics.getDpiDisplay();
+//        float heightDisplay = displayMetrics.getHeightDisplay();
+//        float dpiDisplay = displayMetrics.getDpiDisplay();
         int widthImage = displayMetrics.getWidthImage();
         int widthImageArrow = displayMetrics.getWidthImageArrow();
+        int widthImageIndicatorLevel = displayMetrics.getWidthImageIndicatolLevel();
+        int widthImageIndicatorFrequency = displayMetrics.getWidthImageIndicatorFrequency();
         CardView cardView;
         int id = 0;
 
@@ -73,41 +75,68 @@ public class CardsAdapter implements StaticFields {
 //            frameLayout.setPadding(padding, padding/2, padding, padding/2);
 
             cardView = (CardView) view.findViewById(R.id.card);
-            cardView.setContentPadding(padding, padding, 0, padding);
+            cardView.setContentPadding(padding, 0, 0, 0);
             cardView.setId(id);
             cardView.setCardBackgroundColor(getColorForCard(++id));
 //            cardView.setUseCompatPadding(true);
 //            if(Build.VERSION.SDK_INT < 21) cardView.setCardElevation(10.0f);
 //            if(Build.VERSION.SDK_INT > 20) cardView.setElevation(10.f);
 
-
-
+            /** Set card title */
             ExTextView textTitle = (ExTextView) view.findViewById(R.id.textTitle);
             textTitle.setText(listData.getCardTitle());
             textTitle.setTextSize(sizeTitle);
 
-            ExTextView textAmountTimes = (ExTextView) view.findViewById(R.id.textAmountTimes);
-            textAmountTimes.setText(listData.getCardAmountTimes());
-            textAmountTimes.setTextSize(sizeSubTitle);
+            /** Set card subtitle */
+            ExTextView textSubTitle = (ExTextView) view.findViewById(R.id.textSubTitle);
+            textSubTitle.setText(listData.getCardSubTitle());
+            textSubTitle.setTextSize(sizeSubTitle);
 
-            ExTextView textBestResult = (ExTextView) view.findViewById(R.id.textBestResult);
-            if(listData.getCardBestResult() != null) {
-//                textBestResult.setText(listData.bestResult);
-                textBestResult.setText(widthDisplay +"x"+ heightDisplay + "x"+dpiDisplay+
-                " : imgW="+widthImage+" : pad="+padding+" : txtS="+sizeTitle);
-                textBestResult.setTextSize(sizeSubTitle);
-            }else textBestResult.setVisibility(View.GONE);
+            /** Set text for frequency indicator */
+            ExTextView textFrequencyIndicator =
+                    (ExTextView) view.findViewById(R.id.textIndicatorFrequency);
+            if(listData.getCardIndicatorFrequency() != null) {
+                textFrequencyIndicator.setText(listData.getCardIndicatorFrequency());
+                textFrequencyIndicator.setTextSize(sizeSubTitle);
+            }else textFrequencyIndicator.setVisibility(View.GONE);
 
-            ImageView imageView = (ImageView) view.findViewById(R.id.img);
-            imageView.setImageResource(listData.getIdImg());
+            /** Set text for level indicator */
+            ExTextView textLevelIndicator = (ExTextView) view.findViewById(R.id.textIndicatorLevel);
+            if(listData.getCardIndicatorLevel() != null) {
+                textLevelIndicator.setText(listData.getCardIndicatorLevel());
+                textLevelIndicator.setTextSize(sizeSubTitle);
+            }else textLevelIndicator.setVisibility(View.GONE);
 
-            imageView.getLayoutParams().width = widthImage;
-            imageView.getLayoutParams().height = widthImage;
+            /** Set main image of exercise */
+            ImageView imgExercise = (ImageView) view.findViewById(R.id.imgExercise);
+            imgExercise.setImageResource(listData.getImgExercise());
+            imgExercise.getLayoutParams().width = widthImage;
+            imgExercise.getLayoutParams().height = widthImage;
 
+            /** Set image Indicator Frequency */
+            ImageView imgIndicatorFrequency =
+                    (ImageView) view.findViewById(R.id.imgIndicatorFrequency);
+            if(listData.getImgIndicatorFrequency() != 0) {
+                imgIndicatorFrequency.setBackgroundResource(listData.getImgIndicatorFrequency());
+                imgIndicatorFrequency.getLayoutParams().width = widthImageIndicatorFrequency;
+                imgIndicatorFrequency.getLayoutParams().height = widthImageIndicatorFrequency;
+            }else imgIndicatorFrequency.setVisibility(View.GONE);
+
+            /** Set image Indicator Level */
+            ImageView imgIndicatorLevel =
+                    (ImageView) view.findViewById(R.id.imgIndicatorLevel);
+            if(listData.getImgIndicatorLevel() != 0) {
+                imgIndicatorLevel.setBackgroundResource(listData.getImgIndicatorLevel());
+                imgIndicatorLevel.getLayoutParams().width = widthImageIndicatorLevel;
+                imgIndicatorLevel.getLayoutParams().height = widthImageIndicatorLevel;
+            }else imgIndicatorLevel.setVisibility(View.GONE);
+
+            /** Set arrow image on right-side */
             ImageView imageViewArrow = (ImageView) view.findViewById(R.id.img_arrow);
             imageViewArrow.getLayoutParams().width = widthImageArrow;
             imageViewArrow.getLayoutParams().height = widthImageArrow;
 
+            /** Add all view to card layout */
             cardsContainer.addView(frameLayout);
             cardHolders.add(cardView);
         }

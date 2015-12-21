@@ -28,6 +28,9 @@ public class DisplayMetrics {
     WindowManager windowManager;
     private int widthImage;
     private int widthImageArrow;
+
+    private int widthImageIndicatolLevel;
+    private int widthImageIndicatorFrequency;
     private int padding;
     private float elevation;
     private float widthDisplay;
@@ -46,10 +49,13 @@ public class DisplayMetrics {
         widthDisplay = metrics.widthPixels;
         heightDisplay = metrics.heightPixels;
         dpiDisplay = metrics.densityDpi;
-        sizeTitle = (widthDisplay/20)*(160/dpiDisplay);
+        sizeTitle = (widthDisplay/15)*(160/dpiDisplay);
         sizeSubTitle = (widthDisplay/28)*(160/dpiDisplay);
         widthImage = (int)((widthDisplay/5));
+        widthImageIndicatolLevel = (int)((widthDisplay/10));
+        widthImageIndicatorFrequency = (int)((widthDisplay/20));
         widthImageArrow = (int)((widthDisplay/15));
+
         padding = (int)((widthDisplay/48));
         elevation = (widthDisplay/24);
     }
@@ -72,6 +78,14 @@ public class DisplayMetrics {
 
     public int getWidthImage(){
         return widthImage;
+    }
+
+    public int getWidthImageIndicatolLevel() {
+        return widthImageIndicatolLevel;
+    }
+
+    public int getWidthImageIndicatorFrequency() {
+        return widthImageIndicatorFrequency;
     }
 
     public int getWidthImageArrow(){

@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">Test Intuition</string>
+    <string name="app_name">Improve intuition</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Text for Cards on Main Screen -->
     <string name="titleAbout">About Intuition</string>
     <string name="descriptionAbout">How improve your Six Sense - read more...</string>
 
@@ -15,16 +16,30 @@
     <string name="bestResult">Your best result:</string>
     <string name="was">%, was</string>
 
-    <string name="titleEnableStat">Enable Statistic -> Store</string>
+    <string name="titleEnableStat">Enable Statistic</string>
     <string name="descriptionStat">Enable Statistic for each exercises.</string>
-    <string name="descriptionStat2">Turn Off all advertising.</string>
+    <string name="descriptionStat2">Enable statistic of each exercises and turn off all advertising.</string>
 
+    <!-- Text for Exercise One -->
     <string name="textExOneHead">
         Listen to your Intuition\n
         And make your choise\n\n
         Pick one of the two images
     </string>
     <string name="textExOneOr">or</string>
+
+    <!-- Text for indicators (level and frequency) -->
+    <string name="textIndicatorEasy">easy</string>
+    <string name="textIndicatorNormal">normal</string>
+    <string name="textIndicatorHard">hard</string>
+
+    <string name="textIndicatorNever">never</string>
+    <string name="textIndicatorToday">today</string>
+    <string name="textIndicatorYesterday">yesterday</string>
+    <string name="textIndicatorDaysEgo">days ego</string>
+    <string name="textIndicatorLongTime">long time</string>
+    <string name="textIndicatorStore">store</string>
+    <string name="textIndicatorAbout">help</string>
 
 
 </resources>

@@ -18,6 +18,8 @@ package ua.com.spasetv.testintuitions;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -31,6 +33,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import ua.com.spasetv.testintuitions.helpers.DataBaseHelper;
@@ -52,8 +55,6 @@ public class MainActivity extends AppCompatActivity
     private FragmentTransaction fragmentTransaction;
     private Toolbar toolbar;
     private LinearLayout cardsContainer;
-//    private FrameLayout fragmentContainer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        cardsContainer = (LinearLayout) findViewById(R.id.cards_container);
+
         overrideActionBar(MAIN_ACTIVITY);
 
         try {
@@ -71,9 +74,14 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-        cardsContainer = (LinearLayout) findViewById(R.id.cards_container);
-        CardsAdapter cardsAdapter = new CardsAdapter(this,
-                new InitCardViewItems(this).getArrayList(), getWindowManager());
+        refreshMainScreen();
+    }
+
+    public void refreshMainScreen(){
+        InitCardViewItems initCardViewItems = new InitCardViewItems(this);
+        CardsAdapter cardsAdapter = new CardsAdapter(this, initCardViewItems.getArrayList(),
+                getWindowManager());
+        cardsContainer.removeAllViews();
         /**
          * Roman Turas:
          * IMPORTANT! If set onClickListener added to cardView in ANOTHER class - this will
@@ -82,18 +90,30 @@ public class MainActivity extends AppCompatActivity
          */
         cardHolders = cardsAdapter.setCardsOnLayout(cardsContainer);
         for(CardView cardView: cardHolders){
-            if(cardView!=null)
-                cardView.setOnClickListener(this);
+            if(cardView!=null) cardView.setOnClickListener(this);
         }
     }
 
     /** Make database (if not) search and move old result, delete old file (if it is)*/
     private void initDataBase() throws IOException {
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
-        dataBaseHelper.createDataBase();
-        SQLiteDatabase database = dataBaseHelper.getReadableDatabase();
-        database.close();
-        dataBaseHelper.close();
+        final MyHandler handler=new MyHandler(this);
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+                try {
+                    dataBaseHelper.createDataBase();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                SQLiteDatabase database = dataBaseHelper.getWritableDatabase();
+                database.close();
+                dataBaseHelper.close();
+                handler.sendEmptyMessage(1);
+            }
+        });
+        t.start();
+
+
     }
 
     /**Set new title and show back-arrow or app-icon to ActionBar depending from attached fragment*/
@@ -128,7 +148,10 @@ public class MainActivity extends AppCompatActivity
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(enabledHomeArrow);
             getSupportActionBar().setTitle(title);
-            if(!enabledHomeArrow) toolbar.setNavigationIcon(R.drawable.ic_apps_white_18dp);
+
+            if(!enabledHomeArrow) {
+                toolbar.setNavigationIcon(R.drawable.ic_remove_red_eye_white_24dp);
+            }
         }
     }
 
@@ -158,7 +181,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     /** If fragment is attached ,remove him, override action bar, make visible main layout
-     * If back pressed on main screen -> finish */
+     * If back pressed on main screen -> finish
+     * When back pressed from Fragment Statistic -> refresh information for all cards */
     private void removeFragment(){
         String title = getString(R.string.app_name);
         if(fragment!=null && !getSupportActionBar().getTitle().equals(title)){
@@ -176,6 +200,7 @@ public class MainActivity extends AppCompatActivity
                 case FRAGMENT_EXERCISE_ONE:
                     fragment = new FragResultExercise();
                     bundle.putInt(ID_FRAGMENT, FRAGMENT_EXERCISE_ONE);
+                    refreshMainScreen();
                     break;
                 case FRAGMENT_EXERCISE_TWO:
                     break;
@@ -254,5 +279,24 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
 
+    }
+
+
+    public static class MyHandler extends Handler {
+        WeakReference<MainActivity> wrActivity;
+
+        public MyHandler(MainActivity activity) {
+            wrActivity = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            MainActivity activity = wrActivity.get();
+            if (activity != null) {
+                if(msg.what == 1) Log.d("TG", "-= MyHandler =- Database OK!");
+            }
+
+        }
     }
 }

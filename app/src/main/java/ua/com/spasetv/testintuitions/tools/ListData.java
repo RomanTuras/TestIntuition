@@ -22,30 +22,55 @@ package ua.com.spasetv.testintuitions.tools;
  */
 public class ListData {
     private String cardTitle;
-    private String cardAmountTimes;
-    private String cardBestResult;
-    private int idImg;
+    private String cardSubTitle;
+    private String cardIndicatorFrequency;
+    private String cardIndicatorLevel;
+    private int imgExercise;
+    private int imgIndicatorFrequency;
+    private int imgIndicatorLevel;
 
-    public ListData(String cardTitle, String cardAmountTimes, String cardBestResult, int idImg){
+    public ListData(String cardTitle,
+                    String cardSubTitle,
+                    String cardIndicatorFrequency,
+                    String cardIndicatorLevel,
+                    int imgExercise,
+                    int imgIndicatorFrequency,
+                    int imgIndicatorLevel){
+
         this.cardTitle = cardTitle;
-        this.cardAmountTimes = cardAmountTimes;
-        this.cardBestResult = cardBestResult;
-        this.idImg = idImg;
+        this.cardSubTitle = cardSubTitle;
+        this.cardIndicatorFrequency = cardIndicatorFrequency;
+        this.cardIndicatorLevel = cardIndicatorLevel;
+        this.imgExercise = imgExercise;
+        this.imgIndicatorFrequency = imgIndicatorFrequency;
+        this.imgIndicatorLevel = imgIndicatorLevel;
     }
 
     public String getCardTitle() {
         return cardTitle;
     }
 
-    public String getCardAmountTimes() {
-        return cardAmountTimes;
+    public String getCardSubTitle() {
+        return cardSubTitle;
     }
 
-    public String getCardBestResult() {
-        return cardBestResult;
+    public String getCardIndicatorFrequency() {
+        return cardIndicatorFrequency;
     }
 
-    public int getIdImg() {
-        return idImg;
+    public int getImgExercise() {
+        return imgExercise;
+    }
+
+    public String getCardIndicatorLevel() {
+        return cardIndicatorLevel;
+    }
+
+    public int getImgIndicatorFrequency() {
+        return imgIndicatorFrequency;
+    }
+
+    public int getImgIndicatorLevel() {
+        return imgIndicatorLevel;
     }
 }

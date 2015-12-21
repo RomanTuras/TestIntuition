@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.util.Log;
@@ -13,6 +12,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import ua.com.spasetv.testintuitions.tools.StaticFields;
 
@@ -32,7 +34,46 @@ public class DataBaseHelper extends SQLiteOpenHelper implements StaticFields{
     public DataBaseHelper(Context context) {
         super(context, mPath, null, mVers);
         mContext = context;
+    }
 
+    /** TODO - delete this method before release to prodaction */
+    private void setTestDataExOne(){
+        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy");
+        Date d = new Date();
+        String todayDate = sdf.format(d);
+        String anyDate[] = {"01.06.2011", "09.03.2015", "16.10.2015", "17.10.2015", "25.11.2015",
+                            "26.11.2015", "19.12.2015", "20.12.2015"};
+        int anyResult[] = {30, 35, 37, 34, 39, 41, 42, 39};
+        mDataBase = this.getWritableDatabase();
+        mContentValues.clear();
+        for(int i=0; i<anyResult.length; i++) {
+            mContentValues.put(COLUMN_DATE, anyDate[i]);
+            mContentValues.put(COLUMN_RESULT, anyResult[i]);
+            mDataBase.insert(TABLE_NAME_EX_ONE, null, mContentValues);
+            mDataBase.insert(TABLE_NAME_EX_TWO, null, mContentValues);
+            mDataBase.insert(TABLE_NAME_EX_THREE, null, mContentValues);
+        }
+
+        mContentValues.put(COLUMN_DATE, todayDate);
+        mContentValues.put(COLUMN_RESULT, 45);
+        mDataBase.insert(TABLE_NAME_EX_ONE, null, mContentValues);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(d);
+        calendar.add(Calendar.DATE, -1);
+        Log.d("TG", "date -1 : "+sdf.format(calendar.getTime()));
+
+        mContentValues.put(COLUMN_DATE, sdf.format(calendar.getTime()));
+        mContentValues.put(COLUMN_RESULT, 40);
+        mDataBase.insert(TABLE_NAME_EX_TWO, null, mContentValues);
+
+        calendar.add(Calendar.DATE, -1);
+        Log.d("TG", "date -1 : "+sdf.format(calendar.getTime()));
+        mContentValues.put(COLUMN_DATE, sdf.format(calendar.getTime()));
+        mContentValues.put(COLUMN_RESULT, 37);
+        mDataBase.insert(TABLE_NAME_EX_THREE, null, mContentValues);
+
+        mDataBase.close();
     }
 
     private void saveOldData(String oldData) {
@@ -104,38 +145,25 @@ public class DataBaseHelper extends SQLiteOpenHelper implements StaticFields{
 
     public void createDataBase() throws IOException {
         if (!checkDataBase()) {
-            Log.d("DataBaseHelper: ", "Database Not found - create default!");
-        }
-
-//        if(mSdState.equals(Environment.MEDIA_MOUNTED)) {
-            Log.d("DataBaseHelper: ", " -  MEDIA_MOUNTED");
+            setTestDataExOne();
             try {
                 String oldData = findOldFile();
                 if(oldData != null) saveOldData(oldData);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//        }
-
+        }
     }
-
 
     /** Checking availability of database file and return true if it is */
     private boolean checkDataBase() {
-        SQLiteDatabase checkDB = null;
         File dbFile = mContext.getDatabasePath(mPath);
-        try {
-            checkDB = SQLiteDatabase.openDatabase(dbFile.getAbsolutePath(),
-                    null, SQLiteDatabase.OPEN_READWRITE);
-        } catch (SQLiteException e) {
-            Log.e("DataBaseHelper:",""+e);
-        }
-
-        if (checkDB != null) {
-            checkDB.close();
+        if(dbFile.exists()){
             Log.d("DataBaseHelper: ", mPath + " -  Successfully found!");
+        }else{
+            Log.d("DataBaseHelper: ", mPath + " -  NOT found, create default!");
         }
-        return checkDB != null ? true : false;
+        return dbFile.exists();
     }
 
     @Override

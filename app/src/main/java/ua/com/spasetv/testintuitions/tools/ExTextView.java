@@ -28,7 +28,7 @@ import android.util.AttributeSet;
 
 public class ExTextView extends AppCompatTextView{
 
-    private String fontDroidSans = "fonts/DroidSans.ttf";
+    private String fontDroidSans = "fonts/DroidSans-Bold.ttf";
     private Typeface CF;
 
     public ExTextView(Context context){

@@ -6,11 +6,11 @@
     <color name="colorPrimaryBackground">#BBDEFB</color>
 
     <!-- Color for cards in main screen -->
-    <color name="colorAboutBackground">#CEFC9A</color>
-    <color name="colorExOneBackground">#FFAC40</color>
-    <color name="colorExTwoBackground">#1CE8B5</color>
-    <color name="colorExThreeBackground">#E5ED9C</color>
-    <color name="colorStatisticBackground">#E1FFBF</color>
+    <color name="colorAboutBackground">#69F0AE</color>
+    <color name="colorExOneBackground">#FFFF8D</color>
+    <color name="colorExTwoBackground">#FFD180</color>
+    <color name="colorExThreeBackground">#FF9E80</color>
+    <color name="colorStatisticBackground">#69F0AE</color>
 
     <!-- Color for fragment About -->
     <color name="colorFontFragmentAbout">#00F5E9</color>
@@ -20,4 +20,12 @@
     <!-- Color for progress bar ExOne -->
     <color name="colorLightGray">#839CB0</color>
     <color name="colorDarkGray">#454545</color>
+
+    <!-- Color for circle indicators -->
+    <color name="colorGreen">#00ff00</color>
+    <color name="colorYellow">#FFFF00</color>
+    <color name="colorOrange">#FF7000</color>
+    <color name="colorRed">#ff0000</color>
+    <color name="colorWhite">#f0f0f0</color>
+
 </resources>
