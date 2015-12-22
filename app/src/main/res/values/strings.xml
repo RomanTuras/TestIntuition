@@ -11,10 +11,11 @@
     <string name="titleExerciseThree">Exercise three</string>
     <string name="titleStatistic">Statistic</string>
 
-    <string name="amount">Amount:</string>
-    <string name="times">times</string>
-    <string name="bestResult">Your best result:</string>
-    <string name="was">%, was</string>
+    <string name="skillBegin">(do exercise</string>
+    <string name="skillDays">days)</string>
+    <string name="skillDay">day)</string>
+    <string name="skill">Skill:</string>
+
 
     <string name="titleEnableStat">Enable Statistic</string>
     <string name="descriptionStat">Enable Statistic for each exercises.</string>
@@ -23,7 +24,7 @@
     <!-- Text for Exercise One -->
     <string name="textExOneHead">
         Listen to your Intuition\n
-        And make your choise\n\n
+        And make your choice\n\n
         Pick one of the two images
     </string>
     <string name="textExOneOr">or</string>

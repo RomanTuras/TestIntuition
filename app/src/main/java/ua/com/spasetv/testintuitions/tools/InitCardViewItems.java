@@ -44,6 +44,7 @@ public class InitCardViewItems implements StaticFields{
     private String todayDate;
     private Calendar calendar;
     private Resources resources;
+    private int[] skill = new int[3];
 
     public InitCardViewItems(Context context) {
         this.context = context;
@@ -57,10 +58,14 @@ public class InitCardViewItems implements StaticFields{
         initCardViewItems();
     }
 
-    public void initCardViewItems(){
-        String [] titleExercises = resources.getStringArray(R.array.titleExercise);
+    public void initCardViewItems() {
+        initFirstCard();
+        initCardsOfExercises();
+        initAboutCard();
+    }
 
-        /** Fill first card (Card About) */
+    /** Fill a first card (Card About) */
+    private void initFirstCard() {
         cardViewData.add(new ListData(resources.getString(R.string.titleAbout),
                 resources.getString(R.string.descriptionAbout),
                 resources.getString(R.string.textIndicatorAbout),
@@ -68,40 +73,87 @@ public class InitCardViewItems implements StaticFields{
                 R.drawable.ic_help_outline_black_24dp,
                 0,
                 0));
+    }
 
-        for (int i = 0; i<titleExercises.length; i++) {
-            int imgExercise = i==0 ? R.drawable.exercise_one_48dp :
-                    (i==1 ? R.drawable.exercise_two_48dp_gray :
-                            R.drawable.exercise_three_48dp);
+    /** Fill the following three cards of Exercises */
+    private void initCardsOfExercises() {
+        String[] titleExercises = resources.getStringArray(R.array.titleExercise);
+        for (int i = 0; i < titleExercises.length; i++) {
+            int imgExercise = i == 0 ? R.drawable.exercise_one_48dp :
+                    (i == 1 ? R.drawable.exercise_two_48dp_gray : R.drawable.exercise_three_48dp);
 
-            int imgIndicatorLevel = i==0 ? R.drawable.indicator_easy :
-                    (i==1 ? R.drawable.indicator_normal :
-                            R.drawable.indicator_hard);
+            int imgIndicatorLevel = i == 0 ? R.drawable.indicator_easy :
+                    (i == 1 ? R.drawable.indicator_normal : R.drawable.indicator_hard);
 
             String textLevelIndicator = i == 0 ? resources.getString(R.string.textIndicatorEasy) :
-                    (i==1 ? resources.getString(R.string.textIndicatorNormal) :
-                    resources.getString(R.string.textIndicatorHard));
+                    (i == 1 ? resources.getString(R.string.textIndicatorNormal) :
+                            resources.getString(R.string.textIndicatorHard));
 
             String textIndicatorFrequency = getTextIndicatorFrequency(i);
-            if(textIndicatorFrequency == null) {
+            if (textIndicatorFrequency == null) {
                 textIndicatorFrequency = resources.getString(R.string.textIndicatorNever);
             }
-
             int imgIndicatorFrequency = getImgIndicatorFrequency(textIndicatorFrequency);
 
-            String textSubTitle = "Skill: 43%";
-
-            /** Fill cards of Exercises */
+            /* Volume of 'doDays' may be from 0 to 7*/
+            int doDays = calculateTrainingDays(i);
+            String textSkill = resources.getString(R.string.skill) + " " + getSkill(i) + "% ";
+            if(doDays > 1 && doDays < 8) {
+                textSkill += resources.getString(R.string.skillBegin) + " " + doDays + " " +
+                            resources.getString(R.string.skillDays);
+            }else if(doDays == 1) {
+                textSkill += resources.getString(R.string.skillBegin) + " " + doDays + " " +
+                        resources.getString(R.string.skillDay);
+            }
             cardViewData.add(new ListData(titleExercises[i],
-                    textSubTitle,
+                    textSkill,
                     textIndicatorFrequency,
                     textLevelIndicator,
                     imgExercise,
                     imgIndicatorFrequency,
                     imgIndicatorLevel));
         }
+    }
 
-        /** Fill last card (Statistic -> store) */
+    /** Calculate number of training days, if days between 0 and 6 - return
+     * how many more days by trainings before skill will be available,
+     * if 7 and more -> return average value of skill to the last seven days of exercises */
+    private int calculateTrainingDays(int i) {
+        int doDays = 7;
+        int skill = 0;
+        int numberOfTraining = 0;
+        database = dataBaseHelper.getWritableDatabase();
+        String table = i == 0 ? TABLE_NAME_EX_ONE :
+                (i == 1 ? TABLE_NAME_EX_TWO : TABLE_NAME_EX_THREE);
+
+        Cursor cursor = database.query(table, null, null, null, null, null, null);
+        if (cursor != null) {
+            String tempDate = "";
+            if (cursor.moveToLast()) {
+                do {
+                    if(!tempDate.equals(cursor.getString(1))) {
+                        tempDate = cursor.getString(1);
+                        skill += cursor.getInt(2);
+                        numberOfTraining++;
+                        if(--doDays == 0) {
+                            this.skill[i] = skill/numberOfTraining;
+                            return doDays;
+                        }
+                    }
+                } while (cursor.moveToPrevious());
+            }
+        }
+        database.close();
+        dataBaseHelper.close();
+        return doDays;
+    }
+
+    private int getSkill(int i) {
+        return skill[i];
+    }
+
+    /** Fill a last card (Statistic -> store) */
+    private void initAboutCard() {
         cardViewData.add(new ListData(resources.getString(R.string.titleEnableStat),
                 resources.getString(R.string.descriptionStat2),
                 resources.getString(R.string.textIndicatorStore),
