@@ -58,7 +58,6 @@ public class FragExerciseOne extends Fragment
         implements StaticFields, View.OnTouchListener, Animation.AnimationListener {
 
     private MainActivity mainActivity;
-//    private Activity activity;
     private RndHelper rndHelper;
     private DataBaseHelper dataBaseHelper;
     private ContentValues contentValues;
@@ -73,7 +72,7 @@ public class FragExerciseOne extends Fragment
     private OnExerciseFinishListener onExerciseFinishListener;
 
     private int sndCorrect, sndWrong;
-    private byte numberOfQuestion = 23;
+    private byte numberOfQuestion = 0;
     private byte totalCorrectAnswers = 0;
     private byte[] arrayCorrectAnswers;
     private final static byte MOON_BUTTON = 0;
@@ -84,9 +83,8 @@ public class FragExerciseOne extends Fragment
     @Override
     public void onAttach(Activity activity){
         super.onAttach(activity);
-//        this.activity = activity;
         this.rndHelper = new RndHelper(ID_EXERCISE_ONE);
-        this.arrayCorrectAnswers = rndHelper.getArrayCorrectAnswers();
+        this.arrayCorrectAnswers = rndHelper.getArrayAnswers();
         this.vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
         this.contentValues = new ContentValues();
         this.dataBaseHelper = new DataBaseHelper(activity);
@@ -102,7 +100,8 @@ public class FragExerciseOne extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup,
                              Bundle saveInstanceState){
 
-        float textSize = new DisplayMetrics(getActivity().getWindowManager()).getSizeTitle();
+        float txtSize = new DisplayMetrics(getActivity().getWindowManager()).getSizeTask();
+        float txtSizePrgrs = new DisplayMetrics(getActivity().getWindowManager()).getSizeSubTitle();
         int widthImage = new DisplayMetrics(getActivity().getWindowManager()).getWidthImage();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -129,8 +128,8 @@ public class FragExerciseOne extends Fragment
 
         ExTextView textExOneHead = (ExTextView) view.findViewById(R.id.textExOneHead);
         ExTextView textExOneOr = (ExTextView) view.findViewById(R.id.textExOneOr);
-        textExOneHead.setTextSize(textSize);
-        textExOneOr.setTextSize(textSize);
+        textExOneHead.setTextSize(txtSize);
+        textExOneOr.setTextSize(txtSize);
 
         imgExOneQuestion = (ImageView) view.findViewById(R.id.imgExOneQuestion);
         imgExOneQuestion.getLayoutParams().width = widthImage;
@@ -147,7 +146,7 @@ public class FragExerciseOne extends Fragment
         imgExOneSun.setOnTouchListener(this);
 
         textExOneProgress = (ExTextView) view.findViewById(R.id.textExOneProgress);
-        textExOneProgress.setTextSize(textSize);
+        textExOneProgress.setTextSize(txtSizePrgrs);
         progressBarExOne = (ProgressBar) view.findViewById(R.id.progressBarExOne);
         progressBarExOne.getLayoutParams().width = widthImage;
         progressBarExOne.getLayoutParams().height = widthImage;

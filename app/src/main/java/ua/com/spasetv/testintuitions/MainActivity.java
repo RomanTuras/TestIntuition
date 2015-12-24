@@ -203,6 +203,9 @@ public class MainActivity extends AppCompatActivity
                     refreshMainScreen();
                     break;
                 case FRAGMENT_EXERCISE_TWO:
+                    fragment = new FragResultExercise();
+                    bundle.putInt(ID_FRAGMENT, FRAGMENT_EXERCISE_TWO);
+                    refreshMainScreen();
                     break;
                 case FRAGMENT_EXERCISE_THREE:
                     break;
@@ -272,6 +275,8 @@ public class MainActivity extends AppCompatActivity
                 replaceFragment(FRAGMENT_EXERCISE_ONE);
                 break;
             case FRAGMENT_EXERCISE_TWO:
+                Log.d("TG", "ID_EXERCISE_TWO finish!  Start Frag Result..");
+                replaceFragment(FRAGMENT_EXERCISE_ONE);
                 break;
             case FRAGMENT_EXERCISE_THREE:
                 break;

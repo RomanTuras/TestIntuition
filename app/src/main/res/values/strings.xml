@@ -29,6 +29,13 @@
     </string>
     <string name="textExOneOr">or</string>
 
+    <!-- Text for Exercise Two -->
+    <string name="textExTwoHead">
+        Listen to your Inner Voice\n
+        Open four buttons -\n
+        find mach more smileys
+    </string>
+
     <!-- Text for indicators (level and frequency) -->
     <string name="textIndicatorEasy">easy</string>
     <string name="textIndicatorNormal">normal</string>

@@ -23,11 +23,9 @@ import ua.com.spasetv.testintuitions.tools.StaticFields;
 /**
  * Created by salden on 13/12/2015.
  * Set random numbers, depending what kind exercises called and return filled array
- *
- * @param byte idExercise
  */
 public class RndHelper implements StaticFields{
-    private byte[] arrayCorrectAnswers;
+    private byte[] arrayAnswers;
     private final Random random = new Random();
 
     public RndHelper(int idExercise) {
@@ -45,20 +43,20 @@ public class RndHelper implements StaticFields{
 
     /** Init array on 25 elements. Filled random 0 and 1 */
     private void setArrayExOne() {
-        arrayCorrectAnswers = new byte[TOTAL_QUESTIONS_EX_ONE];
-        for(byte i=0; i<TOTAL_QUESTIONS_EX_ONE; i++) arrayCorrectAnswers[i] = (byte)random.nextInt(2);
+        arrayAnswers = new byte[TOTAL_QUESTIONS_EX_ONE];
+        for(byte i=0; i<TOTAL_QUESTIONS_EX_ONE; i++) arrayAnswers[i] = (byte)random.nextInt(2);
     }
 
-    /** Init array on 9 elements. Set 5 smiles - mark as (1), other - (0) */
+    /** Init array on 9 elements. Set 4 smiles - mark as (1), other - (0) */
     private void setArrayExTwo() {
-        arrayCorrectAnswers = new byte[TOTAL_QUESTIONS_EX_TWO];
-        byte c=0;
-        while (c<CORRECT_QUESTIONS_EX_TWO){
-            for(byte i=0;i<TOTAL_QUESTIONS_EX_TWO;i++){
-                byte x = (byte)random.nextInt(9);
-                if(arrayCorrectAnswers[x] == 0){
-                    arrayCorrectAnswers[x] = 1;
-                    if(++c > 4) break;
+        arrayAnswers = new byte[TOTAL_QUESTIONS_EX_TWO];
+        byte c = 0;
+        while (c < CORRECT_ANSWERS_EX_TWO){
+            for(byte i = 0 ; i < TOTAL_QUESTIONS_EX_TWO ; i++){
+                byte x = (byte) random.nextInt(TOTAL_QUESTIONS_EX_TWO);
+                if(arrayAnswers[x] == 0){
+                    arrayAnswers[x] = 1;
+                    if(++c == CORRECT_ANSWERS_EX_TWO) break;
                 }
             }
         }
@@ -66,12 +64,12 @@ public class RndHelper implements StaticFields{
 
     /** Init array on 20 elements. Filled random numbers from 0 to 5 */
     private void setArrayExThree() {
-        arrayCorrectAnswers = new byte[TOTAL_QUESTIONS_EX_THREE];
-        for(byte i=0; i<TOTAL_QUESTIONS_EX_THREE; i++) arrayCorrectAnswers[i] = (byte)random.nextInt(6);
+        arrayAnswers = new byte[TOTAL_QUESTIONS_EX_THREE];
+        for(byte i=0; i<TOTAL_QUESTIONS_EX_THREE; i++) arrayAnswers[i] = (byte)random.nextInt(6);
     }
 
-    public byte[] getArrayCorrectAnswers(){
-        return this.arrayCorrectAnswers;
+    public byte[] getArrayAnswers(){
+        return this.arrayAnswers;
     }
 
 }

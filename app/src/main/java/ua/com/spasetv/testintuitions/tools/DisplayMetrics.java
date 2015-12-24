@@ -38,6 +38,7 @@ public class DisplayMetrics {
     private float dpiDisplay;
     private float sizeTitle;
     private float sizeSubTitle;
+    private float sizeTask;
 
     public DisplayMetrics(WindowManager windowManager){
         this.windowManager = windowManager;
@@ -51,6 +52,7 @@ public class DisplayMetrics {
         dpiDisplay = metrics.densityDpi;
         sizeTitle = (widthDisplay/15)*(160/dpiDisplay);
         sizeSubTitle = (widthDisplay/28)*(160/dpiDisplay);
+        sizeTask = (widthDisplay/18)*(160/dpiDisplay);
         widthImage = (int)((widthDisplay/5));
         widthImageIndicatolLevel = (int)((widthDisplay/10));
         widthImageIndicatorFrequency = (int)((widthDisplay/20));
@@ -74,6 +76,10 @@ public class DisplayMetrics {
 
     public float getSizeSubTitle(){
         return this.sizeSubTitle;
+    }
+
+    public float getSizeTask() {
+        return sizeTask;
     }
 
     public int getWidthImage(){

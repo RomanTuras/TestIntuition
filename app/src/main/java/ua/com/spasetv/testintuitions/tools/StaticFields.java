@@ -55,7 +55,8 @@ public interface StaticFields {
     /* Describe quantity of questions for exercises */
     byte TOTAL_QUESTIONS_EX_ONE = 25;
     byte TOTAL_QUESTIONS_EX_TWO = 9;
-    byte CORRECT_QUESTIONS_EX_TWO = 5;
+    byte CORRECT_ANSWERS_EX_TWO = 4;
+    byte REPEAT_EX_TWO = 5;
     byte TOTAL_QUESTIONS_EX_THREE = 20;
 
     /* Sound stream */
