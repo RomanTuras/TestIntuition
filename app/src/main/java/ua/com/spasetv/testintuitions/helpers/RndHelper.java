@@ -62,10 +62,10 @@ public class RndHelper implements StaticFields{
         }
     }
 
-    /** Init array on 20 elements. Filled random numbers from 0 to 5 */
+    /** Init array on 20 elements. Filled random numbers from 0 to 4 */
     private void setArrayExThree() {
         arrayAnswers = new byte[TOTAL_QUESTIONS_EX_THREE];
-        for(byte i=0; i<TOTAL_QUESTIONS_EX_THREE; i++) arrayAnswers[i] = (byte)random.nextInt(6);
+        for(byte i=0; i<TOTAL_QUESTIONS_EX_THREE; i++) arrayAnswers[i] = (byte)random.nextInt(5);
     }
 
     public byte[] getArrayAnswers(){

@@ -2,19 +2,167 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryBackground"
     android:orientation="vertical">
 
+    <!-- Roman Turas:
+         Be sure, used cardView:cardUseCompatPadding="true" !!!
+         If not use - cardElevation & translation will NOT work!!!!      -->
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.v7.widget.CardView
+        xmlns:cardView="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardExThree"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:focusable="false"
+        android:layout_marginTop="0dp"
+        cardView:cardUseCompatPadding="true"
+        cardView:cardElevation="15dp"
+        cardView:cardBackgroundColor="@color/colorPrimaryBackground"
+        cardView:cardCornerRadius="2dp" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Exercise Three"/>
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:gravity="center_vertical|center_horizontal">
+
+                <ua.com.spasetv.testintuitions.tools.ExTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"
+                    android:text="@string/textExThreeHead"
+                    android:id="@+id/textExThreeHead"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+
+            <TableLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal">
+
+                <TableRow
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/imgStar"
+                        android:src="@drawable/star_48dp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/imgWave"
+                        android:src="@drawable/water_48dp"
+                        android:layout_marginRight="2dp"/>
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/imgQuestion"
+                        android:src="@drawable/ic_help_outline_black_24dp"
+                        android:alpha="0.6"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"/>
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/imgEye"
+                        android:src="@drawable/eye_48dp"
+                        android:layout_marginLeft="2dp"/>
+                </TableRow>
+
+                <TableRow
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/imgCross"
+                        android:src="@drawable/cross_48dp"
+                        android:layout_marginRight="4dp"/>
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/imgCircle"
+                        android:src="@drawable/circle_48dp"
+                        android:layout_marginLeft="4dp"/>
+                </TableRow>
+            </TableLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:gravity="center_vertical|center_horizontal">
+
+                <FrameLayout
+                    android:id="@+id/frame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <ProgressBar
+                        android:id="@+id/progressBarExThree"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:indeterminate="false"
+                        android:progressDrawable="@drawable/circle_progress"
+                        android:background="@drawable/circle_shape"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:max="100"
+                        android:progress="60" />
+
+                    <ua.com.spasetv.testintuitions.tools.ExTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:longClickable="false"
+                        android:text="5/25"
+                        android:id="@+id/textExThreeProgress"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

@@ -36,6 +36,12 @@
         find mach more smileys
     </string>
 
+    <!-- Text for Exercise Three -->
+    <string name="textExThreeHead">
+        What does your Intuition tell you?\n
+        Choose one of five pictures
+    </string>
+
     <!-- Text for indicators (level and frequency) -->
     <string name="textIndicatorEasy">easy</string>
     <string name="textIndicatorNormal">normal</string>

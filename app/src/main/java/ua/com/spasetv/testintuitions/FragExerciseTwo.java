@@ -182,6 +182,33 @@ public class FragExerciseTwo extends Fragment
     }
 
     @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        if(isOnTouchKeyOn) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                int item = arrayButtons.indexOf(view);
+                checkAnswer(item);
+                Log.d("TG", "view id - "+ item);
+                Log.d("TG", "array answers - "+ arrayAnswers[item]);
+
+                view.setOnTouchListener(null); //unset touch listener on the button you pressed
+                if(++numberOpenButton == CORRECT_ANSWERS_EX_TWO) {//four buttons is opened
+                    if(++numberRepeatExercise < REPEAT_EX_TWO) {//and going to repeat
+                        isOnTouchKeyOn = false;
+                        Log.d("TG", "once again!");
+                        arrayButtons.get(item).startAnimation(animPauseBeforeOpenAll);
+                    }else {
+                        Log.d("TG", "game over!");
+                        isOnTouchKeyOn = false;
+                        setProgressBar(numberRepeatExercise);
+                        arrayButtons.get(item).startAnimation(animPauseBeforeOpenAll);
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
     public void onDetach(){
         super.onDetach();
         mainActivity.overrideActionBar(MAIN_ACTIVITY);
@@ -241,33 +268,6 @@ public class FragExerciseTwo extends Fragment
 
     }
 
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        if(isOnTouchKeyOn) {
-            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                int item = arrayButtons.indexOf(view);
-                checkAnswer(item);
-                Log.d("TG", "view id - "+ item);
-                Log.d("TG", "array answers - "+ arrayAnswers[item]);
-
-                view.setOnTouchListener(null); //unset touch listener on the button you pressed
-                if(++numberOpenButton == CORRECT_ANSWERS_EX_TWO) {//four buttons is opened
-                    if(++numberRepeatExercise < REPEAT_EX_TWO) {//and going to repeat
-                        isOnTouchKeyOn = false;
-                        Log.d("TG", "once again!");
-                        arrayButtons.get(item).startAnimation(animPauseBeforeOpenAll);
-                    }else {
-                        Log.d("TG", "game over!");
-                        isOnTouchKeyOn = false;
-                        setProgressBar(numberRepeatExercise);
-                        arrayButtons.get(item).startAnimation(animPauseBeforeOpenAll);
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
     private void checkAnswer(int item) {
         isOnTouchKeyOn = false;
         arrayButtons.get(item).startAnimation(animScaleOut);
@@ -287,6 +287,7 @@ public class FragExerciseTwo extends Fragment
         isOnTouchKeyOn = true;
     }
 
+    //TODO delete this method and links to him, before production
     private void printArrayCorrect() {
         for(byte i: arrayAnswers){Log.d("TG", " --> "+i);}
     }
