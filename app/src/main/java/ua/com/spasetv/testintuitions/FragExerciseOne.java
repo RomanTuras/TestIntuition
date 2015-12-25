@@ -188,12 +188,10 @@ public class FragExerciseOne extends Fragment
 
     private void checkAnswer(int nameButton){
         if(++numberOfQuestion <= TOTAL_QUESTIONS_EX_ONE){
-
             Log.d("TG", "n = "+numberOfQuestion);
             if(arrayCorrectAnswers[numberOfQuestion-1] == nameButton){
                 Log.d("TG", "Correct!");
                 Log.d("TG", "arr= "+arrayCorrectAnswers[numberOfQuestion-1]+" btn="+nameButton);
-
                 soundPool.play(sndCorrect,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
                 totalCorrectAnswers++;
                 showCorrectImage(arrayCorrectAnswers[numberOfQuestion-1]);
@@ -202,7 +200,6 @@ public class FragExerciseOne extends Fragment
                 Log.d("TG", "arr= "+arrayCorrectAnswers[numberOfQuestion-1]+" btn="+nameButton);
                 soundPool.play(sndWrong,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
                 vibrator.vibrate(200);
-
                 showCorrectImage(arrayCorrectAnswers[numberOfQuestion-1]);
             }
         }
@@ -214,8 +211,9 @@ public class FragExerciseOne extends Fragment
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            showCorrectImage(arrayCorrectAnswers[numberOfQuestion-1]);
             Log.d("TG", "n = "+numberOfQuestion+" -end!");
+            setProgressBar(numberOfQuestion);
+            imgExOneQuestion.startAnimation(animPause);
         }
     }
 
@@ -228,14 +226,11 @@ public class FragExerciseOne extends Fragment
             imgExOneQuestion.setImageResource(R.drawable.ic_brightness_5_black_48dp);
         }
         imgExOneQuestion.startAnimation(animScaleIn);
-        if(isLastQuestion) imgExOneQuestion.startAnimation(animPause);
-
-
     }
 
     private void setProgressBar(int progress){
-        progress = ++progress;
-        String score = progress+"/"+TOTAL_QUESTIONS_EX_ONE;
+        int textProgress = progress == TOTAL_QUESTIONS_EX_ONE ? progress : progress+1;
+        String score = textProgress+"/"+TOTAL_QUESTIONS_EX_ONE;
         progressBarExOne.setMax(TOTAL_QUESTIONS_EX_ONE);
         progressBarExOne.setProgress(progress);
         textExOneProgress.setText(score);

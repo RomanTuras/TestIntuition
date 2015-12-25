@@ -221,6 +221,8 @@ public class FragExerciseThree extends Fragment
             }
             Log.d("TG", "numberOfQuestion = "+(numberOfQuestion-1)+" -end!");
             showCorrectImage(item);
+            arrayButtons.get(0).startAnimation(animPause);
+            setProgressBar(numberOfQuestion);
         }
     }
 
@@ -251,10 +253,6 @@ public class FragExerciseThree extends Fragment
             imgQuestion.setImageResource(R.drawable.circle_48dp);
         }
         imgQuestion.startAnimation(animScaleIn);
-        if(isLastQuestion) {
-            imgQuestion.startAnimation(animPause);
-            setProgressBar(numberOfQuestion);
-        }
     }
 
     private void setProgressBar(int progress){
@@ -292,6 +290,7 @@ public class FragExerciseThree extends Fragment
     public void onAnimationEnd(Animation animation) {
         if(!isLastQuestion) {
             if (animation == animScaleIn) {
+                Log.d("TG", "animScaleIn - end");
                 imgQuestion.startAnimation(animScaleOutOffset);
             }else if (animation == animScaleOutOffset) {
                 imgQuestion.setImageResource(R.drawable.ic_help_outline_black_24dp);
