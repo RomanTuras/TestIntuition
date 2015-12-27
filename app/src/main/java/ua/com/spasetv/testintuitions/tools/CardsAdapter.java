@@ -53,8 +53,8 @@ public class CardsAdapter implements StaticFields {
 
         int padding = displayMetrics.getPadding();
 //        float elevation = displayMetrics.getElevation();
-        float sizeTitle = displayMetrics.getSizeTitle();
-        float sizeSubTitle = displayMetrics.getSizeSubTitle();
+        float sizeTitle = displayMetrics.getSizeTextH1();
+        float sizeSubTitle = displayMetrics.getSizeTextH4();
         float widthDisplay = displayMetrics.getWidthDisplay();
 //        float heightDisplay = displayMetrics.getHeightDisplay();
 //        float dpiDisplay = displayMetrics.getDpiDisplay();

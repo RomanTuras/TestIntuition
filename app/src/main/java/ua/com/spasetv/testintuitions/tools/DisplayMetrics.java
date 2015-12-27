@@ -36,9 +36,11 @@ public class DisplayMetrics {
     private float widthDisplay;
     private float heightDisplay;
     private float dpiDisplay;
-    private float sizeTitle;
-    private float sizeSubTitle;
-    private float sizeTask;
+    private float sizeTextH1;
+    private float sizeTextH2;
+    private float sizeTextH3;
+    private float sizeTextH4;
+    private float sizeTextH6;
 
     public DisplayMetrics(WindowManager windowManager){
         this.windowManager = windowManager;
@@ -50,9 +52,11 @@ public class DisplayMetrics {
         widthDisplay = metrics.widthPixels;
         heightDisplay = metrics.heightPixels;
         dpiDisplay = metrics.densityDpi;
-        sizeTitle = (widthDisplay/15)*(160/dpiDisplay);
-        sizeSubTitle = (widthDisplay/28)*(160/dpiDisplay);
-        sizeTask = (widthDisplay/18)*(160/dpiDisplay);
+        sizeTextH1 = (widthDisplay/15)*(160/dpiDisplay);
+        sizeTextH2 = (widthDisplay/18)*(160/dpiDisplay);
+        sizeTextH3 = (widthDisplay/22)*(160/dpiDisplay);
+        sizeTextH4 = (widthDisplay/28)*(160/dpiDisplay);
+        sizeTextH6 = (widthDisplay/34)*(160/dpiDisplay);
         widthImage = (int)((widthDisplay/5));
         widthImageIndicatolLevel = (int)((widthDisplay/10));
         widthImageIndicatorFrequency = (int)((widthDisplay/20));
@@ -70,16 +74,24 @@ public class DisplayMetrics {
         return this.elevation;
     }
 
-    public float getSizeTitle(){
-        return this.sizeTitle;
+    public float getSizeTextH1(){
+        return this.sizeTextH1;
     }
 
-    public float getSizeSubTitle(){
-        return this.sizeSubTitle;
+    public float getSizeTextH2() {
+        return sizeTextH2;
     }
 
-    public float getSizeTask() {
-        return sizeTask;
+    public float getSizeTextH3() {
+        return sizeTextH3;
+    }
+
+    public float getSizeTextH4(){
+        return this.sizeTextH4;
+    }
+
+    public float getSizeTextH6() {
+        return sizeTextH6;
     }
 
     public int getWidthImage(){

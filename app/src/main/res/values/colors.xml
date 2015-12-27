@@ -16,6 +16,8 @@
     <color name="colorFontFragmentAbout">#00F5E9</color>
     <color name="colorFragmentAboutBackground">#000000</color>
 
+    <!--Color for fragment Result Exercises-->
+    <color name="colorBackgroundSummary">#FFAC40</color>
 
     <!-- Color for progress bar ExOne -->
     <color name="colorLightGray">#839CB0</color>

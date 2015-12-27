@@ -137,6 +137,9 @@ public class MainActivity extends AppCompatActivity
             case FRAGMENT_EXERCISE_THREE:
                 title = getString(R.string.titleExerciseThree);
                 break;
+            case FRAGMENT_RESULT:
+                title = getString(R.string.titleResults);
+                break;
             case FRAGMENT_STATISTIC:
                 title = getString(R.string.titleStatistic);
                 break;
@@ -193,21 +196,27 @@ public class MainActivity extends AppCompatActivity
         }else if(getSupportActionBar().getTitle().equals(title)) finish();
     }
 
-    private void replaceFragment(byte idFragment) {
+    private void replaceFragment(byte idFragment, byte totalCorrectAnswers) {
         if (fragment != null) {
             Bundle bundle = new Bundle();
             switch (idFragment){
                 case FRAGMENT_EXERCISE_ONE:
-                    fragment = new FragResultExercise();
+                    fragment = new FragResultExercises();
                     bundle.putInt(ID_FRAGMENT, FRAGMENT_EXERCISE_ONE);
+                    bundle.putByte(CORRECT_ANSW, totalCorrectAnswers);
                     refreshMainScreen();
                     break;
                 case FRAGMENT_EXERCISE_TWO:
-                    fragment = new FragResultExercise();
+                    fragment = new FragResultExercises();
                     bundle.putInt(ID_FRAGMENT, FRAGMENT_EXERCISE_TWO);
+                    bundle.putByte(CORRECT_ANSW, totalCorrectAnswers);
                     refreshMainScreen();
                     break;
                 case FRAGMENT_EXERCISE_THREE:
+                    fragment = new FragResultExercises();
+                    bundle.putInt(ID_FRAGMENT, FRAGMENT_EXERCISE_THREE);
+                    bundle.putByte(CORRECT_ANSW, totalCorrectAnswers);
+                    refreshMainScreen();
                     break;
                 default:
                     break;
@@ -268,17 +277,19 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onExerciseFinish(byte idFragment) {
+    public void onExerciseFinish(byte idFragment, byte totalCorrectAnswers) {
         switch (idFragment){
             case FRAGMENT_EXERCISE_ONE:
                 Log.d("TG", "ID_EXERCISE_ONE finish!  Start Frag Result..");
-                replaceFragment(FRAGMENT_EXERCISE_ONE);
+                replaceFragment(FRAGMENT_EXERCISE_ONE, totalCorrectAnswers);
                 break;
             case FRAGMENT_EXERCISE_TWO:
                 Log.d("TG", "ID_EXERCISE_TWO finish!  Start Frag Result..");
-                replaceFragment(FRAGMENT_EXERCISE_ONE);
+                replaceFragment(FRAGMENT_EXERCISE_TWO, totalCorrectAnswers);
                 break;
             case FRAGMENT_EXERCISE_THREE:
+                Log.d("TG", "ID_EXERCISE_TWO finish!  Start Frag Result..");
+                replaceFragment(FRAGMENT_EXERCISE_THREE, totalCorrectAnswers);
                 break;
             default:
                 break;

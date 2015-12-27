@@ -75,7 +75,8 @@ public class InitCardViewItems implements StaticFields{
                 0));
     }
 
-    /** Fill the following three cards of Exercises */
+    /** Fill the following three cards of Exercises
+     * number of element in array == idExercise in StaticFields */
     private void initCardsOfExercises() {
         String[] titleExercises = resources.getStringArray(R.array.titleExercise);
         for (int i = 0; i < titleExercises.length; i++) {
@@ -95,16 +96,8 @@ public class InitCardViewItems implements StaticFields{
             }
             int imgIndicatorFrequency = getImgIndicatorFrequency(textIndicatorFrequency);
 
-            /* Volume of 'doDays' may be from 0 to 7*/
-            int doDays = calculateTrainingDays(i);
-            String textSkill = resources.getString(R.string.skill) + " " + getSkill(i) + "% ";
-            if(doDays > 1 && doDays < 8) {
-                textSkill += resources.getString(R.string.skillBegin) + " " + doDays + " " +
-                            resources.getString(R.string.skillDays);
-            }else if(doDays == 1) {
-                textSkill += resources.getString(R.string.skillBegin) + " " + doDays + " " +
-                        resources.getString(R.string.skillDay);
-            }
+
+            String textSkill = new Skill(context).getSkillMainCard(i);
             cardViewData.add(new ListData(titleExercises[i],
                     textSkill,
                     textIndicatorFrequency,
@@ -113,43 +106,6 @@ public class InitCardViewItems implements StaticFields{
                     imgIndicatorFrequency,
                     imgIndicatorLevel));
         }
-    }
-
-    /** Calculate number of training days, if days between 0 and 6 - return
-     * how many more days by trainings before skill will be available,
-     * if 7 and more -> return average value of skill to the last seven days of exercises */
-    private int calculateTrainingDays(int i) {
-        int doDays = 7;
-        int skill = 0;
-        int numberOfTraining = 0;
-        database = dataBaseHelper.getWritableDatabase();
-        String table = i == 0 ? TABLE_NAME_EX_ONE :
-                (i == 1 ? TABLE_NAME_EX_TWO : TABLE_NAME_EX_THREE);
-
-        Cursor cursor = database.query(table, null, null, null, null, null, null);
-        if (cursor != null) {
-            String tempDate = "";
-            if (cursor.moveToLast()) {
-                do {
-                    if(!tempDate.equals(cursor.getString(1))) {
-                        tempDate = cursor.getString(1);
-                        skill += cursor.getInt(2);
-                        numberOfTraining++;
-                        if(--doDays == 0) {
-                            this.skill[i] = skill/numberOfTraining;
-                            return doDays;
-                        }
-                    }
-                } while (cursor.moveToPrevious());
-            }
-        }
-        database.close();
-        dataBaseHelper.close();
-        return doDays;
-    }
-
-    private int getSkill(int i) {
-        return skill[i];
     }
 
     /** Fill a last card (Statistic -> store) */

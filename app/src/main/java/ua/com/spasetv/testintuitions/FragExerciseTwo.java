@@ -97,8 +97,8 @@ public class FragExerciseTwo extends Fragment
 
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup,
                              Bundle saveInstanceState){
-        float txtSize = new DisplayMetrics(getActivity().getWindowManager()).getSizeTask();
-        float txtSizePrgrs = new DisplayMetrics(getActivity().getWindowManager()).getSizeSubTitle();
+        float txtSize = new DisplayMetrics(getActivity().getWindowManager()).getSizeTextH2();
+        float txtSizePrgrs = new DisplayMetrics(getActivity().getWindowManager()).getSizeTextH4();
         widthImage = new DisplayMetrics(getActivity().getWindowManager()).getWidthImage();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -241,7 +241,8 @@ public class FragExerciseTwo extends Fragment
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                onExerciseFinishListener.onExerciseFinish(FRAGMENT_EXERCISE_TWO);
+                onExerciseFinishListener.onExerciseFinish(FRAGMENT_EXERCISE_TWO,
+                        (byte) totalCorrectAnswers);
                 Log.d("TG", "totalCorrectAnswers - "+ totalCorrectAnswers);
                 Log.d("TG", "skill - "+
                         (totalCorrectAnswers*100)/(CORRECT_ANSWERS_EX_TWO * REPEAT_EX_TWO));

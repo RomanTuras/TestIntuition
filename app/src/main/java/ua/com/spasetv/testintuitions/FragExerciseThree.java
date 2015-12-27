@@ -75,7 +75,7 @@ public class FragExerciseThree extends Fragment
 
     private int sndCorrect, sndWrong;
     private int widthImage;
-    private byte numberOfQuestion = 0;
+    private byte numberOfQuestion = 18;
     private byte totalCorrectAnswers = 0;
     private byte[] arrayAnswers;
     private final static byte STAR_BUTTON = 0;
@@ -110,8 +110,8 @@ public class FragExerciseThree extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup,
                              Bundle saveInstanceState){
 
-        float txtSize = new DisplayMetrics(getActivity().getWindowManager()).getSizeTask();
-        float txtSizePrgrs = new DisplayMetrics(getActivity().getWindowManager()).getSizeSubTitle();
+        float txtSize = new DisplayMetrics(getActivity().getWindowManager()).getSizeTextH2();
+        float txtSizeProgress = new DisplayMetrics(getActivity().getWindowManager()).getSizeTextH4();
         widthImage = new DisplayMetrics(getActivity().getWindowManager()).getWidthImage();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -144,7 +144,7 @@ public class FragExerciseThree extends Fragment
         imgQuestion.getLayoutParams().height = widthImage;
 
         textExOneProgress = (ExTextView) view.findViewById(R.id.textExThreeProgress);
-        textExOneProgress.setTextSize(txtSizePrgrs);
+        textExOneProgress.setTextSize(txtSizeProgress);
         progressBarExOne = (ProgressBar) view.findViewById(R.id.progressBarExThree);
         progressBarExOne.getLayoutParams().width = widthImage;
         progressBarExOne.getLayoutParams().height = widthImage;
@@ -302,7 +302,8 @@ public class FragExerciseThree extends Fragment
         }else {
             if(animation == animPause) {
                 Log.d("TG", "totalCorrectAnswers = " + totalCorrectAnswers);
-                onExerciseFinishListener.onExerciseFinish(FRAGMENT_EXERCISE_ONE);
+                onExerciseFinishListener.onExerciseFinish(FRAGMENT_EXERCISE_THREE,
+                        totalCorrectAnswers);
             }
         }
         vibrator.cancel();

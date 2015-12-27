@@ -29,8 +29,9 @@ public interface StaticFields {
     byte FRAGMENT_EXERCISE_TWO = 3;
     byte FRAGMENT_EXERCISE_THREE = 4;
     byte FRAGMENT_STATISTIC = 5;
-    byte FRAGMENT_RESULT_EXERCISE = 6;
+    byte FRAGMENT_RESULT = 6;
     String ID_FRAGMENT = "ID_FRAGMENT";
+    String CORRECT_ANSW = "CORRECT_ANSWERS";
 
     /* Items from Card View: */
     byte ITEM_ABOUT = 0;
@@ -48,9 +49,9 @@ public interface StaticFields {
     String TAG_RESULT_EX = "RESULT_EXERCISE";
 
     /* id of Exercises */
-    byte ID_EXERCISE_ONE = 1;
-    byte ID_EXERCISE_TWO = 2;
-    byte ID_EXERCISE_THREE = 3;
+    byte ID_EXERCISE_ONE = 0;
+    byte ID_EXERCISE_TWO = 1;
+    byte ID_EXERCISE_THREE = 2;
 
     /* Describe quantity of questions for exercises */
     byte TOTAL_QUESTIONS_EX_ONE = 25;

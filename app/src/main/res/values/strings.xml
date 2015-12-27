@@ -9,6 +9,7 @@
     <string name="titleExerciseOne">Exercise one</string>
     <string name="titleExerciseTwo">Exercise two</string>
     <string name="titleExerciseThree">Exercise three</string>
+    <string name="titleResults">Summing up</string>
     <string name="titleStatistic">Statistic</string>
 
     <string name="skillBegin">(do exercise</string>
@@ -41,6 +42,18 @@
         What does your Intuition tell you?\n
         Choose one of five pictures
     </string>
+
+    <!-- Text for Result Fragment -->
+    <string name="textSummaryFirstEx">Exercise: \"One from Two\"</string>
+    <string name="textSummarySecondEx">Exercise: \"Four from Nine\"</string>
+    <string name="textSummaryThirdEx">Exercise: \"One from Five\"</string>
+    <string name="textSummaryAchievement">Your achievement</string>
+    <string name="textSummaryBest">Best</string>
+    <string name="textSummarySkill">Skill 0% \n (still \n 7 days)</string>
+    <string name="textSummarySubSkill">
+        /Accumulated skill from the past seven days of training/
+    </string>
+
 
     <!-- Text for indicators (level and frequency) -->
     <string name="textIndicatorEasy">easy</string>

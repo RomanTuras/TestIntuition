@@ -70,7 +70,7 @@ public class FragAbout extends Fragment
         ExTextView textAboutTwo = (ExTextView) view.findViewById(R.id.textAboutTwo);
         ExTextView textAboutThree = (ExTextView) view.findViewById(R.id.textAboutThree);
 
-        float textSize = new DisplayMetrics(getActivity().getWindowManager()).getSizeTitle();
+        float textSize = new DisplayMetrics(getActivity().getWindowManager()).getSizeTextH1();
         textAboutOne.setTextSize(textSize);
         textAboutTwo.setTextSize(textSize);
         textAboutThree.setTextSize(textSize);

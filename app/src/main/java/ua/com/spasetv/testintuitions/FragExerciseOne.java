@@ -72,7 +72,7 @@ public class FragExerciseOne extends Fragment
     private OnExerciseFinishListener onExerciseFinishListener;
 
     private int sndCorrect, sndWrong;
-    private byte numberOfQuestion = 0;
+    private byte numberOfQuestion = 23;
     private byte totalCorrectAnswers = 0;
     private byte[] arrayCorrectAnswers;
     private final static byte MOON_BUTTON = 0;
@@ -100,8 +100,8 @@ public class FragExerciseOne extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup,
                              Bundle saveInstanceState){
 
-        float txtSize = new DisplayMetrics(getActivity().getWindowManager()).getSizeTask();
-        float txtSizePrgrs = new DisplayMetrics(getActivity().getWindowManager()).getSizeSubTitle();
+        float txtSize = new DisplayMetrics(getActivity().getWindowManager()).getSizeTextH2();
+        float txtSizePrgrs = new DisplayMetrics(getActivity().getWindowManager()).getSizeTextH4();
         int widthImage = new DisplayMetrics(getActivity().getWindowManager()).getWidthImage();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -151,7 +151,7 @@ public class FragExerciseOne extends Fragment
         progressBarExOne.getLayoutParams().width = widthImage;
         progressBarExOne.getLayoutParams().height = widthImage;
 
-        mainActivity = (MainActivity) getActivity();
+        if(getActivity()!=null){ mainActivity = (MainActivity) getActivity(); }
 
         overrideActionBar();
         setProgressBar(numberOfQuestion);
@@ -213,7 +213,7 @@ public class FragExerciseOne extends Fragment
             }
             Log.d("TG", "n = "+numberOfQuestion+" -end!");
             setProgressBar(numberOfQuestion);
-            imgExOneQuestion.startAnimation(animPause);
+            imgExOneMoon.startAnimation(animPause);
         }
     }
 
@@ -274,7 +274,7 @@ public class FragExerciseOne extends Fragment
         }else {
             if(animation == animPause) {
                 Log.d("TG", "totalCorrectAnswers = " + totalCorrectAnswers);
-                onExerciseFinishListener.onExerciseFinish(FRAGMENT_EXERCISE_ONE);
+                onExerciseFinishListener.onExerciseFinish(FRAGMENT_EXERCISE_ONE, totalCorrectAnswers);
             }
         }
         vibrator.cancel();

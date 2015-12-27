@@ -25,5 +25,5 @@ package ua.com.spasetv.testintuitions.tools;
  */
 
 public interface OnExerciseFinishListener {
-    void onExerciseFinish(byte idFragment);
+    void onExerciseFinish(byte idFragment, byte correctAnswers);
 }
