@@ -18,6 +18,7 @@ package ua.com.spasetv.testintuitions.tools;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import ua.com.spasetv.testintuitions.R;
 
@@ -55,6 +57,10 @@ public class CardsAdapter implements StaticFields {
 //        float elevation = displayMetrics.getElevation();
         float sizeTitle = displayMetrics.getSizeTextH1();
         float sizeSubTitle = displayMetrics.getSizeTextH4();
+        if(Locale.getDefault() != Locale.ENGLISH) {
+            sizeTitle = displayMetrics.getSizeTextH2();
+            sizeSubTitle = (sizeSubTitle*80)/100;
+        }
         float widthDisplay = displayMetrics.getWidthDisplay();
 //        float heightDisplay = displayMetrics.getHeightDisplay();
 //        float dpiDisplay = displayMetrics.getDpiDisplay();

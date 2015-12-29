@@ -26,7 +26,7 @@
     <!-- Color for circle indicators -->
     <color name="colorGreen">#00ff00</color>
     <color name="colorYellow">#FFFF00</color>
-    <color name="colorOrange">#FF7000</color>
+    <color name="colorOrange">#FF9090</color>
     <color name="colorRed">#ff0000</color>
     <color name="colorWhite">#f0f0f0</color>
 

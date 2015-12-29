@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">Improve intuition</string>
-    <string name="action_settings">Settings</string>
 
     <!-- Text for Cards on Main Screen -->
     <string name="titleAbout">About Intuition</string>
-    <string name="descriptionAbout">How improve your Six Sense - read more...</string>
+    <string name="descriptionAbout">How improve your Sixth Sense - read more (&#8230;)</string>
 
     <string name="titleExerciseOne">Exercise one</string>
     <string name="titleExerciseTwo">Exercise two</string>
@@ -22,10 +21,12 @@
     <string name="descriptionStat">Enable Statistic for each exercises.</string>
     <string name="descriptionStat2">Enable statistic of each exercises and turn off all advertising.</string>
 
+    <!-- Text for Pause screen -->
+    <string name="txtWait">Initialization</string>
+
     <!-- Text for Exercise One -->
     <string name="textExOneHead">
-        Listen to your Intuition\n
-        And make your choice\n\n
+        Listen to your Intuition\n\n
         Pick one of the two images
     </string>
     <string name="textExOneOr">or</string>
@@ -48,12 +49,17 @@
     <string name="textSummarySecondEx">Exercise: \"Four from Nine\"</string>
     <string name="textSummaryThirdEx">Exercise: \"One from Five\"</string>
     <string name="textSummaryAchievement">Your achievement</string>
+
+    <string name="textCorrectAnswers">Right answers among all</string>
+    <string name="textBestResult">Your best result was</string>
+    <string name="textYourSkill">Your accumulated skill</string>
+    <string name="textYourSkillSub">(accumulated from the past seven days of training)</string>
+
     <string name="textSummaryBest">Best</string>
     <string name="textSummarySkill">Skill 0% \n (still \n 7 days)</string>
-    <string name="textSummarySubSkill">
-        /Accumulated skill from the past seven days of training/
-    </string>
-
+    <string name="textStill">(still</string>
+    <string name="btnAgain">Once Again</string>
+    <string name="btnMain">Main menu</string>
 
     <!-- Text for indicators (level and frequency) -->
     <string name="textIndicatorEasy">easy</string>

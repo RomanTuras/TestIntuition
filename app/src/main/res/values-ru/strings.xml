@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">Тренажер Интуиции</string>
+
+    <!-- Text for Cards on Main Screen -->
+    <string name="titleAbout">Развитие Интуиции</string>
+    <string name="descriptionAbout">Как тренировать свое Шестое Чувство - читать далее (&#8230;)</string>
+
+    <string name="titleExerciseOne">Один из двух</string>
+    <string name="titleExerciseTwo">Четыре из девяти</string>
+    <string name="titleExerciseThree">Один из пяти</string>
+    <string name="titleResults">Результаты</string>
+    <string name="titleStatistic">Статистика</string>
+
+    <string name="skillBegin">(тренируйся</string>
+    <string name="skillDays">дней)</string>
+    <string name="skillDay">день)</string>
+    <string name="skill">Навык:</string>
+
+
+    <string name="titleEnableStat">Enable Statistic</string>
+    <string name="descriptionStat">Enable Statistic for each exercises.</string>
+    <string name="descriptionStat2">Enable statistic of each exercises and turn off all advertising.</string>
+
+    <!-- Text for Pause screen -->
+    <string name="txtWait">Инициализация</string>
+
+    <!-- Text for Exercise One -->
+    <string name="textExOneHead">
+        Прислушайся к своей Интуиции\n\n
+        Выбери одну из двух картинок
+    </string>
+    <string name="textExOneOr">или</string>
+
+    <!-- Text for Exercise Two -->
+    <string name="textExTwoHead">
+        Слушай свой Внутренний Голос\n
+        Открой четыре картинки -\n
+        найди четыре смайлика
+    </string>
+
+    <!-- Text for Exercise Three -->
+    <string name="textExThreeHead">
+        Что говорит твоя Интуиция?\n
+        Выбери одну из пяти картинок
+    </string>
+
+    <!-- Text for Result Fragment -->
+    <string name="textSummaryFirstEx">Упражнение: \"Один из двух\"</string>
+    <string name="textSummarySecondEx">Упражнение: \"Четыре из девяти\"</string>
+    <string name="textSummaryThirdEx">Упражнение: \"Один из пяти\"</string>
+    <string name="textSummaryAchievement">Достижения</string>
+
+    <string name="textCorrectAnswers">Правильные ответы</string>
+    <string name="textBestResult">Рекордный результат</string>
+    <string name="textYourSkill">Накопленный опыт</string>
+    <string name="textYourSkillSub">(среднее значение за семь дней тренировок)</string>
+
+    <string name="textSummaryBest">Лучший</string>
+    <string name="textSummarySkill">Навык 0% \n (делай \n 7 дней)</string>
+    <string name="textStill">(еще</string>
+    <string name="btnAgain">Once Again</string>
+    <string name="btnMain">Main menu</string>
+
+    <!-- Text for indicators (level and frequency) -->
+    <string name="textIndicatorEasy">простой</string>
+    <string name="textIndicatorNormal">средний</string>
+    <string name="textIndicatorHard">сложный</string>
+
+    <string name="textIndicatorNever">никогда</string>
+    <string name="textIndicatorToday">сегодня</string>
+    <string name="textIndicatorYesterday">вчера</string>
+    <string name="textIndicatorDaysEgo">позавчера</string>
+    <string name="textIndicatorLongTime">давно</string>
+    <string name="textIndicatorStore">store</string>
+    <string name="textIndicatorAbout">справка</string>
+
+
+</resources>

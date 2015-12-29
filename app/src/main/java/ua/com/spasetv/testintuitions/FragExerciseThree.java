@@ -28,7 +28,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import ua.com.spasetv.testintuitions.google_services.Analytics;
 import ua.com.spasetv.testintuitions.helpers.DataBaseHelper;
 import ua.com.spasetv.testintuitions.helpers.RndHelper;
 import ua.com.spasetv.testintuitions.tools.DisplayMetrics;
@@ -75,7 +75,7 @@ public class FragExerciseThree extends Fragment
 
     private int sndCorrect, sndWrong;
     private int widthImage;
-    private byte numberOfQuestion = 18;
+    private byte numberOfQuestion = 0;
     private byte totalCorrectAnswers = 0;
     private byte[] arrayAnswers;
     private final static byte STAR_BUTTON = 0;
@@ -154,8 +154,8 @@ public class FragExerciseThree extends Fragment
         overrideActionBar();
         setProgressBar(numberOfQuestion);
         initButton();
-        printArrayCorrect();
 
+        new Analytics(getActivity()).sendAnalytics("Test Intuition","One from Five","Start", "nop");
         return view;
     }
 
@@ -202,14 +202,8 @@ public class FragExerciseThree extends Fragment
         return false;
     }
 
-    //TODO delete this method and links to him, before production
-    private void printArrayCorrect() {
-        for(byte i: arrayAnswers){Log.d("TG", " --> "+i);}
-    }
-
     private void checkAnswer(int item){
         if(++numberOfQuestion < TOTAL_QUESTIONS_EX_THREE){
-            Log.d("TG", "numberOfQuestion = "+(numberOfQuestion-1));
             showCorrectImage(item);
         }else {
             isOnTouchKeyOn = false;
@@ -219,7 +213,6 @@ public class FragExerciseThree extends Fragment
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Log.d("TG", "numberOfQuestion = "+(numberOfQuestion-1)+" -end!");
             showCorrectImage(item);
             arrayButtons.get(0).startAnimation(animPause);
             setProgressBar(numberOfQuestion);
@@ -230,13 +223,9 @@ public class FragExerciseThree extends Fragment
         isOnTouchKeyOn = false;
         int correctAnswer = arrayAnswers[numberOfQuestion-1];
         if(correctAnswer == item){
-            Log.d("TG", "Correct!");
-            Log.d("TG", "arr= "+ correctAnswer+" btn="+item);
             soundPool.play(sndCorrect,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
             totalCorrectAnswers++;
         }else{
-            Log.d("TG", "Wrong! ");
-            Log.d("TG", "arr= "+ correctAnswer+" btn="+item);
             soundPool.play(sndWrong,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
             vibrator.vibrate(200);
         }
@@ -290,7 +279,6 @@ public class FragExerciseThree extends Fragment
     public void onAnimationEnd(Animation animation) {
         if(!isLastQuestion) {
             if (animation == animScaleIn) {
-                Log.d("TG", "animScaleIn - end");
                 imgQuestion.startAnimation(animScaleOutOffset);
             }else if (animation == animScaleOutOffset) {
                 imgQuestion.setImageResource(R.drawable.ic_help_outline_black_24dp);
@@ -301,7 +289,6 @@ public class FragExerciseThree extends Fragment
             }
         }else {
             if(animation == animPause) {
-                Log.d("TG", "totalCorrectAnswers = " + totalCorrectAnswers);
                 onExerciseFinishListener.onExerciseFinish(FRAGMENT_EXERCISE_THREE,
                         totalCorrectAnswers);
             }
@@ -314,7 +301,6 @@ public class FragExerciseThree extends Fragment
         SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy");
         Date d = new Date();
         String date = sdf.format(d);
-        Log.d("TG", "Result: date - "+sdf.format(d)+"; skill - "+resultPercent);
         database = dataBaseHelper.getReadableDatabase();
         contentValues.put(COLUMN_DATE, date);
         contentValues.put(COLUMN_RESULT, resultPercent);

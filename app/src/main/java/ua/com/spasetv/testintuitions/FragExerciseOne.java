@@ -28,7 +28,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -42,6 +41,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import ua.com.spasetv.testintuitions.google_services.Analytics;
 import ua.com.spasetv.testintuitions.helpers.DataBaseHelper;
 import ua.com.spasetv.testintuitions.helpers.RndHelper;
 import ua.com.spasetv.testintuitions.tools.DisplayMetrics;
@@ -72,7 +72,7 @@ public class FragExerciseOne extends Fragment
     private OnExerciseFinishListener onExerciseFinishListener;
 
     private int sndCorrect, sndWrong;
-    private byte numberOfQuestion = 23;
+    private byte numberOfQuestion = 0;
     private byte totalCorrectAnswers = 0;
     private byte[] arrayCorrectAnswers;
     private final static byte MOON_BUTTON = 0;
@@ -156,6 +156,7 @@ public class FragExerciseOne extends Fragment
         overrideActionBar();
         setProgressBar(numberOfQuestion);
 
+        new Analytics(getActivity()).sendAnalytics("Test Intuition","One from Two","Start", "nop");
         return view;
     }
 
@@ -188,16 +189,11 @@ public class FragExerciseOne extends Fragment
 
     private void checkAnswer(int nameButton){
         if(++numberOfQuestion <= TOTAL_QUESTIONS_EX_ONE){
-            Log.d("TG", "n = "+numberOfQuestion);
             if(arrayCorrectAnswers[numberOfQuestion-1] == nameButton){
-                Log.d("TG", "Correct!");
-                Log.d("TG", "arr= "+arrayCorrectAnswers[numberOfQuestion-1]+" btn="+nameButton);
                 soundPool.play(sndCorrect,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
                 totalCorrectAnswers++;
                 showCorrectImage(arrayCorrectAnswers[numberOfQuestion-1]);
             }else {
-                Log.d("TG", "Wrong! ");
-                Log.d("TG", "arr= "+arrayCorrectAnswers[numberOfQuestion-1]+" btn="+nameButton);
                 soundPool.play(sndWrong,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
                 vibrator.vibrate(200);
                 showCorrectImage(arrayCorrectAnswers[numberOfQuestion-1]);
@@ -211,7 +207,6 @@ public class FragExerciseOne extends Fragment
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Log.d("TG", "n = "+numberOfQuestion+" -end!");
             setProgressBar(numberOfQuestion);
             imgExOneMoon.startAnimation(animPause);
         }
@@ -273,7 +268,6 @@ public class FragExerciseOne extends Fragment
             }
         }else {
             if(animation == animPause) {
-                Log.d("TG", "totalCorrectAnswers = " + totalCorrectAnswers);
                 onExerciseFinishListener.onExerciseFinish(FRAGMENT_EXERCISE_ONE, totalCorrectAnswers);
             }
         }
@@ -285,7 +279,6 @@ public class FragExerciseOne extends Fragment
         SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy");
         Date d = new Date();
         String date = sdf.format(d);
-        Log.d("TG", "date: "+sdf.format(d));
         database = dataBaseHelper.getReadableDatabase();
         contentValues.put(COLUMN_DATE, date);
         contentValues.put(COLUMN_RESULT, resultPercent);

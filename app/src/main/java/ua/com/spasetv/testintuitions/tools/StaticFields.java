@@ -82,11 +82,10 @@ public interface StaticFields {
     String COLUMN_RESULT = "result";
 
     /* ADS, Analytics & debug key */
-    /* TODO: set isDebugModeOn = FALSE , before add app to production */
-
-    String AD_UNIT_ID = "ca-app-pub-748105251765XXXX/781875XXXX";
-    String TRACK_ID = "UA-6647XXXX-2";
+    /* TO_DO: set isDebugModeOn = FALSE , before add app to production */
+    String AD_UNIT_ID = "ca-app-pub-7481052517653982/7765784599";
+    String TRACK_ID = "UA-66472933-3";
     String TEST_DEVICE = "77A1F05FE188A3F51A0FF103708EDEF9";
-    boolean isDebugModeOn = true;
+    boolean isDebugModeOn = false;
 
 }

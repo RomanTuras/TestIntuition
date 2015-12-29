@@ -21,18 +21,23 @@ import android.content.ContentValues;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import ua.com.spasetv.testintuitions.google_services.Ads;
+import ua.com.spasetv.testintuitions.google_services.Analytics;
 import ua.com.spasetv.testintuitions.helpers.DataBaseHelper;
 import ua.com.spasetv.testintuitions.tools.DisplayMetrics;
 import ua.com.spasetv.testintuitions.tools.ExTextView;
+import ua.com.spasetv.testintuitions.tools.Skill;
 import ua.com.spasetv.testintuitions.tools.StaticFields;
 
 /**
@@ -41,23 +46,28 @@ import ua.com.spasetv.testintuitions.tools.StaticFields;
  *
  * Displays the results of exercise.
  * Parameter - idFragment - passed from bundle.
- * This is class must be polymorphic... we see..
  */
 
 public class FragResultExercises extends Fragment
-        implements StaticFields {
+        implements StaticFields, ViewTreeObserver.OnPreDrawListener {
 
-    Activity activity;
+//    private OnExerciseFinishListener onExerciseFinishListener;
+
+    private Activity activity;
+    private ViewTreeObserver observer;
     private MainActivity mainActivity;
     private Ads ads;
     private Resources res;
     private DataBaseHelper dataBaseHelper;
     private ContentValues contentValues;
     private SQLiteDatabase database;
+    private View view;
+    private ImageView imgGraph;
     private ProgressBar progressSummaryTotal, progressSummaryPercent,
             progressSummaryBest, progressSummarySkill;
     private ExTextView textSummaryHead, textSummaryYourAnswers, textProgressSummaryTotal,
-           textProgressSummaryPercent, textProgressSummaryBest, textProgressSummarySkill;
+           textProgressSummaryPercent, textProgressSummaryBest, textProgressSummarySkill,
+           textCorrectAnswers, textBestResult, textYourSkill, textYourSkillSub;
 
     private byte correctAnswers;
     private int bestPercent;
@@ -75,8 +85,13 @@ public class FragResultExercises extends Fragment
             this.idFragment = bundle.getInt(ID_FRAGMENT);
             this.correctAnswers = bundle.getByte(CORRECT_ANSW);
         }
-        Log.d("TG", "idFragment = "+idFragment);
-//        ads = new Ads(getActivity());
+//        try {
+//            onExerciseFinishListener = (OnExerciseFinishListener) activity;
+//        } catch (ClassCastException e) {
+//            throw new ClassCastException(activity.toString()
+//                    + " must implement OnExerciseFinishListener");
+//        }
+        ads = new Ads(getActivity());
 
     }
 
@@ -89,7 +104,12 @@ public class FragResultExercises extends Fragment
         float txtSizeH6 = new DisplayMetrics(getActivity().getWindowManager()).getSizeTextH6();
         int widthImage = new DisplayMetrics(getActivity().getWindowManager()).getWidthImage();
         int widthProgress = widthImage + (widthImage*10)/100;
-        View view = inflater.inflate(R.layout.fragment_result_exercise, null);
+        view = inflater.inflate(R.layout.fragment_result_exercise, null);
+
+//        imgGraph = (ImageView) view.findViewById(R.id.imgGraph);
+//        observer = imgGraph.getViewTreeObserver();
+//        observer.addOnPreDrawListener(this);
+
         if(getActivity()!=null){ mainActivity = (MainActivity) getActivity(); }
 
         textSummaryHead = (ExTextView) view.findViewById(R.id.textSummaryHead);
@@ -104,6 +124,7 @@ public class FragResultExercises extends Fragment
         progressSummaryBest = (ProgressBar) view.findViewById(R.id.progressSummaryBest);
         progressSummarySkill = (ProgressBar) view.findViewById(R.id.progressSummarySkill);
 
+
         progressSummaryTotal.getLayoutParams().width = widthProgress;
         progressSummaryTotal.getLayoutParams().height = widthProgress;
         progressSummaryPercent.getLayoutParams().width = widthProgress;
@@ -114,11 +135,31 @@ public class FragResultExercises extends Fragment
         progressSummarySkill.getLayoutParams().height = widthProgress;
 
         textSummaryHead.setTextSize(txtSizeH2);
-        textSummaryYourAnswers.setTextSize(txtSizeH4);
-        textProgressSummaryTotal.setTextSize(txtSizeH4);
-        textProgressSummaryPercent.setTextSize(txtSizeH4);
+        textSummaryYourAnswers.setTextSize(txtSizeH2);
+        textProgressSummaryTotal.setTextSize(txtSizeH3);
+        textProgressSummaryPercent.setTextSize(txtSizeH3);
         textProgressSummaryBest.setTextSize(txtSizeH6);
         textProgressSummarySkill.setTextSize(txtSizeH6);
+
+        //********
+//        btnAgain = (Button) view.findViewById(R.id.btnAgain);
+//        btnMain = (Button) view.findViewById(R.id.btnMain);
+//        btnAgain.setOnClickListener(this);
+//        btnMain.setOnClickListener(this);
+//        btnAgain.getLayoutParams().height = widthProgress/2;
+//        btnMain.getLayoutParams().height = widthProgress/2;
+//        btnMain.setTextSize(txtSizeH3);
+//        btnAgain.setTextSize(txtSizeH3);
+
+        textCorrectAnswers = (ExTextView) view.findViewById(R.id.textCorrectAnswers);
+        textBestResult = (ExTextView) view.findViewById(R.id.textBestResult);
+        textYourSkill = (ExTextView) view.findViewById(R.id.textYourSkill);
+        textYourSkillSub = (ExTextView) view.findViewById(R.id.textYourSkillSub);
+        textCorrectAnswers.setTextSize(txtSizeH3);
+        textBestResult.setTextSize(txtSizeH3);
+        textYourSkill.setTextSize(txtSizeH3);
+        textYourSkillSub.setTextSize(txtSizeH4);
+        //*********
 
         overrideActionBar();
 
@@ -130,7 +171,23 @@ public class FragResultExercises extends Fragment
             case FRAGMENT_EXERCISE_THREE: setExerciseThree();
                 break;
         }
+
         return view;
+    }
+
+    private void getBitmap(int width, int height) {
+        Bitmap bitmap = null;
+    }
+
+    @Override
+    public boolean onPreDraw() {
+        Log.d("TG", "width = "+imgGraph.getWidth());
+        Log.d("TG", "height = "+imgGraph.getHeight());
+        getBitmap(imgGraph.getWidth(), imgGraph.getHeight());
+        observer = imgGraph.getViewTreeObserver();
+        observer.removeOnPreDrawListener(this);
+
+        return false;
     }
 
     private void setExerciseOne() {
@@ -141,6 +198,10 @@ public class FragResultExercises extends Fragment
         setProgressTotal(txt, max);
         setProgressPercent(percent);
         setProgressBest(ID_EXERCISE_ONE);
+        setProgressSkill(ID_EXERCISE_ONE);
+
+        new Analytics(getActivity()).sendAnalytics("Test Intuition","One from Two","Result", txt);
+
     }
 
     private void setExerciseTwo() {
@@ -151,6 +212,9 @@ public class FragResultExercises extends Fragment
         setProgressTotal(txt, max);
         setProgressPercent(percent);
         setProgressBest(ID_EXERCISE_TWO);
+        setProgressSkill(ID_EXERCISE_TWO);
+
+        new Analytics(getActivity()).sendAnalytics("Test Intuition","Four from Nine","Result", txt);
     }
 
     private void setExerciseThree() {
@@ -161,6 +225,9 @@ public class FragResultExercises extends Fragment
         setProgressTotal(txt, max);
         setProgressPercent(percent);
         setProgressBest(ID_EXERCISE_THREE);
+        setProgressSkill(ID_EXERCISE_THREE);
+
+        new Analytics(getActivity()).sendAnalytics("Test Intuition","One from Five","Result", txt);
     }
 
     private void setProgressTotal(String txt, int max){
@@ -177,20 +244,21 @@ public class FragResultExercises extends Fragment
     }
 
     private void setProgressBest(byte idExercise){
-        Resources res = getActivity().getResources();
+//        Resources res = getActivity().getResources();
         String bestDate = getBestResult(idExercise);
         String percent = bestPercent + "%";
-        String txt = res.getString(R.string.textSummaryBest) + "\n" + percent + "\n" + bestDate;
+        String txt = percent + "\n" + bestDate;
         progressSummaryBest.setMax(100);
         progressSummaryBest.setProgress(bestPercent);
         textProgressSummaryBest.setText(txt);
     }
 
-    private void setProgressSkill(int percent){
-        String txt = percent+"%";
-        progressSummaryPercent.setMax(100);
-        progressSummaryPercent.setProgress(percent);
-        textProgressSummaryPercent.setText(txt);
+    private void setProgressSkill(byte idExercise){
+        Skill skill = new Skill(activity);
+        String txt = skill.getSkillToResult(idExercise);
+        progressSummarySkill.setMax(100);
+        progressSummarySkill.setProgress(skill.getSkillPercent(idExercise));
+        textProgressSummarySkill.setText(txt);
     }
 
     private String getBestResult(byte idExercise) {

@@ -36,7 +36,6 @@ public class DataBaseHelper extends SQLiteOpenHelper implements StaticFields{
         mContext = context;
     }
 
-    /** TODO - delete this method before release to prodaction */
     private void setTestDataExOne(){
         SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy");
         Date d = new Date();
@@ -61,14 +60,12 @@ public class DataBaseHelper extends SQLiteOpenHelper implements StaticFields{
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(d);
         calendar.add(Calendar.DATE, -1);
-        Log.d("TG", "date -1 : "+sdf.format(calendar.getTime()));
 
         mContentValues.put(COLUMN_DATE, sdf.format(calendar.getTime()));
         mContentValues.put(COLUMN_RESULT, 40);
         mDataBase.insert(TABLE_NAME_EX_TWO, null, mContentValues);
 
         calendar.add(Calendar.DATE, -1);
-        Log.d("TG", "date -1 : "+sdf.format(calendar.getTime()));
         mContentValues.put(COLUMN_DATE, sdf.format(calendar.getTime()));
         mContentValues.put(COLUMN_RESULT, 37);
         mDataBase.insert(TABLE_NAME_EX_THREE, null, mContentValues);
@@ -77,8 +74,6 @@ public class DataBaseHelper extends SQLiteOpenHelper implements StaticFields{
     }
 
     private void saveOldData(String oldData) {
-        Log.d("DataBaseHelper: ", " -  save data from old file");
-
         mDataBase = this.getWritableDatabase();
         mVers = mDataBase.getVersion();
         long rowId;
@@ -101,6 +96,7 @@ public class DataBaseHelper extends SQLiteOpenHelper implements StaticFields{
             mContentValues.put(COLUMN_RESULT, bestResult);
             mDataBase.insert(TABLE_NAME_EX_TWO, null, mContentValues);
         }
+        cursor.close();
         mDataBase.close();
     }
 
@@ -134,7 +130,6 @@ public class DataBaseHelper extends SQLiteOpenHelper implements StaticFields{
         String oldData;
         File oldFile = new File(pathOldFile);
         if(oldFile.exists()){
-            Log.d("DataBaseHelper: ", "Olf file -  "+oldFile.toString()+"  found!");
             BufferedReader br=new BufferedReader(new FileReader(oldFile));
             oldData = br.readLine();
             br.close();
@@ -145,24 +140,19 @@ public class DataBaseHelper extends SQLiteOpenHelper implements StaticFields{
 
     public void createDataBase() throws IOException {
         if (!checkDataBase()) {
-            setTestDataExOne();
             try {
                 String oldData = findOldFile();
                 if(oldData != null) saveOldData(oldData);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+//            setTestDataExOne();
         }
     }
 
     /** Checking availability of database file and return true if it is */
     private boolean checkDataBase() {
         File dbFile = mContext.getDatabasePath(mPath);
-        if(dbFile.exists()){
-            Log.d("DataBaseHelper: ", mPath + " -  Successfully found!");
-        }else{
-            Log.d("DataBaseHelper: ", mPath + " -  NOT found, create default!");
-        }
         return dbFile.exists();
     }
 

@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="0dp"
         cardView:cardElevation="7dp"
-        cardView:cardBackgroundColor="@color/colorFragmentAboutBackground"
+        cardView:cardBackgroundColor="@color/colorPrimaryBackground"
         cardView:cardCornerRadius="2dp"
         cardView:cardUseCompatPadding="true" >
 
@@ -44,14 +44,14 @@
                     android:paddingTop="5dp"
                     android:paddingLeft="7dp"
                     android:paddingRight="7dp"
-                    android:textColor="@color/colorFontFragmentAbout"
+                    android:textColor="#000000"
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:longClickable="false"
                     android:id="@+id/textAboutOne" />
 
-                <include layout="@layout/paragraph_separate" />
+                <include layout="@xml/paragraph_separate" />
 
                 <ua.com.spasetv.testintuitions.tools.ExTextView
                     android:layout_width="match_parent"
@@ -60,14 +60,14 @@
                     android:paddingTop="5dp"
                     android:paddingLeft="7dp"
                     android:paddingRight="7dp"
-                    android:textColor="@color/colorFontFragmentAbout"
+                    android:textColor="#000000"
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:longClickable="false"
                     android:id="@+id/textAboutTwo" />
 
-                <include layout="@layout/paragraph_separate" />
+                <include layout="@xml/paragraph_separate" />
 
                 <ua.com.spasetv.testintuitions.tools.ExTextView
                     android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                     android:paddingTop="5dp"
                     android:paddingLeft="7dp"
                     android:paddingRight="7dp"
-                    android:textColor="@color/colorFontFragmentAbout"
+                    android:textColor="#000000"
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"

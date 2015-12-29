@@ -17,7 +17,7 @@
         android:focusable="false"
         android:layout_marginTop="0dp"
         cardView:cardUseCompatPadding="true"
-        cardView:cardElevation="15dp"
+        cardView:cardElevation="5dp"
         cardView:cardBackgroundColor="@color/colorBackgroundSummary"
         cardView:cardCornerRadius="2dp" >
 
@@ -43,6 +43,7 @@
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:longClickable="false"
+                    android:textColor="#000000"
                     android:text="@string/textSummaryFirstEx"
                     android:id="@+id/textSummaryHead"
                     android:gravity="center_horizontal" />
@@ -52,12 +53,27 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingTop="0dp"
+                    android:textColor="#000000"
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:longClickable="false"
                     android:text="@string/textSummaryAchievement"
                     android:id="@+id/textSummaryYourAnswers"
+                    android:gravity="center_horizontal" />
+
+                <ua.com.spasetv.testintuitions.tools.ExTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="10dp"
+                    android:textColor="#000000"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"
+                    android:text="@string/textCorrectAnswers"
+                    android:id="@+id/textCorrectAnswers"
                     android:gravity="center_horizontal" />
 
                 <LinearLayout
@@ -86,6 +102,7 @@
                         <ua.com.spasetv.testintuitions.tools.ExTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="#000000"
                             android:clickable="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
@@ -117,6 +134,7 @@
                         <ua.com.spasetv.testintuitions.tools.ExTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="#000000"
                             android:clickable="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
@@ -127,6 +145,27 @@
                             android:layout_gravity="center"
                             android:textSize="10sp" />
                     </FrameLayout>
+
+                </LinearLayout>
+
+                <ua.com.spasetv.testintuitions.tools.ExTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="10dp"
+                    android:textColor="#000000"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"
+                    android:text="@string/textBestResult"
+                    android:id="@+id/textBestResult"
+                    android:gravity="center_horizontal" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
                     <FrameLayout
                         android:id="@+id/frame3"
@@ -143,11 +182,13 @@
                             android:background="@drawable/circle_shape"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:max="100"
-                            android:progress="59" />
+                            android:progress="59"
+                            android:layout_gravity="center" />
 
                         <ua.com.spasetv.testintuitions.tools.ExTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="#000000"
                             android:clickable="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
@@ -158,6 +199,40 @@
                             android:layout_gravity="center"
                             android:textSize="8sp" />
                     </FrameLayout>
+                </LinearLayout>
+
+                <ua.com.spasetv.testintuitions.tools.ExTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="10dp"
+                    android:textColor="#000000"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"
+                    android:text="@string/textYourSkill"
+                    android:id="@+id/textYourSkill"
+                    android:gravity="center_horizontal" />
+
+                <ua.com.spasetv.testintuitions.tools.ExTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="0dp"
+                    android:textColor="#000000"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"
+                    android:text="@string/textYourSkillSub"
+                    android:id="@+id/textYourSkillSub"
+                    android:gravity="center_horizontal" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
                     <FrameLayout
                         android:id="@+id/frame4"
@@ -174,11 +249,13 @@
                             android:background="@drawable/circle_shape"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:max="100"
-                            android:progress="0" />
+                            android:progress="0"
+                            android:layout_gravity="center" />
 
                         <ua.com.spasetv.testintuitions.tools.ExTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="#000000"
                             android:clickable="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
@@ -196,9 +273,11 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical|center_horizontal">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="3dp">
+
             </LinearLayout>
 
         </LinearLayout>

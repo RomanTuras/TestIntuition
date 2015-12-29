@@ -26,8 +26,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -36,8 +34,10 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+import ua.com.spasetv.testintuitions.google_services.Analytics;
 import ua.com.spasetv.testintuitions.helpers.DataBaseHelper;
 import ua.com.spasetv.testintuitions.tools.CardsAdapter;
+import ua.com.spasetv.testintuitions.tools.DisplayMetrics;
 import ua.com.spasetv.testintuitions.tools.InitCardViewItems;
 import ua.com.spasetv.testintuitions.tools.OnExerciseFinishListener;
 import ua.com.spasetv.testintuitions.tools.StaticFields;
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private Toolbar toolbar;
-    private LinearLayout cardsContainer;
+    private LinearLayout cardsContainer, layoutWait;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity
 
         cardsContainer = (LinearLayout) findViewById(R.id.cards_container);
 
+        layoutWait = (LinearLayout) findViewById(R.id.layoutWait);
+
         overrideActionBar(MAIN_ACTIVITY);
 
         try {
@@ -74,7 +76,19 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-        refreshMainScreen();
+        showPauseScreen();
+        DisplayMetrics metrics = new DisplayMetrics(getWindowManager());
+        String label = "h: " + metrics.getHeightDisplay() + " x w: " +
+                metrics.getWidthDisplay() + " x d: " + metrics.getDpiDisplay();
+        new Analytics(this).sendAnalytics("Test Intuition","Main Screen","Start app", label);
+    }
+
+    private void showPauseScreen() {
+        layoutWait.setVisibility(View.VISIBLE);
+    }
+
+    private void hidePauseScreen() {
+        layoutWait.setVisibility(View.GONE);
     }
 
     public void refreshMainScreen(){
@@ -112,8 +126,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
         t.start();
-
-
     }
 
     /**Set new title and show back-arrow or app-icon to ActionBar depending from attached fragment*/
@@ -158,16 +170,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
-        if (id == R.id.action_settings){
+        if (id == 0){
             // some event
         }else if(id == android.R.id.home){
             /**If Home pressed from any fragment - return to the Main Screen*/
@@ -196,7 +203,7 @@ public class MainActivity extends AppCompatActivity
         }else if(getSupportActionBar().getTitle().equals(title)) finish();
     }
 
-    private void replaceFragment(byte idFragment, byte totalCorrectAnswers) {
+    private void callFragmentResult(byte idFragment, byte totalCorrectAnswers) {
         if (fragment != null) {
             Bundle bundle = new Bundle();
             switch (idFragment){
@@ -280,16 +287,13 @@ public class MainActivity extends AppCompatActivity
     public void onExerciseFinish(byte idFragment, byte totalCorrectAnswers) {
         switch (idFragment){
             case FRAGMENT_EXERCISE_ONE:
-                Log.d("TG", "ID_EXERCISE_ONE finish!  Start Frag Result..");
-                replaceFragment(FRAGMENT_EXERCISE_ONE, totalCorrectAnswers);
+                callFragmentResult(FRAGMENT_EXERCISE_ONE, totalCorrectAnswers);
                 break;
             case FRAGMENT_EXERCISE_TWO:
-                Log.d("TG", "ID_EXERCISE_TWO finish!  Start Frag Result..");
-                replaceFragment(FRAGMENT_EXERCISE_TWO, totalCorrectAnswers);
+                callFragmentResult(FRAGMENT_EXERCISE_TWO, totalCorrectAnswers);
                 break;
             case FRAGMENT_EXERCISE_THREE:
-                Log.d("TG", "ID_EXERCISE_TWO finish!  Start Frag Result..");
-                replaceFragment(FRAGMENT_EXERCISE_THREE, totalCorrectAnswers);
+                callFragmentResult(FRAGMENT_EXERCISE_THREE, totalCorrectAnswers);
                 break;
             default:
                 break;
@@ -310,7 +314,10 @@ public class MainActivity extends AppCompatActivity
             super.handleMessage(msg);
             MainActivity activity = wrActivity.get();
             if (activity != null) {
-                if(msg.what == 1) Log.d("TG", "-= MyHandler =- Database OK!");
+                if(msg.what == 1) {
+                    wrActivity.get().hidePauseScreen();
+                    wrActivity.get().refreshMainScreen();
+                }
             }
 
         }

@@ -28,7 +28,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import ua.com.spasetv.testintuitions.google_services.Analytics;
 import ua.com.spasetv.testintuitions.helpers.DataBaseHelper;
 import ua.com.spasetv.testintuitions.helpers.RndHelper;
 import ua.com.spasetv.testintuitions.tools.DisplayMetrics;
@@ -142,6 +142,7 @@ public class FragExerciseTwo extends Fragment
         initExerciseBeforeRepeat();
         setProgressBar(0);
 
+        new Analytics(getActivity()).sendAnalytics("Test Intuition","Four from Nine","Start", "nop");
         return view;
     }
 
@@ -153,7 +154,6 @@ public class FragExerciseTwo extends Fragment
     private void initExerciseBeforeRepeat() {
         this.arrayAnswers = new RndHelper(ID_EXERCISE_TWO).getArrayAnswers();
         numberOpenButton = 0;
-        printArrayCorrect();
     }
 
     /** Find 9 buttons, save their in array, set size to buttons */
@@ -187,17 +187,13 @@ public class FragExerciseTwo extends Fragment
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 int item = arrayButtons.indexOf(view);
                 checkAnswer(item);
-                Log.d("TG", "view id - "+ item);
-                Log.d("TG", "array answers - "+ arrayAnswers[item]);
 
                 view.setOnTouchListener(null); //unset touch listener on the button you pressed
                 if(++numberOpenButton == CORRECT_ANSWERS_EX_TWO) {//four buttons is opened
                     if(++numberRepeatExercise < REPEAT_EX_TWO) {//and going to repeat
                         isOnTouchKeyOn = false;
-                        Log.d("TG", "once again!");
                         arrayButtons.get(item).startAnimation(animPauseBeforeOpenAll);
                     }else {
-                        Log.d("TG", "game over!");
                         isOnTouchKeyOn = false;
                         setProgressBar(numberRepeatExercise);
                         arrayButtons.get(item).startAnimation(animPauseBeforeOpenAll);
@@ -243,9 +239,6 @@ public class FragExerciseTwo extends Fragment
                 }
                 onExerciseFinishListener.onExerciseFinish(FRAGMENT_EXERCISE_TWO,
                         (byte) totalCorrectAnswers);
-                Log.d("TG", "totalCorrectAnswers - "+ totalCorrectAnswers);
-                Log.d("TG", "skill - "+
-                        (totalCorrectAnswers*100)/(CORRECT_ANSWERS_EX_TWO * REPEAT_EX_TWO));
             }
         }
     }
@@ -277,20 +270,13 @@ public class FragExerciseTwo extends Fragment
             soundPool.play(sndCorrect,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
             arrayButtons.get(item).setImageResource(R.drawable.smile_48dp);
             totalCorrectAnswers++;
-            Log.d("TG", "Correct!");
         }else { //incorrect answer
             soundPool.play(sndWrong,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
             vibrator.vibrate(200);
             arrayButtons.get(item).setImageResource(R.drawable.no_smile_48dp);
-            Log.d("TG", "Wrong! ");
         }
         arrayButtons.get(item).startAnimation(animScaleIn);
         isOnTouchKeyOn = true;
-    }
-
-    //TODO delete this method and links to him, before production
-    private void printArrayCorrect() {
-        for(byte i: arrayAnswers){Log.d("TG", " --> "+i);}
     }
 
     private void setProgressBar(int progress){
@@ -306,7 +292,6 @@ public class FragExerciseTwo extends Fragment
         SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy");
         Date d = new Date();
         String date = sdf.format(d);
-        Log.d("TG", "date: " + sdf.format(d));
         database = dataBaseHelper.getReadableDatabase();
         contentValues.put(COLUMN_DATE, date);
         contentValues.put(COLUMN_RESULT, resultPercent);

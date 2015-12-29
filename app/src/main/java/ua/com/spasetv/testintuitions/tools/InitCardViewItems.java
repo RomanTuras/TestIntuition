@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,7 +43,6 @@ public class InitCardViewItems implements StaticFields{
     private String todayDate;
     private Calendar calendar;
     private Resources resources;
-    private int[] skill = new int[3];
 
     public InitCardViewItems(Context context) {
         this.context = context;
@@ -61,7 +59,7 @@ public class InitCardViewItems implements StaticFields{
     public void initCardViewItems() {
         initFirstCard();
         initCardsOfExercises();
-        initAboutCard();
+//        initStoreCard();
     }
 
     /** Fill a first card (Card About) */
@@ -109,7 +107,7 @@ public class InitCardViewItems implements StaticFields{
     }
 
     /** Fill a last card (Statistic -> store) */
-    private void initAboutCard() {
+    private void initStoreCard() {
         cardViewData.add(new ListData(resources.getString(R.string.titleEnableStat),
                 resources.getString(R.string.descriptionStat2),
                 resources.getString(R.string.textIndicatorStore),
@@ -159,7 +157,6 @@ public class InitCardViewItems implements StaticFields{
 
         if(todayDate.equals(date)) {
             txtIndicatorFr = resources.getString(R.string.textIndicatorToday);
-            Log.d("TG", "1) determineDate: date = "+date+", calendar = "+sdf.format(calendar.getTime()));
         }
 
         calendar.setTime(objectDate);
@@ -167,21 +164,15 @@ public class InitCardViewItems implements StaticFields{
         String tmpDate = (sdf.format(calendar.getTime())).toString();
         if(date.equals(tmpDate)){
             txtIndicatorFr = resources.getString(R.string.textIndicatorYesterday);
-            Log.d("TG", "2) determineDate: date = "+date+", calendar = "+sdf.format(calendar.getTime()));
         }
 
         calendar.add(Calendar.DATE, -1);
         tmpDate = (sdf.format(calendar.getTime())).toString();
         if(date.equals(tmpDate)){
             txtIndicatorFr = resources.getString(R.string.textIndicatorDaysEgo);
-            Log.d("TG", "3) determineDate: date = "+date+", calendar = "+sdf.format(calendar.getTime()));
-
         }else if(txtIndicatorFr == null){
             txtIndicatorFr = resources.getString(R.string.textIndicatorLongTime);
-            Log.d("TG", "4) determineDate: date = "+date+", calendar = "+sdf.format(calendar.getTime()));
-
         }
-
         return txtIndicatorFr;
     }
 

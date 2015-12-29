@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import ua.com.spasetv.testintuitions.google_services.Analytics;
 import ua.com.spasetv.testintuitions.tools.DisplayMetrics;
 import ua.com.spasetv.testintuitions.tools.ExTextView;
 import ua.com.spasetv.testintuitions.tools.StaticFields;
@@ -57,6 +58,7 @@ public class FragAbout extends Fragment
         showTextHelp();
         overrideActionBar();
 
+        new Analytics(getActivity()).sendAnalytics("Test Intuition","About","Read help", "nop");
         return view;
     }
 
@@ -70,7 +72,7 @@ public class FragAbout extends Fragment
         ExTextView textAboutTwo = (ExTextView) view.findViewById(R.id.textAboutTwo);
         ExTextView textAboutThree = (ExTextView) view.findViewById(R.id.textAboutThree);
 
-        float textSize = new DisplayMetrics(getActivity().getWindowManager()).getSizeTextH1();
+        float textSize = new DisplayMetrics(getActivity().getWindowManager()).getSizeTextH2();
         textAboutOne.setTextSize(textSize);
         textAboutTwo.setTextSize(textSize);
         textAboutThree.setTextSize(textSize);
