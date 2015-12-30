@@ -10,3 +10,5 @@ Make daily exercises for improving your intuition (about 10 minutes), and your S
 Training of the Intuition - is perseverance, practice and belief in yourself!<br>
 <br>
 Yes, you will arrive with Power of Intuition!
+<br><br>
+![gitsnapshot](https://cloud.githubusercontent.com/assets/13946156/12056552/4f286eac-af40-11e5-8483-d1a1d7722abd.png)
