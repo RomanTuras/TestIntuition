@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+import ua.com.spasetv.testintuitions.google_services.Ads;
 import ua.com.spasetv.testintuitions.google_services.Analytics;
 import ua.com.spasetv.testintuitions.helpers.DataBaseHelper;
 import ua.com.spasetv.testintuitions.tools.CardsAdapter;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity
     private FragmentTransaction fragmentTransaction;
     private Toolbar toolbar;
     private LinearLayout cardsContainer, layoutWait;
+    private Ads ads;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -228,6 +230,7 @@ public class MainActivity extends AppCompatActivity
                 default:
                     break;
             }
+            ads.showAd(); //show ads before Fragment Result
             fragment.setArguments(bundle);
             fragmentTransaction = fragmentManager
                     .beginTransaction();
@@ -255,16 +258,19 @@ public class MainActivity extends AppCompatActivity
             case ITEM_EXERCISE_ONE:
                 fragment = new FragExerciseOne();
                 if(!fragment.isAdded()) addFragment(TAG_EXERCISE_ONE);
+                loadAds();
                 break;
 
             case ITEM_EXERCISE_TWO:
                 fragment = new FragExerciseTwo();
                 if(!fragment.isAdded()) addFragment(TAG_EXERCISE_TWO);
+                loadAds();
                 break;
 
             case ITEM_EXERCISE_THREE:
                 fragment = new FragExerciseThree();
                 if(!fragment.isAdded()) addFragment(TAG_EXERCISE_THREE);
+                loadAds();
                 break;
 
             case ITEM_STATISTIC:
@@ -274,6 +280,11 @@ public class MainActivity extends AppCompatActivity
             default:
                 break;
         }
+    }
+
+    private void loadAds(){
+        ads = new Ads(this);
+        ads.initAds(); // init and preload Ads
     }
 
     private void addFragment(String tag){

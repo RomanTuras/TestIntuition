@@ -91,7 +91,7 @@ public class FragResultExercises extends Fragment
 //            throw new ClassCastException(activity.toString()
 //                    + " must implement OnExerciseFinishListener");
 //        }
-        ads = new Ads(getActivity());
+        new Ads(getActivity()).showAd();
 
     }
 

@@ -33,13 +33,14 @@ public class Ads extends AdListener implements StaticFields {
 
     private InterstitialAd interstitialAd;
     private Context context;
+    private boolean isAdLoaded;
 
     public Ads(Context context) {
         this.context = context;
-        initAds();
+        this.isAdLoaded = false;
     }
 
-    private void initAds() {
+    public void initAds() {
         interstitialAd = new InterstitialAd(context);
         interstitialAd.setAdUnitId(AD_UNIT_ID);
 
@@ -57,6 +58,12 @@ public class Ads extends AdListener implements StaticFields {
 
     @Override
     public void onAdLoaded() {
+        if (interstitialAd != null && interstitialAd.isLoaded()) {
+            this.isAdLoaded = true;
+        }
+    }
+
+    public void showAd(){
         if (interstitialAd != null && interstitialAd.isLoaded()) {
             interstitialAd.show();
         }
