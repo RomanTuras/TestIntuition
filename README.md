@@ -1,6 +1,5 @@
-# TestIntuition
-<b>Test Intuition. <br>
-Exercises for training intuition. <br>
+# Test Intuition
+<b>Exercises for training intuition. <br>
 Improving Of The Sixth Sense. </b>
 <br><br>
 The application presents three exercises for training intuition, with different levels of difficulty.<br>
