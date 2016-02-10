@@ -223,11 +223,11 @@ public class FragExerciseThree extends Fragment
         isOnTouchKeyOn = false;
         int correctAnswer = arrayAnswers[numberOfQuestion-1];
         if(correctAnswer == item){
-            soundPool.play(sndCorrect,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
+            goSound(sndCorrect);
             totalCorrectAnswers++;
         }else{
-            soundPool.play(sndWrong,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
-            vibrator.vibrate(200);
+            goSound(sndWrong);
+            goVibrate();
         }
         imgQuestion.startAnimation(animScaleOut);
         if(correctAnswer == STAR_BUTTON) {
@@ -242,6 +242,18 @@ public class FragExerciseThree extends Fragment
             imgQuestion.setImageResource(R.drawable.circle_48dp);
         }
         imgQuestion.startAnimation(animScaleIn);
+    }
+
+    // Checking settings and play sound or not
+    private void goSound(int soundId){
+        if(MainActivity.is_sound)
+            soundPool.play(soundId,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
+    }
+
+    // Checking settings and do vibrate or not
+    private void goVibrate(){
+        if(MainActivity.is_vibrate)
+            vibrator.vibrate(200);
     }
 
     private void setProgressBar(int progress){
@@ -293,7 +305,7 @@ public class FragExerciseThree extends Fragment
                         totalCorrectAnswers);
             }
         }
-        vibrator.cancel();
+        if(vibrator != null) vibrator.cancel();
     }
 
     private void saveResultExercise() throws IOException{

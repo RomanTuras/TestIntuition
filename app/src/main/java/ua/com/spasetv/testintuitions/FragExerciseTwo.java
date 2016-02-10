@@ -241,11 +241,12 @@ public class FragExerciseTwo extends Fragment
                         (byte) totalCorrectAnswers);
             }
         }
+        if(vibrator != null) vibrator.cancel();
     }
 
     /**Show all answers, count opened smiles, and do pause after that*/
     private void showAllAnswers() {
-        soundPool.play(sndCorrect,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
+        goSound(sndCorrect);
         for(int i = 0; i < arrayAnswers.length; i++) {
             arrayButtons.get(i).startAnimation(animScaleOut);
             if(arrayAnswers[i] == 1) {
@@ -267,16 +268,28 @@ public class FragExerciseTwo extends Fragment
         arrayButtons.get(item).startAnimation(animScaleOut);
         arrayButtons.get(item).setAlpha(1.0f);
         if(arrayAnswers[item] == 1) { //correct answer, show smiley
-            soundPool.play(sndCorrect,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
+            goSound(sndCorrect);
             arrayButtons.get(item).setImageResource(R.drawable.smile_48dp);
             totalCorrectAnswers++;
         }else { //incorrect answer
-            soundPool.play(sndWrong,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
-            vibrator.vibrate(200);
+            goSound(sndWrong);
+            goVibrate();
             arrayButtons.get(item).setImageResource(R.drawable.no_smile_48dp);
         }
         arrayButtons.get(item).startAnimation(animScaleIn);
         isOnTouchKeyOn = true;
+    }
+
+    // Checking settings and play sound or not
+    private void goSound(int soundId){
+        if(MainActivity.is_sound)
+            soundPool.play(soundId,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
+    }
+
+    // Checking settings and do vibrate or not
+    private void goVibrate(){
+        if(MainActivity.is_vibrate)
+            vibrator.vibrate(200);
     }
 
     private void setProgressBar(int progress){

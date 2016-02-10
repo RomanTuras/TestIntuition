@@ -190,12 +190,12 @@ public class FragExerciseOne extends Fragment
     private void checkAnswer(int nameButton){
         if(++numberOfQuestion <= TOTAL_QUESTIONS_EX_ONE){
             if(arrayCorrectAnswers[numberOfQuestion-1] == nameButton){
-                soundPool.play(sndCorrect,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
+                goSound(sndCorrect);
                 totalCorrectAnswers++;
                 showCorrectImage(arrayCorrectAnswers[numberOfQuestion-1]);
             }else {
-                soundPool.play(sndWrong,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
-                vibrator.vibrate(200);
+                goSound(sndWrong);
+                goVibrate();
                 showCorrectImage(arrayCorrectAnswers[numberOfQuestion-1]);
             }
         }
@@ -210,6 +210,18 @@ public class FragExerciseOne extends Fragment
             setProgressBar(numberOfQuestion);
             imgExOneMoon.startAnimation(animPause);
         }
+    }
+
+    // Checking settings and play sound or not
+    private void goSound(int soundId){
+        if(MainActivity.is_sound)
+            soundPool.play(soundId,VOLUME,VOLUME,PRIORITY,LOOP,RATE);
+    }
+
+    // Checking settings and do vibrate or not
+    private void goVibrate(){
+        if(MainActivity.is_vibrate)
+            vibrator.vibrate(200);
     }
 
     private void showCorrectImage(int correctButton){
@@ -271,7 +283,7 @@ public class FragExerciseOne extends Fragment
                 onExerciseFinishListener.onExerciseFinish(FRAGMENT_EXERCISE_ONE, totalCorrectAnswers);
             }
         }
-        vibrator.cancel();
+        if(vibrator != null) vibrator.cancel();
     }
 
     private void saveResultExercise() throws IOException{

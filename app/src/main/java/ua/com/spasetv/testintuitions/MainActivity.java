@@ -16,6 +16,7 @@
 
 package ua.com.spasetv.testintuitions;
 
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +27,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -57,6 +60,10 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private LinearLayout cardsContainer, layoutWait;
     private Ads ads;
+    public static boolean is_sound = true;
+    public static boolean is_vibrate = true;
+    private static final int ITEM_SOUND = 0;
+    private static final int ITEM_VIBRATE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -82,7 +89,51 @@ public class MainActivity extends AppCompatActivity
         DisplayMetrics metrics = new DisplayMetrics(getWindowManager());
         String label = "h: " + metrics.getHeightDisplay() + " x w: " +
                 metrics.getWidthDisplay() + " x d: " + metrics.getDpiDisplay();
-        new Analytics(this).sendAnalytics("Test Intuition","Main Screen","Start app", label);
+        new Analytics(this).sendAnalytics("Test Intuition", "Main Screen", "Start app", label);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings_menu, menu);
+        getSettingsFromPreferences();
+        menu.getItem(ITEM_SOUND).setChecked(is_sound);
+        menu.getItem(ITEM_VIBRATE).setChecked(is_vibrate);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_sound: // invert value and save in to preference
+                is_sound = !is_sound;
+                item.setChecked(is_sound);
+                setSettingsToPreferences();
+                break;
+            case R.id.item_vibrate:
+                is_vibrate = !is_vibrate;
+                item.setChecked(is_vibrate);
+                setSettingsToPreferences();
+                break;
+            case android.R.id.home:
+                /**If Home pressed from any fragment - return to the Main Screen*/
+                if (getSupportActionBar().getTitle() !=
+                        getString(R.string.app_name))
+                    removeFragment();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void getSettingsFromPreferences() {
+        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        is_sound = prefs.getBoolean(IS_SOUND, true);
+        is_vibrate = prefs.getBoolean(IS_VIBRATE, true);
+    }
+
+    private void setSettingsToPreferences(){
+        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+        editor.putBoolean(IS_SOUND, is_sound);
+        editor.putBoolean(IS_VIBRATE, is_vibrate);
+        editor.apply();
     }
 
     private void showPauseScreen() {
@@ -170,21 +221,6 @@ public class MainActivity extends AppCompatActivity
                 toolbar.setNavigationIcon(R.drawable.ic_remove_red_eye_white_24dp);
             }
         }
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        if (id == 0){
-            // some event
-        }else if(id == android.R.id.home){
-            /**If Home pressed from any fragment - return to the Main Screen*/
-            if(getSupportActionBar().getTitle()!=
-                    getString(R.string.app_name))
-                removeFragment();
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

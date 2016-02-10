@@ -1,3 +1,4 @@
+/app/src/main/java/ua/com/spasetv/testintuitions/tools/StaticFields.java
 *.iml
 .gradle
 /local.properties
