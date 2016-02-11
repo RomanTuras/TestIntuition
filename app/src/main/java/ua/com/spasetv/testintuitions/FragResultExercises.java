@@ -198,9 +198,10 @@ public class FragResultExercises extends Fragment
         setProgressTotal(txt, max);
         setProgressPercent(percent);
         setProgressBest(ID_EXERCISE_ONE);
-        setProgressSkill(ID_EXERCISE_ONE);
+        String skill = setProgressSkill(ID_EXERCISE_ONE);
 
         new Analytics(getActivity()).sendAnalytics("Test Intuition","One from Two","Result", txt);
+        new Analytics(getActivity()).sendAnalytics("Test Intuition","One from Two","Skill", skill);
 
     }
 
@@ -212,9 +213,10 @@ public class FragResultExercises extends Fragment
         setProgressTotal(txt, max);
         setProgressPercent(percent);
         setProgressBest(ID_EXERCISE_TWO);
-        setProgressSkill(ID_EXERCISE_TWO);
+        String skill = setProgressSkill(ID_EXERCISE_TWO);
 
         new Analytics(getActivity()).sendAnalytics("Test Intuition","Four from Nine","Result", txt);
+        new Analytics(getActivity()).sendAnalytics("Test Intuition","Four from Nine","Skill", skill);
     }
 
     private void setExerciseThree() {
@@ -225,9 +227,10 @@ public class FragResultExercises extends Fragment
         setProgressTotal(txt, max);
         setProgressPercent(percent);
         setProgressBest(ID_EXERCISE_THREE);
-        setProgressSkill(ID_EXERCISE_THREE);
+        String skill = setProgressSkill(ID_EXERCISE_THREE);
 
         new Analytics(getActivity()).sendAnalytics("Test Intuition","One from Five","Result", txt);
+        new Analytics(getActivity()).sendAnalytics("Test Intuition","One from Five","Skill", skill);
     }
 
     private void setProgressTotal(String txt, int max){
@@ -253,12 +256,13 @@ public class FragResultExercises extends Fragment
         textProgressSummaryBest.setText(txt);
     }
 
-    private void setProgressSkill(byte idExercise){
+    private String setProgressSkill(byte idExercise){
         Skill skill = new Skill(activity);
         String txt = skill.getSkillToResult(idExercise);
         progressSummarySkill.setMax(100);
         progressSummarySkill.setProgress(skill.getSkillPercent(idExercise));
         textProgressSummarySkill.setText(txt);
+        return txt;
     }
 
     private String getBestResult(byte idExercise) {

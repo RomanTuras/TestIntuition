@@ -6,7 +6,7 @@
 
     <!-- Roman Turas:
          Be sure, used cardView:cardUseCompatPadding="true" !!!
-         If not use - cardElevation & translation will NOT work!!!!      -->
+         If not use - cardElevation & translation will NOT worked !!!!      -->
 
     <android.support.v7.widget.CardView
         xmlns:cardView="http://schemas.android.com/apk/res-auto"

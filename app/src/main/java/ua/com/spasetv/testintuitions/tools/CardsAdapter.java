@@ -18,7 +18,6 @@ package ua.com.spasetv.testintuitions.tools;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -72,7 +71,7 @@ public class CardsAdapter implements StaticFields {
         int id = 0;
 
         for(ListData listData: objects) {
-            View view = inflater1.inflate(R.layout.card_view, cardsContainer, false);
+            View view = inflater1.inflate(R.layout.model_main_card_view, cardsContainer, false);
 
             LinearLayout layout_images = (LinearLayout) view.findViewById(R.id.layout_images);
             layout_images.setPadding(0, padding*2, 0, padding*2);

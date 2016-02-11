@@ -54,11 +54,11 @@ public interface StaticFields {
     byte ID_EXERCISE_THREE = 2;
 
     /* Describe quantity of questions for exercises */
-    byte TOTAL_QUESTIONS_EX_ONE = 5;   //25
+    byte TOTAL_QUESTIONS_EX_ONE = 25;   //25
     byte TOTAL_QUESTIONS_EX_TWO = 9;    //9
     byte CORRECT_ANSWERS_EX_TWO = 4;    //4
-    byte REPEAT_EX_TWO = 1;             //5
-    byte TOTAL_QUESTIONS_EX_THREE = 2; //20
+    byte REPEAT_EX_TWO = 5;             //5
+    byte TOTAL_QUESTIONS_EX_THREE = 20; //20
 
     /* Sound stream */
     int MAX_STREAM = 1;
@@ -90,6 +90,6 @@ public interface StaticFields {
     String AD_UNIT_ID = "ca-app-pub-7481052517653982/7765784599";
     String TRACK_ID = "UA-66472933-3";
     String TEST_DEVICE = "77A1F05FE188A3F51A0FF103708EDEF9";
-    boolean isDebugModeOn = true;
+    boolean isDebugModeOn = false;
 
 }

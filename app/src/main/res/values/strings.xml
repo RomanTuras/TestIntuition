@@ -24,6 +24,10 @@
     <!-- Text for Pause screen -->
     <string name="txtWait">Initialization</string>
 
+    <!--Menu items-->
+    <string name="menu_item_sound">Sound</string>
+    <string name="menu_item_vibrate">Vibrate</string>
+
     <!-- Text for Exercise One -->
     <string name="textExOneHead">
         Listen to your Intuition\n\n
@@ -43,6 +47,12 @@
         What does your Intuition tell you?\n
         Choose one of five pictures
     </string>
+
+    <!--Text for fragment of Statistics-->
+    <string name="textStatisticTitle">
+        Your skill of \"One from Two\"
+    </string>
+    <string name="textStatisticDate">feb, 2016</string>
 
     <!-- Text for Result Fragment -->
     <string name="textSummaryFirstEx">Exercise: \"One from Two\"</string>

@@ -24,6 +24,10 @@
     <!-- Text for Pause screen -->
     <string name="txtWait">Инициализация</string>
 
+    <!--Menu items-->
+    <string name="menu_item_sound">Звук</string>
+    <string name="menu_item_vibrate">Вибрация</string>
+
     <!-- Text for Exercise One -->
     <string name="textExOneHead">
         Прислушайся к своей Интуиции\n\n
@@ -73,6 +77,7 @@
     <string name="textIndicatorLongTime">давно</string>
     <string name="textIndicatorStore">store</string>
     <string name="textIndicatorAbout">справка</string>
+
 
 
 </resources>

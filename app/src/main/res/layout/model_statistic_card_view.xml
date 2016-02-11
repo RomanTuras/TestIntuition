@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Roman Turas:
+     Be sure, used cardView:cardUseCompatPadding="true" !!!
+     If not use - cardElevation & translation will NOT worked !!!!      -->
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardView="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardStatistics"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="0dp"
+    cardView:cardBackgroundColor="@color/colorPrimaryBackground"
+    cardView:cardCornerRadius="2dp"
+    cardView:cardElevation="7dp"
+    cardView:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ua.com.spasetv.testintuitions.tools.ExTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:textColor="#000000"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:longClickable="false"
+                android:text="@string/textStatisticTitle"
+                android:id="@+id/textStatistic"
+                android:gravity="center_horizontal" />
+
+            <ua.com.spasetv.testintuitions.tools.ExTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="7dp"
+                android:paddingRight="16dp"
+                android:textColor="#000000"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:longClickable="false"
+                android:text="@string/textStatisticDate"
+                android:id="@+id/textStatisticDate"
+                android:gravity="end" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:id="@+id/imageChart" />
+
+        </LinearLayout>
+</android.support.v7.widget.CardView>
